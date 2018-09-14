@@ -1,5 +1,5 @@
 ## 1. 接口描述
-本接口(CreateNatGateway)用于创建NAT网关
+本接口(CreateNatGateway)用于创建NAT网关 </br>
 接口请求域名：<font style="color:red">vpc.api.qcloud.com</font>
 
 使用该接口前请前往<a href="/doc/product/215/1682" title="网关说明" >NAT网关说明</a>了解NAT网关特性
@@ -33,7 +33,7 @@
 |---------|---------|
 | InvalidVpc.NotFound | 无效的 VPC，VPC 资源不存在。请再次核实您输入的资源信息是否正确，可通过<a href="/document/api/215/1372" title="DescribeVpcEx">DescribeVpcEx</a>接口查询 VPC |
 | InvalidNatGatewayName | NAT 网关名称不合法。NAT 网关名称取值范围：1-60个中文、英文大小写的字母、数字和下划线分隔符 |
-| NatGatewayLimitExceeded | 创建的 NAT 网关数量超过上限。如果需要更多资源，请联系客服申请。更多VPC资源限制信息详见<a href="/doc/product/215/537" title="VPC使用限制">VPC使用限制</a> |
+| NatGatewayLimitExceeded | 创建的 NAT 网关数量超过上限。更多VPC资源限制信息详见<a href="/doc/product/215/537" title="VPC使用限制">VPC使用限制</a> |
 
 ## 5. 示例
 输入

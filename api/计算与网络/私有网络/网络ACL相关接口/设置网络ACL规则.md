@@ -37,7 +37,7 @@
 | InvalidVpc.NotFound | 无效的 VPC。VPC 资源不存在，请再次核实您输入的资源信息是否正确，可通过<a href="/document/api/215/1372" title="DescribeVpcEx">DescribeVpcEx</a>接口查询VPC。 |
 | InvalidNetworkAclID.NotFound | 无效的网络 ACL ID。V网络 ACL ID不存在，请再次核实您输入的资源信息是否正确，可通过<a href="/doc/api/245/1441" title="DescribeNetworkAcl">DescribeNetworkAcl</a>接口查询。 |
 | NetworkAclInLimitExceeded | 创建的网络 ACL 入站规则数量超过上限。如果需要更多资源，请联系客服申请。更多vpc资源限制信息详见<a href="/doc/product/215/537" title="VPC使用限制">VPC使用限制</a>。 |
-| NetworkAclOutLimitExceeded | 创建的网络 ACL 出站规则数量超过上限。如果需要更多资源，请联系客服申请。更多vpc资源限制信息详见<a href="/doc/product/215/537" title="VPC使用限制">VPC使用限制</a>。 |
+| NetworkAclOutLimitExceeded | 创建的网络 ACL 出站规则数量超过上限。更多vpc资源限制信息详见<a href="/doc/product/215/537" title="VPC使用限制">VPC使用限制</a>。 |
 
 ## 5. 示例
  

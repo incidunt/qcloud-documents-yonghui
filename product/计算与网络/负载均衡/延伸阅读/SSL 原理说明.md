@@ -31,7 +31,7 @@ SSL/TLS协议的基本过程是这样的：
 
 ## 握手阶段的详细过程
 ![](http://imgcache.tcecqpoc.fsphere.cn/image/mccdn.qcloud.com/static/img/072ec1c409fa65c8e4847d0b6abec477/image.jpg)
-"握手阶段"涉及四次通信且所有通信都是明文传输的。
+</br>"握手阶段"涉及四次通信且所有通信都是明文传输的。
 
 ### 客户端发出请求（ClientHello）
 客户端（通常是浏览器）先向服务器发出加密通信的请求，通常被称为ClientHello请求。

@@ -2,7 +2,7 @@
 本接口(CreateLocalSourceIPPortTranslationNatRule)用于添加专线网关本端源IP端口转换。
 接口请求域名：<font style='color:red'>vpc.api.qcloud.com </font>
 
-1) 私有网络内源IP端口映射为指定IP池内随机IP的随机端口主动访问，只有NAT类型的专线网关支持。
+1) 私有网络内源IP端口映射为指定IP池内随机IP的随机端口主动访问，只有NAT类型的专线网关支持。</br>
 2) 转换后IP池内IP不能在VPC网段内，IP池支持单个IP、IP段(例如183.63.0.1-183.63.0.10)和CIDR格式。
 
 
@@ -37,7 +37,7 @@
 | InvalidDirectConnectGateway.NotFound | 无效的专线网关。专线网关资源不存在，请再次核实您输入的资源信息是否正确。可调用<a href="/doc/api/245/%e6%9f%a5%e8%af%a2%e4%b8%93%e7%ba%bf%e7%bd%91%e5%85%b3?viewType=preview" title="查询专线网关">查询专线网关</a>(DescribeDirectConnectGateway)接口查询。|
 | InvalidTranslationIPPool.NotInVpcCidr | 无效的转换后IP池。转换后IP池不在VPC网段内。|
 | InvalidTranslationIP.Duplicate | 无效的转换后IP池。转换后IP池重复，转换后IP池已经在该网关的本端源IP端口转换规则中，转换后IP池不可重复。|
-| LocalSourceIPPortTranslationLimitExceeded | 您添加的本端源IP端口转换规则已达上限。如果需要更多资源，请联系客服申请。更多VPC资源限制信息详见<a href="/doc/product/215/537" title="VPC使用限制">VPC使用限制</a>。|
+| LocalSourceIPPortTranslationLimitExceeded | 您添加的本端源IP端口转换规则已达上限。更多VPC资源限制信息详见<a href="/doc/product/215/537" title="VPC使用限制">VPC使用限制</a>。|
 
 ## 5. 示例
 输入

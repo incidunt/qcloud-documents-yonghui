@@ -3,8 +3,8 @@
 本接口(CreateNetworkAcl)用于创建网络ACL。
 接口请求域名：<font style="color:red">vpc.api.qcloud.com</font>
 
-1) 网络ACL是针对某个子网设置的网络安全策略，跟云主机里面的安全组是有区别的。安全组是针对某个云主机做网络安全策略设置。
-2) 如果云主机配置了安全组策略同时所在子网也设置了网络 ACL 策略，云主机入站方向请求优先匹配网络 ACL 策略，然后再匹配安全组；出站方向请求优先匹配安全组策略，然后再匹配网络ACL。
+1) 网络ACL是针对某个子网设置的网络安全策略，跟云主机里面的安全组是有区别的。安全组是针对某个云主机做网络安全策略设置。</br>
+2) 如果云主机配置了安全组策略同时所在子网也设置了网络 ACL 策略，云主机入站方向请求优先匹配网络 ACL 策略，然后再匹配安全组；出站方向请求优先匹配安全组策略，然后再匹配网络ACL。</br>
 3) 云主机的安全组是有状态的，而网络ACL是无状态的。
  
 
@@ -34,7 +34,7 @@
 |---------|---------|
 | InvalidVpc.NotFound | 无效的VPC。VPC资源不存在，请再次核实您输入的资源信息是否正确，可通过<a href="/document/api/215/1372" title="DescribeVpcEx">DescribeVpcEx</a>接口查询VPC。 |
 | InvalidNetworkAclName | 网络ACL名称不合法。可任意命名，但不得超过60个字符。 |
-| NetworkAclLimitExceeded | 创建的网络 ACL 数量超过上限。如果需要更多资源，请联系客服申请。更多 VPC 资源限制信息详见<a href="/doc/product/215/537" title="VPC使用限制">VPC使用限制</a>。 |
+| NetworkAclLimitExceeded | 创建的网络 ACL 数量超过上限。更多 VPC 资源限制信息详见<a href="/doc/product/215/537" title="VPC使用限制">VPC使用限制</a>。 |
  
 
 ## 5. 示例

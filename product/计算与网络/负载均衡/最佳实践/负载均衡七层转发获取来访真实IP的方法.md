@@ -29,7 +29,7 @@
 5) 添加下载的DLL文件，如下图：
 ![](http://imgcache.tcecqpoc.fsphere.cn/image/mccdn.qcloud.com/static/img/9e68ee04ef61c911a8dcc7caaf77b678/image.png)
 
-6) 添加完成后，勾选并点击“确定”：
+6) 添加完成后，勾选并点击“确定”：</br>
 ![](http://imgcache.tcecqpoc.fsphere.cn/image/mccdn.qcloud.com/static/img/c9bf9c597d7c0b2538dade72ed10bd4e/image.png)
 
 7) 把这两个DLL在 “API 和CGI限制”进行添加，并改为允许：
