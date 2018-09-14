@@ -1,0 +1,93 @@
+<h2 id=".E5.8A.9F.E8.83.BD.E6.8F.8F.E8.BF.B0">功能描述</h2><p>Get Bucket ACL 接口用来获取 Bucket 的 ACL(access control list)， 即用户空间（Bucket）的访问权限控制列表。</p>
+<h2 id=".E8.AF.B7.E6.B1.82">请求</h2><h4 id=".E8.AF.B7.E6.B1.82.E8.AF.AD.E6.B3.95.E7.A4.BA.E4.BE.8B">请求语法示例</h4><p><strong>shell:</strong> </p>
+<pre><code class="lang-shell"><span class="hljs-comment"># You can also use curl</span>
+curl -X GET http:<span class="hljs-comment">//{bucket}.cos.{region}.myqcloud.com/?acl \</span>
+  -H <span class="hljs-string">'Accept: application/xml'</span>
+</code></pre>
+<p><strong>http:</strong> </p>
+<pre><code class="lang-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">http://{bucket}.cos.{region}.myqcloud.com/?acl</span> HTTP/1.1
+<span class="hljs-attribute">Host</span>: 
+
+<span class="makefile"><span class="hljs-section">Accept: application/xml</span></span>
+</code></pre>
+<h3 id=".E8.AF.B7.E6.B1.82.E8.A1.8C">请求行</h3><pre><code><span class="hljs-keyword">GET</span> <span class="hljs-string">/?acl</span> HTTP/1.1
+</code></pre><p>该 API 接口接受 <code>GET</code> 请求。</p>
+<h3 id=".E8.AF.B7.E6.B1.82.E5.A4.B4">请求头</h3><h4 id=".E5.85.AC.E5.85.B1.E5.A4.B4.E9.83.A8">公共头部</h4><p>该请求操作的实现使用公共请求头，了解公共请求头详细请参见 <a href="/document/product/436/7728" title="公共请求头部">公共请求头部</a> 章节。</p>
+<h4 id=".E9.9D.9E.E5.85.AC.E5.85.B1.E5.A4.B4.E9.83.A8">非公共头部</h4><p>该请求操作无特殊的请求头部信息。</p>
+<h3 id=".E8.AF.B7.E6.B1.82.E4.BD.93">请求体</h3><p>该请求请求体为空。</p>
+<h2 id=".E5.93.8D.E5.BA.94">响应</h2><h3 id=".E5.93.8D.E5.BA.94.E5.A4.B4">响应头</h3><h4 id=".E5.85.AC.E5.85.B1.E5.93.8D.E5.BA.94.E5.A4.B4">公共响应头</h4><p>该响应使用公共响应头，了解公共响应头详细请参见 <a href="/document/product/436/7729" title="公共响应头部">公共响应头部</a> 章节。</p>
+<h4 id=".E7.89.B9.E6.9C.89.E5.93.8D.E5.BA.94.E5.A4.B4">特有响应头</h4><p>该请求操作无特殊的响应头部信息。</p>
+<h3 id=".E5.93.8D.E5.BA.94.E4.BD.93">响应体</h3><p>获取 ACL 配置成功。</p>
+<pre><code class="lang-xml"><span class="php"><span class="hljs-meta">&lt;?</span>xml version=<span class="hljs-string">"1.0"</span> encoding=<span class="hljs-string">"UTF-8"</span> <span class="hljs-meta">?&gt;</span></span>
+<span class="hljs-tag">&lt;<span class="hljs-name">AccessControlPolicy</span>/&gt;</span>
+</code></pre>
+<p>具体的数据描述如下：</p>
+<table>
+<thead>
+<tr>
+<th>节点名称（关键字）</th>
+<th>父节点</th>
+<th>描述</th>
+<th>类型</th>
+<th>必选</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AccessControlPolicy</td>
+<td>无</td>
+<td>保存 Get Bucket ACL 结果的容器</td>
+<td>Container</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+<h3 id=".E9.94.99.E8.AF.AF.E7.A0.81">错误码</h3><table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+<th>http状态码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NoSuchBucket</td>
+<td>当访问的 Bucket 不存在，返回该错误码。</td>
+<td>404 <a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id=".E5.AE.9E.E9.99.85.E6.A1.88.E4.BE.8B">实际案例</h2><h3 id=".E8.AF.B7.E6.B1.822">请求</h3><pre><code><span class="hljs-keyword">GET</span> <span class="hljs-string">/?acl</span> HTTP/1.1
+<span class="hljs-attribute">Host</span>: zuhaotestnorth-1251668577.cos.ap-beijing.myqcloud.com
+<span class="hljs-attribute">Date</span>: Fri, 10 Mar 2016 09:45:46 GMT
+<span class="hljs-attribute">Authorization</span>: q-sign-algorithm=sha1&amp;q-ak=AKIDWtTCBYjM5OwLB9CAwA1Qb2ThTSUjfGFO&amp;q-sign-time=1484213027;32557109027&amp;q-key-time=1484213027;32557109027&amp;q-header-list=host&amp;q-url-param-list=acl&amp;q-signature=dcc1eb2022b79cb2a780bf062d3a40e120b40652
+</code></pre><h3 id=".E5.93.8D.E5.BA.942">响应</h3><pre><code>HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
+Content-Type: application/xml
+Content-Length: <span class="hljs-number">266</span>
+Connection: keep-alive
+<span class="hljs-built_in">Date</span>: Fri, <span class="hljs-number">10</span> Mar <span class="hljs-number">2016</span> <span class="hljs-number">09</span>:<span class="hljs-number">45</span>:<span class="hljs-number">46</span> GMT
+Server: tencent-cos
+x-cos-request-id: NTg3NzRiMjVfYmRjMzVfMTViMl82ZGZmNw==
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">AccessControlPolicy</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">Owner</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ID</span>&gt;</span>qcs::cam::uin/12345:uin/12345<span class="hljs-tag">&lt;/<span class="hljs-name">ID</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">DisplayName</span>&gt;</span>qcs::cam::uin/12345:uin/12345<span class="hljs-tag">&lt;/<span class="hljs-name">DisplayName</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">Owner</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">AccessControlList</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Grant</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Grantee</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">\</span>"<span class="hljs-attr">http:</span>//<span class="hljs-attr">www.w3.org</span>/<span class="hljs-attr">2001</span>/<span class="hljs-attr">XMLSchema-instance</span>\" <span class="hljs-attr">xsi:type</span>=<span class="hljs-string">\</span>"<span class="hljs-attr">CanonicalUser</span>\"&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">ID</span>&gt;</span>qcs::cam::uin/12345:uin/12345<span class="hljs-tag">&lt;/<span class="hljs-name">ID</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">DisplayName</span>&gt;</span>qcs::cam::uin/12345:uin/12345<span class="hljs-tag">&lt;/<span class="hljs-name">DisplayName</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">Grantee</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Permission</span>&gt;</span>FULL_CONTROL<span class="hljs-tag">&lt;/<span class="hljs-name">Permission</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Grant</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Grant</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Grantee</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">\</span>"<span class="hljs-attr">http:</span>//<span class="hljs-attr">www.w3.org</span>/<span class="hljs-attr">2001</span>/<span class="hljs-attr">XMLSchema-instance</span>\" <span class="hljs-attr">xsi:type</span>=<span class="hljs-string">\</span>"<span class="hljs-attr">Group</span>\"&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">URI</span>&gt;</span>http://cam.qcloud.com/groups/global/AllUsers<span class="hljs-tag">&lt;/<span class="hljs-name">URI</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">Grantee</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Permission</span>&gt;</span>READ<span class="hljs-tag">&lt;/<span class="hljs-name">Permission</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Grant</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">AccessControlList</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">AccessControlPolicy</span>&gt;</span></span>
+</code></pre>

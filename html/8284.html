@@ -1,0 +1,51 @@
+<h2 id=".E5.8A.9F.E8.83.BD.E6.8F.8F.E8.BF.B0">功能描述</h2><p>Delete Bucket Lifecycle 用来删除 Bucket 的生命周期配置。如果该 Bucket 没有配置生命周期规则会返回 NoSuchLifecycleConfiguration。</p>
+<h2 id=".E8.AF.B7.E6.B1.82">请求</h2><h4 id=".E8.AF.B7.E6.B1.82.E8.AF.AD.E6.B3.95.E7.A4.BA.E4.BE.8B">请求语法示例</h4><p><strong>shell:</strong> </p>
+<pre><code class="lang-shell"><span class="hljs-comment"># You can also use curl</span>
+curl -X DELETE http:<span class="hljs-comment">//{bucket}.cos.{region}.myqcloud.com/?lifecycle \</span>
+  -H <span class="hljs-string">'Accept: application/xml'</span>
+</code></pre>
+<p><strong>http:</strong> </p>
+<pre><code class="lang-http"><span class="hljs-keyword">DELETE</span> <span class="hljs-string">http://{bucket}.cos.{region}.myqcloud.com/?lifecycle</span> HTTP/1.1
+<span class="hljs-attribute">Host</span>: 
+
+<span class="makefile"><span class="hljs-section">Accept: application/xml</span></span>
+</code></pre>
+<h3 id=".E8.AF.B7.E6.B1.82.E8.A1.8C">请求行</h3><pre><code><span class="hljs-keyword">DELETE</span> <span class="hljs-string">/?lifecycle</span> HTTP/1.1
+</code></pre><p>该 API 接口接受 <code>DELETE</code> 请求。</p>
+<h3 id=".E8.AF.B7.E6.B1.82.E5.A4.B4">请求头</h3><h4 id=".E5.85.AC.E5.85.B1.E5.A4.B4.E9.83.A8">公共头部</h4><p>该请求操作的实现使用公共请求头，了解公共请求头详细请参见 <a href="/document/product/436/7728" title="公共请求头部">公共请求头部</a> 章节。</p>
+<h4 id=".E9.9D.9E.E5.85.AC.E5.85.B1.E5.A4.B4.E9.83.A8">非公共头部</h4><p>该请求操作无特殊的请求头部信息。</p>
+<h3 id=".E8.AF.B7.E6.B1.82.E4.BD.93">请求体</h3><p>该请求请求体为空。</p>
+<h2 id=".E5.93.8D.E5.BA.94">响应</h2><h3 id=".E5.93.8D.E5.BA.94.E5.A4.B4">响应头</h3><h4 id=".E5.85.AC.E5.85.B1.E5.93.8D.E5.BA.94.E5.A4.B4">公共响应头</h4><p>该响应使用公共响应头，了解公共响应头详细请参见 <a href="/document/product/436/7729" title="公共响应头部">公共响应头部</a> 章节。</p>
+<h4 id=".E7.89.B9.E6.9C.89.E5.93.8D.E5.BA.94.E5.A4.B4">特有响应头</h4><p>该请求操作无特殊的响应头部信息。</p>
+<h3 id=".E5.93.8D.E5.BA.94.E4.BD.93">响应体</h3><p>该请求响应体为空。</p>
+<h3 id=".E9.94.99.E8.AF.AF.E7.A0.81">错误码</h3><table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+<th>http状态码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>None</td>
+<td>删除成功，响应体返回为空。</td>
+<td>204 <a href="https://tools.ietf.org/html/rfc7231#section-6.3.5">No Content</a></td>
+</tr>
+<tr>
+<td>NoSuchBucket</td>
+<td>当访问的 Bucket 不存在，返回该错误码。</td>
+<td>404 <a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id=".E5.AE.9E.E9.99.85.E6.A1.88.E4.BE.8B">实际案例</h2><h3 id=".E8.AF.B7.E6.B1.822">请求</h3><pre><code><span class="hljs-keyword">DELETE</span> /?lifecycle <span class="hljs-keyword">HTTP</span>/<span class="hljs-number">1.1</span>
+Host:lifecycletest<span class="hljs-number">-73196696.</span>cos.ap-beijing.myqcloud.com
+<span class="hljs-built_in">Date</span>: Wed, <span class="hljs-number">16</span> Aug <span class="hljs-number">2017</span> <span class="hljs-number">12</span>:<span class="hljs-number">59</span>:<span class="hljs-number">09</span> GMT
+Authorization:q-<span class="hljs-keyword">sign</span>-algorithm=<span class="hljs-keyword">sha1</span>&amp;q-ak=AKIDZfbOAo7cllgPvF9cXFrJD0a1ICvR98JM&amp;q-<span class="hljs-keyword">sign</span>-<span class="hljs-keyword">time</span>=<span class="hljs-number">1502859472</span>;1502939472&amp;q-key-time=1502859472;1502939472&amp;q-header-list=host&amp;q-url-param-list=lifecycle&amp;q-signature=49c1414c700643f11139219384332a3ec4e9485b
+</code></pre><h3 id=".E5.93.8D.E5.BA.942">响应</h3><pre><code>HTTP/1.1 <span class="hljs-number">204</span> No Content
+<span class="hljs-attribute">Content-Type</span>: application/xml
+<span class="hljs-attribute">Date</span>: Wed, 16 Aug 2017 12:59:09 GMT
+<span class="hljs-attribute">Server</span>: tencent-cos
+<span class="hljs-attribute">x-cos-request-id</span>: NTk5NDQxOWNfMjQ4OGY3Xzc3NGRfMjE=
+</code></pre>

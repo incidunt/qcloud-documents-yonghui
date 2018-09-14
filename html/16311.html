@@ -1,0 +1,112 @@
+<h2>1. 接口描述<br/></h2>
+<p>本接口（DescribeInstancesDiskNum）用于查询实例已挂载云硬盘数量。</p>
+<ul>
+<li>支持批量操作，当传入多个云服务器实例ID，返回结果会分别列出每个云服务器挂载的云硬盘数量。</li>
+</ul>
+<h2>2. 输入参数<br/></h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/362/15637">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：DescribeInstancesDiskNum。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2017-03-12。</td>
+</tr>
+<tr>
+<td>InstanceIds.N</td>
+<td>是</td>
+<td>Array of String</td>
+<td>云服务器实例ID，通过<a href="/document/product/213/15728">DescribeInstances</a>接口查询。</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 输出参数<br/></h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AttachedDiskCount</td>
+<td>Integer</td>
+<td>当前云服务器已挂载弹性云盘数量。</td>
+</tr>
+<tr>
+<td>MaxAttachCount</td>
+<td>Integer</td>
+<td>当前云服务器最大可挂载弹性云盘数量。</td>
+</tr>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 错误码<br/></h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InvalidDisk.NotPortable</td>
+<td>不支持非弹性云盘挂载。</td>
+</tr>
+<tr>
+<td>InvalidDiskId.NotFound</td>
+<td>输入的<code>DiskId</code>不存在。</td>
+</tr>
+<tr>
+<td>InvalidParameterValue</td>
+<td>无效参数值。参数值格式错误或者参数值不被支持等。</td>
+</tr>
+<tr>
+<td>MissingParameter</td>
+<td>参数缺失。请求没有带必选参数。</td>
+</tr>
+</tbody>
+</table>
+<h2>5. 示例<br/></h2>
+<h2>示例1 查询多个实例挂载的云硬盘数量</br></h2>
+<h3>请求参数</br></h3>
+<pre><code>https://cbs.tencentcloudapi.com/?Action=DescribeInstancesDiskNum
+&amp;InstanceIds.0=ins-9w5d2buw
+&amp;InstanceIds.1=ins-jw0vit58
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h3>返回参数</br></h3>
+<pre><code>{
+  "Response": {
+    "RequestId": "55db49cf-b9d7-da27-825b-5a02ba6884ca",
+    "ins-9w5d2buw": {
+      "AttachedDiskCount": 0,
+      "MaxAttachCount": 10
+    },
+    "ins-jw0vit58": {
+      "AttachedDiskCount": 0,
+      "MaxAttachCount": 10
+    }
+  }
+}</code></pre>

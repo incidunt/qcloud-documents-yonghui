@@ -1,0 +1,191 @@
+<h2 id=".E5.8A.9F.E8.83.BD.E6.8F.8F.E8.BF.B0">功能描述</h2><p>Upload Part - Copy 请求实现将一个文件的分块内容从源路径复制到目标路径。通过指定 x-cos-copy-source 来指定源文件，x-cos-copy-source-range 指定字节范围。允许分块的大小为 5 MB - 5 GB。</p>
+<h2 id=".E8.AF.B7.E6.B1.82">请求</h2><h4 id=".E8.AF.B7.E6.B1.82.E8.AF.AD.E6.B3.95.E7.A4.BA.E4.BE.8B">请求语法示例</h4><p><strong>shell:</strong> </p>
+<pre><code class="lang-shell"><span class="hljs-comment"># You can also use curl</span>
+curl -X PUT http:<span class="hljs-comment">//{bucket}.cos.{region}.myqcloud.com/{ObjectName}?partNumber=PartNumber&amp;uploadId=UploadId \</span>
+  -H <span class="hljs-string">'x-cos-copy-source: string'</span> \
+  -H <span class="hljs-string">'x-cos-copy-source-range: string'</span> \
+  -H <span class="hljs-string">'x-cos-copy-source-If-Modified-Since: string'</span> \
+  -H <span class="hljs-string">'x-cos-copy-source-If-Unmodified-Since: string'</span> \
+  -H <span class="hljs-string">'x-cos-copy-source-If-Match: string'</span> \
+  -H <span class="hljs-string">'x-cos-copy-source-If-None-Match: string'</span> \
+  -H <span class="hljs-string">'x-cos-storage-class: STANDARD'</span> \
+  -H <span class="hljs-string">'x-cos-acl: public-read'</span> \
+  -H <span class="hljs-string">'x-cos-grant-read: id="qcs::cam::uin/\&lt;OwnerUin&gt;:uin/&lt;SubUin&gt;"'</span> \
+  -H <span class="hljs-string">'x-cos-grant-write: id="qcs::cam::uin/\&lt;OwnerUin&gt;:uin/&lt;SubUin&gt;"。'</span> \
+  -H <span class="hljs-string">'x-cos-grant-full-control: id="qcs::cam::uin/\&lt;OwnerUin&gt;:uin/&lt;SubUin&gt;"'</span> \
+  -H <span class="hljs-string">'Accept: application/xml'</span>
+</code></pre>
+<p><strong>http:</strong> </p>
+<pre><code class="lang-http"><span class="hljs-keyword">PUT</span> <span class="hljs-string">http://{bucket}.cos.{region}.myqcloud.com/{ObjectName}?partNumber=PartNumber&amp;uploadId=UploadId</span> HTTP/1.1
+<span class="hljs-attribute">Host</span>: 
+
+<span class="cpp">Accept: application/xml
+x-<span class="hljs-built_in">cos</span>-copy-source: <span class="hljs-built_in">string</span>
+x-<span class="hljs-built_in">cos</span>-copy-source-range: <span class="hljs-built_in">string</span>
+x-<span class="hljs-built_in">cos</span>-copy-source-If-Modified-Since: <span class="hljs-built_in">string</span>
+x-<span class="hljs-built_in">cos</span>-copy-source-If-Unmodified-Since: <span class="hljs-built_in">string</span>
+x-<span class="hljs-built_in">cos</span>-copy-source-If-Match: <span class="hljs-built_in">string</span>
+x-<span class="hljs-built_in">cos</span>-copy-source-If-None-Match: <span class="hljs-built_in">string</span>
+x-<span class="hljs-built_in">cos</span>-storage-<span class="hljs-class"><span class="hljs-keyword">class</span>:</span> STANDARD
+x-<span class="hljs-built_in">cos</span>-acl: <span class="hljs-keyword">public</span>-read
+x-<span class="hljs-built_in">cos</span>-grant-read: id=<span class="hljs-string">"qcs::cam::uin/\&lt;OwnerUin&gt;:uin/&lt;SubUin&gt;"</span>
+x-<span class="hljs-built_in">cos</span>-grant-write: id=<span class="hljs-string">"qcs::cam::uin/\&lt;OwnerUin&gt;:uin/&lt;SubUin&gt;"</span>。
+x-<span class="hljs-built_in">cos</span>-grant-full-control: id=<span class="hljs-string">"qcs::cam::uin/\&lt;OwnerUin&gt;:uin/&lt;SubUin&gt;"</span></span>
+</code></pre>
+<h3 id=".E8.AF.B7.E6.B1.82.E8.A1.8C">请求行</h3><pre><code><span class="hljs-keyword">PUT</span> <span class="hljs-string">/{ObjectName}</span> HTTP/1.1
+</code></pre><p>该 API 接口接受 <code>PUT</code> 请求。</p>
+<h4 id=".E8.AF.B7.E6.B1.82.E5.8F.82.E6.95.B0">请求参数</h4><p>包含所有请求参数的请求行示例：</p>
+<pre><code><span class="hljs-keyword">PUT</span> <span class="hljs-string">/{ObjectName}?partNumber=[PartNumber]&amp;uploadId=[UploadId]</span> HTTP/1.1
+</code></pre><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>partNumber</td>
+<td>string</td>
+<td>是</td>
+<td>分块拷贝的块号。</td>
+</tr>
+<tr>
+<td>uploadId</td>
+<td>string</td>
+<td>是</td>
+<td>使用上传分块文件，必须先初始化分块上传。在初始化分块上传的响应中，会返回一个唯一的描述符（upload ID），您需要在分块上传请求中携带此 ID。</td>
+</tr>
+</tbody>
+</table>
+<h3 id=".E8.AF.B7.E6.B1.82.E5.A4.B4">请求头</h3><h4 id=".E5.85.AC.E5.85.B1.E5.A4.B4.E9.83.A8">公共头部</h4><p>该请求操作的实现使用公共请求头，了解公共请求头详细请参见 <a href="/document/product/436/7728" title="公共请求头部">公共请求头部</a> 章节。</p>
+<h4 id=".E9.9D.9E.E5.85.AC.E5.85.B1.E5.A4.B4.E9.83.A8">非公共头部</h4><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x-cos-copy-source</td>
+<td>string</td>
+<td>是</td>
+<td>源文件 URL 路径，可以通过 versionid 子资源指定历史版本。</td>
+</tr>
+<tr>
+<td>x-cos-copy-source-range</td>
+<td>string</td>
+<td>否</td>
+<td>源文件的字节范围，范围值必须使用 bytes=first-last 格式，first 和 last 都是基于 0 开始的偏移量。</td>
+</tr>
+<tr>
+<td>x-cos-copy-source-If-Modified-Since</td>
+<td>string</td>
+<td>否</td>
+<td>当 Object 在指定时间后被修改，则执行操作，否则返回 412。可与 x-cos-copy-source-If-None-Match 一起使用，与其他条件联合使用返回冲突。</td>
+</tr>
+<tr>
+<td>x-cos-copy-source-If-Unmodified-Since</td>
+<td>string</td>
+<td>否</td>
+<td>当 Object 在指定时间后未被修改，则执行操作，否则返回 412。可与 x-cos-copy-source-If-Match 一起使用，与其他条件联合使用返回冲突。</td>
+</tr>
+<tr>
+<td>x-cos-copy-source-If-Match</td>
+<td>string</td>
+<td>否</td>
+<td>当 Object 的 Etag 和给定一致时，则执行操作，否则返回 412。可与 x-cos-copy-source-If-Unmodified-Since 一起使用，与其他条件联合使用返回冲突。</td>
+</tr>
+<tr>
+<td>x-cos-copy-source-If-None-Match</td>
+<td>string</td>
+<td>否</td>
+<td>当 Object 的 Etag 和给定不一致时，则执行操作，否则返回 412。可与 x-cos-copy-source-If-Modified-Since 一起使用，与其他条件联合使用返回冲突。</td>
+</tr>
+<tr>
+<td>x-cos-storage-class</td>
+<td>string</td>
+<td>否</td>
+<td>设置 Object 的存储级别，枚举值：STANDARD，STANDARD_IA，NEARLINE，默认值：STANDARD。</td>
+</tr>
+<tr>
+<td>x-cos-acl</td>
+<td>string</td>
+<td>否</td>
+<td>定义 Object 的 ACL 属性。有效值：private，public-read-write，public-read；默认值：private。</td>
+</tr>
+<tr>
+<td>x-cos-grant-read</td>
+<td>string</td>
+<td>否</td>
+<td>赋予被授权者读的权限。格式：x-cos-grant-read: id=&quot; &quot;,id=&quot; &quot;；<br>当需要给子账户授权时，id=&quot;qcs::cam::uin/\<OwnerUin>:uin/<SubUin>&quot;，<br>当需要给根账户授权时，id=&quot;qcs::cam::uin/\<OwnerUin>:uin/\<OwnerUin>&quot;</td>
+</tr>
+<tr>
+<td>x-cos-grant-write</td>
+<td>string</td>
+<td>否</td>
+<td>赋予被授权者读的权限。格式：x-cos-grant-write: id=&quot; &quot;,id=&quot; &quot;；<br>当需要给子账户授权时，id=&quot;qcs::cam::uin/\<OwnerUin>:uin/<SubUin>&quot;，<br>当需要给根账户授权时，id=&quot;qcs::cam::uin/\<OwnerUin>:uin/\<OwnerUin>&quot;</td>
+</tr>
+<tr>
+<td>x-cos-grant-full-control</td>
+<td>string</td>
+<td>否</td>
+<td>赋予被授权者读的权限。格式：x-cos-grant-full-control: id=&quot; &quot;,id=&quot; &quot;；<br>当需要给子账户授权时，id=&quot;qcs::cam::uin/\<OwnerUin>:uin/<SubUin>&quot;，<br>当需要给根账户授权时，id=&quot;qcs::cam::uin/\<OwnerUin>:uin/\<OwnerUin>&quot;</td>
+</tr>
+</tbody>
+</table>
+<h5 id="x-cos-copy-source-range">x-cos-copy-source-range</h5><p>源文件的字节范围，范围值必须使用 bytes=first-last 格式，first 和 last 都是基于 0 开始的偏移量。<br>例如 bytes=0-9 表示你希望拷贝源文件的开头 10 个字节的数据 ， 如果不指定，则表示拷贝整个文件。</p>
+<h3 id=".E8.AF.B7.E6.B1.82.E4.BD.93">请求体</h3><p>该请求请求体为空。</p>
+<h2 id=".E5.93.8D.E5.BA.94">响应</h2><h3 id=".E5.93.8D.E5.BA.94.E5.A4.B4">响应头</h3><h4 id=".E5.85.AC.E5.85.B1.E5.93.8D.E5.BA.94.E5.A4.B4">公共响应头</h4><p>该响应使用公共响应头，了解共响应头详细请参见 <a href="/document/product/436/7729" title="公共响应头部">公共响应头部</a> 章节。</p>
+<h4 id=".E7.89.B9.E6.9C.89.E5.93.8D.E5.BA.94.E5.A4.B4">特有响应头</h4><p>该请求操作无特殊的响应头部信息。</p>
+<h3 id=".E5.93.8D.E5.BA.94.E4.BD.93">响应体</h3><p>拷贝成功，返回响应体。</p>
+<pre><code class="lang-xml"><span class="php"><span class="hljs-meta">&lt;?</span>xml version=<span class="hljs-string">"1.0"</span> encoding=<span class="hljs-string">"UTF-8"</span> <span class="hljs-meta">?&gt;</span></span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ETag</span>&gt;</span>string<span class="hljs-tag">&lt;/<span class="hljs-name">ETag</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">LastModified</span>&gt;</span>string<span class="hljs-tag">&lt;/<span class="hljs-name">LastModified</span>&gt;</span>
+</code></pre>
+<p>具体的数据描述如下：</p>
+<table>
+<thead>
+<tr>
+<th>节点名称（关键字）</th>
+<th>父节点</th>
+<th>描述</th>
+<th>类型</th>
+<th>必选</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ETag</td>
+<td>无</td>
+<td>返回文件的 MD5 算法校验值。ETag 的值可以用于检查 Object 的内容是否发生变化。</td>
+<td>string</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+<h2 id=".E5.AE.9E.E9.99.85.E6.A1.88.E4.BE.8B">实际案例</h2><h3 id=".E8.AF.B7.E6.B1.822">请求</h3><pre><code>PUT /jimmy/test.file2?partNumber=1&amp;uploadId=1505706248ca8373f8a5cd52cb129f4bcf85e11dc8833df34f4f5bcc456c99c42cd1ffa2f9 HTTP/1.1
+<span class="hljs-section">User-Agent: curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.13.1.0 zlib/1.2.3 libidn/1.18 libssh2/1.2.2</span>
+<span class="hljs-section">Accept: */*</span>
+<span class="hljs-section">x-cos-copy-source:jimmyyantest-1251668577.cos.ap-shanghai.myqcloud.com/test.file1</span>
+<span class="hljs-section">x-cos-copy-source-range: bytes=10-100</span>
+<span class="hljs-section">Host: jimmyyantest-1251668577.cos.ap-shanghai.myqcloud.com</span>
+<span class="hljs-section">Authorization:q-sign-algorithm=sha1&amp;q-ak=AKIDDNMEycgLRPI2axw9xa2Hhx87wZ3MqQCn&amp;q-sign-time=1507530223;1508530223&amp;q-key-time=1507530223;1508530223&amp;q-header-list=&amp;q-url-param-list=&amp;q-signature=d02640c0821c49293e5c289fa07290e6b2f05cb2</span>
+</code></pre><h3 id=".E5.93.8D.E5.BA.942">响应</h3><pre><code>HTTP/1.1 <span class="hljs-number">200</span> OK
+<span class="hljs-attribute">Content-Type</span>: application/xml
+<span class="hljs-attribute">Content-Length</span>: 133
+<span class="hljs-attribute">Connection</span>: keep-alive
+<span class="hljs-attribute">Date</span>: Mon, 04 Sep 2017 04:45:45 GMT
+<span class="hljs-attribute">Server</span>: tencent-cos
+<span class="hljs-attribute">x-cos-request-id</span>: NTlkYjFjYWJfMjQ4OGY3MGFfNGIzZV9k
+
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">CopyPartResult</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ETag</span>&gt;</span>"ba82b57cfdfda8bd17ad4e5879ebb4fe"<span class="hljs-tag">&lt;/<span class="hljs-name">ETag</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">LastModified</span>&gt;</span>2017-09-04T04:45:45<span class="hljs-tag">&lt;/<span class="hljs-name">LastModified</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">CopyPartResult</span>&gt;</span></span>
+</code></pre>

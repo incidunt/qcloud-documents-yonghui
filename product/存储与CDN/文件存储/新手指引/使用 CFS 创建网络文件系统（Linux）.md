@@ -49,6 +49,7 @@
 ![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/4fee6ea61cfba11927f6891527237610/image.png)
 
 2. 在云平台 CFS 控制台，单击【新建】，弹出创建文件系统弹窗。在创建文件系统弹窗中填写相关信息，确认无误后，单击【确定】即可创建文件系统。
+3. 
 ![](http://imgcache.tcecqpoc.fsphere.cn/image/main.qcloudimg.com/raw/3797c04469bf0da994d2e2876a2a39ad.png)
  - 名称：您可以为创建的文件系统进行命名。
  - 地域和可用区：靠近您客户的地域可降低访问延迟，提高下载速度。
@@ -151,7 +152,6 @@ sudo mount -t nfs -o vers=3,nolock,proto=tcp <挂载点IP>:/ <待挂载目标目
 - 挂载点IP：指创建文件系统时，自动的生成的挂载点 IP。
 - NFS v3.0 仅支持子目录挂载，缺省文件系统子目录为 FSID 或者 "nfs" 。
 - 待挂载目标目录： 在当前服务器上，需要挂载的目标目录，需要用户事先创建。
-示例
 
 > **注意：**
 > `<挂载点IP>:/`与`<待挂载目标目录>`之间有一个空格。

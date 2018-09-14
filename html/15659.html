@@ -1,0 +1,114 @@
+<h2>1. 接口描述<br/></h2>
+<p>本接口（ModifyDiskAttributes）用于修改云硬盘属性。</p>
+<ul>
+<li>只支持修改弹性云盘的项目ID。随云主机创建的云硬盘项目ID与云主机联动。可以通过<a href="/document/product/362/16315">DescribeDisks</a>接口查询，见输出参数中Portable字段解释。</li>
+<li>“云硬盘名称”仅为方便用户自己管理之用，云平台并不以此名称作为提交工单或是进行云盘管理操作的依据。</li>
+<li>支持批量操作，如果传入多个云盘ID，则所有云盘修改为同一属性。如果存在不允许操作的云盘，则操作不执行，以特定错误码返回。</li>
+</ul>
+<h2>2. 输入参数<br/></h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/362/15637">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：ModifyDiskAttributes。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2017-03-12。</td>
+</tr>
+<tr>
+<td>DiskIds.N</td>
+<td>是</td>
+<td>Array of String</td>
+<td>一个或多个待操作的云硬盘ID。如果传入多个云盘ID，仅支持所有云盘修改为同一属性。</td>
+</tr>
+<tr>
+<td>ProjectId</td>
+<td>否</td>
+<td>Integer</td>
+<td>新的云硬盘项目ID，只支持修改弹性云盘的项目ID。通过<a href="/document/api/378/4400">DescribeProject</a>接口查询可用项目及其ID。</td>
+</tr>
+<tr>
+<td>DiskName</td>
+<td>否</td>
+<td>String</td>
+<td>新的云硬盘名称。</td>
+</tr>
+<tr>
+<td>Portable</td>
+<td>否</td>
+<td>Boolean</td>
+<td>是否为弹性云盘，FALSE表示非弹性云盘，TRUE表示弹性云盘。仅支持非弹性云盘修改为弹性云盘。</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 输出参数<br/></h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 错误码<br/></h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InvalidDisk.NotSupported</td>
+<td>云硬盘不支持该操作。</td>
+</tr>
+<tr>
+<td>InvalidDiskId.NotFound</td>
+<td>输入的<code>DiskId</code>不存在。</td>
+</tr>
+<tr>
+<td>InvalidParameterValue</td>
+<td>无效参数值。参数值格式错误或者参数值不被支持等。</td>
+</tr>
+<tr>
+<td>MissingParameter</td>
+<td>参数缺失。请求没有带必选参数。</td>
+</tr>
+</tbody>
+</table>
+<h2>5. 示例<br/></h2>
+<h2>示例1 修改云硬盘名称</br></h2>
+<h3>请求参数</br></h3>
+<pre><code>https://cbs.tencentcloudapi.com/?Action=ModifyDiskAttributes
+&amp;DiskIds.0=disk-fyctkqsf
+&amp;DiskName=test_data_disk
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h3>返回参数</br></h3>
+<pre><code>{
+  "Response": {
+    "RequestId": "bf84fb00-6949-c0f6-aea8-5a1f806401c2"
+  }
+}</code></pre>

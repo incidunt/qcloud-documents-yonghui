@@ -11,7 +11,7 @@ Date: GMT Date
 Authorization: Auth String
 ```
 
-> Authorization: Auth String (详细参见 [请求签名](/document/product/436/7778) 章节)
+> Authorization: Auth String (详细参见 [请求签名](/document/product/436/7778) 章节)。
 
 ### 请求行
 ```
@@ -46,9 +46,9 @@ DELETE / HTTP/1.1
 
 |错误码|描述|HTTP状态码|
 |-------|------|------|
-|BucketNotEmpty|409 Conflict|不能删除一个非空的 Bucket|
-|AccessDenied|403 Forbidden|删除 Bucket 同样需要携带签名，如果试图删除一个没有访问权限的 Bucket，就会返回该错误|
-|NoSuchBucket|404 Not Found|如果删除一个不存在的 Bucket，就回返回该错误|
+|BucketNotEmpty|409 Conflict|不能删除一个非空的 Bucket。|
+|AccessDenied|403 Forbidden|删除 Bucket 同样需要携带签名，如果试图删除一个没有访问权限的 Bucket，就会返回该错误。|
+|NoSuchBucket|404 Not Found|如果删除一个不存在的 Bucket，就回返回该错误。|
 
 获取更多关于 COS 的错误码的信息，或者产品所有的错误列表，请查看 [错误码](/document/product/436/7730) 文档。
 

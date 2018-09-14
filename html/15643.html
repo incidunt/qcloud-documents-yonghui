@@ -1,0 +1,130 @@
+<h2>1. 接口描述<br/></h2>
+<p>本接口（ApplySnapshot）用于回滚快照到原云硬盘。</p>
+<ul>
+<li>仅支持回滚到原云硬盘上。对于数据盘快照，如果您需要复制快照数据到其它云硬盘上，请使用<a href="/document/product/362/16312">CreateDisks</a>接口创建新的弹性云盘，将快照数据复制到新购云盘上。 </li>
+<li>用于回滚的快照必须处于NORMAL状态。快照状态可以通过<a href="/document/product/362/15647">DescribeSnapshots</a>接口查询，见输出参数中SnapshotState字段解释。</li>
+<li>如果是弹性云盘，则云盘必须处于未挂载状态，云硬盘挂载状态可以通过<a href="/document/product/362/16315">DescribeDisks</a>接口查询，见Attached字段解释；如果是随云主机一起购买的非弹性云盘，则云主机必须处于关机状态，云主机状态可以通过<a href="/document/product/213/15738">DescribeInstancesStatus</a>接口查询。</li>
+</ul>
+<h2>2. 输入参数<br/></h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/362/15637">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：ApplySnapshot。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2017-03-12。</td>
+</tr>
+<tr>
+<td>SnapshotId</td>
+<td>是</td>
+<td>String</td>
+<td>快照ID, 可通过<a href="/document/product/362/15647">DescribeSnapshots</a>查询。</td>
+</tr>
+<tr>
+<td>DiskId</td>
+<td>是</td>
+<td>String</td>
+<td>快照原云硬盘ID，可通过<a href="/document/product/362/16315">DescribeDisks</a>接口查询。</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 输出参数<br/></h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 错误码<br/></h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InvalidDisk.Busy</td>
+<td>云硬盘忙，请稍后重试。</td>
+</tr>
+<tr>
+<td>InvalidDisk.NotSupported</td>
+<td>云硬盘不支持该操作。</td>
+</tr>
+<tr>
+<td>InvalidDisk.SnapshotCreating</td>
+<td>云硬盘正在创建快照，请稍后重试。</td>
+</tr>
+<tr>
+<td>InvalidDiskId.NotFound</td>
+<td>输入的<code>DiskId</code>不存在。</td>
+</tr>
+<tr>
+<td>InvalidInstanceId.NotFound</td>
+<td>输入实例的<code>InstanceId</code>不存在。</td>
+</tr>
+<tr>
+<td>InvalidParameter.DiskSizeNotMatch</td>
+<td>云硬盘大小与快照大小不匹配。</td>
+</tr>
+<tr>
+<td>InvalidParameterValue</td>
+<td>无效参数值。参数值格式错误或者参数值不被支持等。</td>
+</tr>
+<tr>
+<td>InvalidSnapshot.NotSupported</td>
+<td>快照不支持该操作。</td>
+</tr>
+<tr>
+<td>InvalidSnapshotId.NotFound</td>
+<td>输入的<code>SnapshotId</code>不存在。</td>
+</tr>
+<tr>
+<td>MissingParameter</td>
+<td>参数缺失。请求没有带必选参数。</td>
+</tr>
+<tr>
+<td>ResourceBusy</td>
+<td>资源繁忙，请稍后重试。</td>
+</tr>
+</tbody>
+</table>
+<h2>5. 示例<br/></h2>
+<h2>示例1 创建快照</br></h2>
+<h3>请求参数</br></h3>
+<pre><code>https://cbs.tencentcloudapi.com/?Action=ApplySnapshot
+&amp;DiskId=disk-lzrg2pwi
+&amp;SnapshotId=snap-gybrif0z
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h3>返回参数</br></h3>
+<pre><code>{
+  "Response": {
+    "RequestId": "cc96242e-566c-ae6a-b74a-5a1f823683b2"
+  }
+}</code></pre>

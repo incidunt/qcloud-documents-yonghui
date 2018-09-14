@@ -9,7 +9,7 @@ Host: <BucketName-APPID>.cos.<Region>.myqcloud.com
 Date: GMT Date
 Authorization: Auth String
 ```
-> Authorization: Auth String (详细参见 [请求签名](/document/product/436/7778) 章节)
+> Authorization: Auth String (详细参见 [请求签名](/document/product/436/7778) 章节)。
 
 ### 请求行
 ```
@@ -45,7 +45,7 @@ GET /?lifecycle HTTP/1.1
 
 |错误码|HTTP状态码|描述|
 |-------|--------|--------|
-|NoSuchBucket|404 Not Found|当访问的 Bucket 不存在|
+|NoSuchBucket|404 Not Found|当访问的 Bucket 不存在。|
 |NoSuchLifecycleConfiguration|404 Not Found|生命周期配置不存在。|
 
 获取更多关于COS的错误码的信息，或者产品所有的错误列表，请查看 [错误码](/document/product/436/7730) 文档。

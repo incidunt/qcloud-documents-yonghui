@@ -1,0 +1,375 @@
+<h2 id=".E5.8A.9F.E8.83.BD.E6.8F.8F.E8.BF.B0">功能描述</h2><p>Get Bucket 请求等同于 List Object 请求，可以列出该 Bucket 下的部分或者全部 Object。此 API 调用者需要对 Bucket 有 Read 权限。</p>
+<h2 id=".E8.AF.B7.E6.B1.82">请求</h2><h4 id=".E8.AF.B7.E6.B1.82.E8.AF.AD.E6.B3.95.E7.A4.BA.E4.BE.8B">请求语法示例</h4><p><strong>shell:</strong> </p>
+<pre><code class="lang-shell"><span class="hljs-comment"># You can also use curl</span>
+curl -X GET http:<span class="hljs-comment">//{bucket}.cos.{region}.myqcloud.com/ \</span>
+  -H <span class="hljs-string">'Accept: application/xml'</span>
+</code></pre>
+<p><strong>http:</strong> </p>
+<pre><code class="lang-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">http://{bucket}.cos.{region}.myqcloud.com/</span> HTTP/1.1
+<span class="hljs-attribute">Host</span>: 
+
+<span class="makefile"><span class="hljs-section">Accept: application/xml</span></span>
+</code></pre>
+<h3 id=".E8.AF.B7.E6.B1.82.E8.A1.8C">请求行</h3><pre><code><span class="hljs-keyword">GET</span> <span class="hljs-string">/</span> HTTP/1.1
+</code></pre><p>该 API 接口接受 <code>GET</code> 请求。</p>
+<h4 id=".E8.AF.B7.E6.B1.82.E5.8F.82.E6.95.B0">请求参数</h4><p>包含所有请求参数的请求行示例：</p>
+<pre><code><span class="hljs-keyword">GET</span> <span class="hljs-string">/?prefix=[Prefix]&amp;delimiter=[Delimiter]&amp;encoding-type=[EncodingType]&amp;marker=[Marker]&amp;max-keys=[MaxKeys]</span> HTTP/1.1
+</code></pre><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>prefix</td>
+<td>string</td>
+<td>否</td>
+<td>前缀匹配，用来规定返回的文件前缀地址。</td>
+</tr>
+<tr>
+<td>delimiter</td>
+<td>string</td>
+<td>否</td>
+<td>定界符为一个符号，如果有 Prefix，则将 Prefix 到 delimiter 之间的相同路径归为一类，定义为 Common Prefix，然后列出所有 Common Prefix。如果没有 Prefix，则从路径起点开始。</td>
+</tr>
+<tr>
+<td>encoding-type</td>
+<td>string</td>
+<td>否</td>
+<td>规定返回值的编码方式，可选值：url。</td>
+</tr>
+<tr>
+<td>marker</td>
+<td>string</td>
+<td>否</td>
+<td>默认以 UTF-8 二进制顺序列出条目，所有列出条目从 marker开始。</td>
+</tr>
+<tr>
+<td>max-keys</td>
+<td>string</td>
+<td>否</td>
+<td>单次返回最大的条目数量，默认 1000。</td>
+</tr>
+</tbody>
+</table>
+<h3 id=".E8.AF.B7.E6.B1.82.E5.A4.B4">请求头</h3><h4 id=".E5.85.AC.E5.85.B1.E5.A4.B4.E9.83.A8">公共头部</h4><p>该请求操作的实现使用公共请求头，了解公共请求头详细请参见 <a href="/document/product/436/7728" title="公共请求头部">公共请求头部</a> 章节。</p>
+<h4 id=".E9.9D.9E.E5.85.AC.E5.85.B1.E5.A4.B4.E9.83.A8">非公共头部</h4><p>该请求操作无特殊的请求头部信息。</p>
+<h3 id=".E8.AF.B7.E6.B1.82.E4.BD.93">请求体</h3><p>该请求请求体为空。</p>
+<h2 id=".E5.93.8D.E5.BA.94">响应</h2><h3 id=".E5.93.8D.E5.BA.94.E5.A4.B4">响应头</h3><h4 id=".E5.85.AC.E5.85.B1.E5.93.8D.E5.BA.94.E5.A4.B4">公共响应头</h4><p>该响应使用公共响应头，了解公共响应头详细请参见 <a href="/document/product/436/7729" title="公共响应头部">公共响应头部</a> 章节。</p>
+<h4 id=".E7.89.B9.E6.9C.89.E5.93.8D.E5.BA.94.E5.A4.B4">特有响应头</h4><p>该请求操作无特殊的响应头部信息。</p>
+<h3 id=".E5.93.8D.E5.BA.94.E4.BD.93">响应体</h3><p>查询成功，返回 application/xml 数据，包含 Bucket 中的对象信息。</p>
+<pre><code class="lang-xml"><span class="php"><span class="hljs-meta">&lt;?</span>xml version=<span class="hljs-string">"1.0"</span> encoding=<span class="hljs-string">"UTF-8"</span> <span class="hljs-meta">?&gt;</span></span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ListBucketResult</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">Name</span>&gt;</span>string<span class="hljs-tag">&lt;/<span class="hljs-name">Name</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">Encoding-Type</span>&gt;</span>string<span class="hljs-tag">&lt;/<span class="hljs-name">Encoding-Type</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">Prefix</span>&gt;</span>string<span class="hljs-tag">&lt;/<span class="hljs-name">Prefix</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">Marker</span>&gt;</span>string<span class="hljs-tag">&lt;/<span class="hljs-name">Marker</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">MaxKeys</span>&gt;</span>string<span class="hljs-tag">&lt;/<span class="hljs-name">MaxKeys</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">IsTruncated</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">IsTruncated</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">NextMarker</span>&gt;</span>string<span class="hljs-tag">&lt;/<span class="hljs-name">NextMarker</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">Contents</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Key</span>&gt;</span>string<span class="hljs-tag">&lt;/<span class="hljs-name">Key</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">LastModified</span>&gt;</span>string<span class="hljs-tag">&lt;/<span class="hljs-name">LastModified</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ETag</span>&gt;</span>string<span class="hljs-tag">&lt;/<span class="hljs-name">ETag</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Size</span>&gt;</span>string<span class="hljs-tag">&lt;/<span class="hljs-name">Size</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Owner</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">ID</span>&gt;</span>string<span class="hljs-tag">&lt;/<span class="hljs-name">ID</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Owner</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">StorageClass</span>&gt;</span>string<span class="hljs-tag">&lt;/<span class="hljs-name">StorageClass</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">Contents</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">CommonPrefixes</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Prefix</span>&gt;</span>string<span class="hljs-tag">&lt;/<span class="hljs-name">Prefix</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">CommonPrefixes</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ListBucketResult</span>&gt;</span>
+</code></pre>
+<p>具体的数据描述如下：</p>
+<table>
+<thead>
+<tr>
+<th>节点名称（关键字）</th>
+<th>父节点</th>
+<th>描述</th>
+<th>类型</th>
+<th>必选</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ListBucketResult</td>
+<td>无</td>
+<td>保存 Get Bucket 请求结果的所有信息。</td>
+<td>Container</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+<p>Container 节点 ListBucketResult 的内容：</p>
+<table>
+<thead>
+<tr>
+<th>节点名称（关键字）</th>
+<th>父节点</th>
+<th>描述</th>
+<th>类型</th>
+<th>必选</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>ListBucketResult</td>
+<td>说明 Bucket 的信息</td>
+<td>string</td>
+<td>是</td>
+</tr>
+<tr>
+<td>Encoding-Type</td>
+<td>ListBucketResult</td>
+<td>编码格式</td>
+<td>string</td>
+<td>是</td>
+</tr>
+<tr>
+<td>Prefix</td>
+<td>ListBucketResult</td>
+<td>前缀匹配，用来规定响应请求返回的文件前缀地址。</td>
+<td>string</td>
+<td>是</td>
+</tr>
+<tr>
+<td>Marker</td>
+<td>ListBucketResult</td>
+<td>默认以 UTF-8 二进制顺序列出条目，所有列出条目从 marker 开始。</td>
+<td>string</td>
+<td>是</td>
+</tr>
+<tr>
+<td>MaxKeys</td>
+<td>ListBucketResult</td>
+<td>单次响应请求内返回结果的最大的条目数量。</td>
+<td>string</td>
+<td>是</td>
+</tr>
+<tr>
+<td>IsTruncated</td>
+<td>ListBucketResult</td>
+<td>响应请求条目是否被截断，布尔值：true，false。</td>
+<td>boolean</td>
+<td>是</td>
+</tr>
+<tr>
+<td>NextMarker</td>
+<td>ListBucketResult</td>
+<td>假如返回条目被截断，则返回 NextMarker 就是下一个条目的起点。</td>
+<td>string</td>
+<td>是</td>
+</tr>
+<tr>
+<td>Contents</td>
+<td>ListBucketResult</td>
+<td>元数据信息</td>
+<td>Container</td>
+<td>是</td>
+</tr>
+<tr>
+<td>CommonPrefixes</td>
+<td>ListBucketResult</td>
+<td>将 Prefix 到 delimiter 之间的相同路径归为一类，定义为 Common Prefix。</td>
+<td>Container</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+<p>Container 节点 Contents 的内容：</p>
+<table>
+<thead>
+<tr>
+<th>节点名称（关键字）</th>
+<th>父节点</th>
+<th>描述</th>
+<th>类型</th>
+<th>必选</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Key</td>
+<td>ListBucketResult.Contents</td>
+<td>Object 的 Key</td>
+<td>string</td>
+<td>是</td>
+</tr>
+<tr>
+<td>LastModified</td>
+<td>ListBucketResult.Contents</td>
+<td>说明 Object 最后被修改时间。</td>
+<td>string</td>
+<td>是</td>
+</tr>
+<tr>
+<td>ETag</td>
+<td>ListBucketResult.Contents</td>
+<td>文件的 MD-5 算法校验值。</td>
+<td>string</td>
+<td>是</td>
+</tr>
+<tr>
+<td>Size</td>
+<td>ListBucketResult.Contents</td>
+<td>说明文件大小，单位是 Byte。</td>
+<td>string</td>
+<td>是</td>
+</tr>
+<tr>
+<td>Owner</td>
+<td>ListBucketResult.Contents</td>
+<td>Bucket 持有者信息。</td>
+<td>Container</td>
+<td>是</td>
+</tr>
+<tr>
+<td>StorageClass</td>
+<td>ListBucketResult.Contents</td>
+<td>Object 的存储级别，枚举值：STANDARD，STANDARD_IA，NEARLINE。</td>
+<td>string</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+<p>Container 节点 Owner 的内容：</p>
+<table>
+<thead>
+<tr>
+<th>节点名称（关键字）</th>
+<th>父节点</th>
+<th>描述</th>
+<th>类型</th>
+<th>必选</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td>ListBucketResult.Contents.Owner</td>
+<td>Bucket 的 AppID</td>
+<td>string</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+<p>Container 节点 CommonPrefixes 的内容：</p>
+<table>
+<thead>
+<tr>
+<th>节点名称（关键字）</th>
+<th>父节点</th>
+<th>描述</th>
+<th>类型</th>
+<th>必选</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prefix</td>
+<td>ListBucketResult.CommonPrefixes</td>
+<td>单条 Common 的前缀</td>
+<td>string</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+<h3 id=".E9.94.99.E8.AF.AF.E7.A0.81">错误码</h3><table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+<th>http状态码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InvalidBucketName</td>
+<td>Bucket 名称不合法</td>
+<td>400 <a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+</tr>
+<tr>
+<td>SignatureDoesNotMatch</td>
+<td>提供的签名不符合规则，返回该错误码。</td>
+<td>403 <a href="https://tools.ietf.org/html/rfc7231#section-6.5.3">Forbidden</a></td>
+</tr>
+<tr>
+<td>NoSuchBucket</td>
+<td>Bucket 不存在，返回该错误码。</td>
+<td>404 <a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id=".E5.AE.9E.E9.99.85.E6.A1.88.E4.BE.8B">实际案例</h2><h3 id=".E8.AF.B7.E6.B1.822">请求</h3><pre><code><span class="hljs-keyword">GET</span> <span class="hljs-string">/</span> HTTP/1.1
+<span class="hljs-attribute">Host</span>: zuhaotestnorth-1251668577.cos.ap-beijing.myqcloud.com
+<span class="hljs-attribute">Date</span>: Wed, 18 Oct 2014 22:32:00 GMT
+<span class="hljs-attribute">Authorization</span>: q-sign-algorithm=sha1&amp;q-ak=AKIDWtTCBYjM5OwLB9CAwA1Qb2ThTSUjfGFO&amp;q-sign-time=1484213451;32557109451&amp;q-key-time=1484213451;32557109451&amp;q-header-list=host&amp;q-url-param-list=&amp;q-signature=0336a1fc8350c74b6c081d4dff8e7a2db9007dc
+</code></pre><h3 id=".E5.93.8D.E5.BA.942">响应</h3><pre><code>HTTP/1.1 <span class="hljs-number">200</span> OK
+<span class="hljs-attribute">Content-Type</span>: application/xml
+<span class="hljs-attribute">Content-Length</span>: 1132
+<span class="hljs-attribute">Connection</span>: keep-alive
+<span class="hljs-attribute">Vary</span>: Accept-Encoding
+<span class="hljs-attribute">Date</span>: Wed, 18 Oct 2014 22:32:00 GMT
+<span class="hljs-attribute">Server</span>: tencent-cos
+<span class="hljs-attribute">x-cos-request-id</span>: NTg3NzRjY2VfYmRjMzVfMTc5M182MmIyNg==
+
+<span class="xml"><span class="php"><span class="hljs-meta">&lt;?</span>xml version=<span class="hljs-string">'1.0'</span> encoding=<span class="hljs-string">'utf-8'</span> <span class="hljs-meta">?&gt;</span></span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ListBucketResult</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Name</span>&gt;</span>zuhaotestnorth-1251668577<span class="hljs-tag">&lt;/<span class="hljs-name">Name</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Encoding-Type</span>&gt;</span>url<span class="hljs-tag">&lt;/<span class="hljs-name">Encoding-Type</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Prefix</span>&gt;</span>ela<span class="hljs-tag">&lt;/<span class="hljs-name">Prefix</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Marker</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">MaxKeys</span>&gt;</span>1000<span class="hljs-tag">&lt;/<span class="hljs-name">MaxKeys</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Delimiter</span>&gt;</span>/<span class="hljs-tag">&lt;/<span class="hljs-name">Delimiter</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">IsTruncated</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">IsTruncated</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">NextMarker</span>&gt;</span>1234.txt<span class="hljs-tag">&lt;/<span class="hljs-name">NextMarker</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Contents</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Key</span>&gt;</span>testL<span class="hljs-tag">&lt;/<span class="hljs-name">Key</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">LastModified</span>&gt;</span>2017-06-23T12:33:26.000Z<span class="hljs-tag">&lt;/<span class="hljs-name">LastModified</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">ETag</span>&gt;</span>\"79f2a852fac7e826c9f4dbe037f8a63b\"<span class="hljs-tag">&lt;/<span class="hljs-name">ETag</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Size</span>&gt;</span>10485760<span class="hljs-tag">&lt;/<span class="hljs-name">Size</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Owner</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">ID</span>&gt;</span>1252375641<span class="hljs-tag">&lt;/<span class="hljs-name">ID</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">Owner</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">StorageClass</span>&gt;</span>STANDARD<span class="hljs-tag">&lt;/<span class="hljs-name">StorageClass</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Contents</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Contents</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Key</span>&gt;</span>testL1<span class="hljs-tag">&lt;/<span class="hljs-name">Key</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">LastModified</span>&gt;</span>2017-06-23T12:33:26.000Z<span class="hljs-tag">&lt;/<span class="hljs-name">LastModified</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">ETag</span>&gt;</span>\"3f9a5dbff88b25b769fa6304902b5d9d\"<span class="hljs-tag">&lt;/<span class="hljs-name">ETag</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Size</span>&gt;</span>10485760<span class="hljs-tag">&lt;/<span class="hljs-name">Size</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Owner</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">ID</span>&gt;</span>1252375642<span class="hljs-tag">&lt;/<span class="hljs-name">ID</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">Owner</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">StorageClass</span>&gt;</span>STANDARD<span class="hljs-tag">&lt;/<span class="hljs-name">StorageClass</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Contents</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Contents</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Key</span>&gt;</span>testLLL<span class="hljs-tag">&lt;/<span class="hljs-name">Key</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">LastModified</span>&gt;</span>2017-06-23T12:33:26.000Z<span class="hljs-tag">&lt;/<span class="hljs-name">LastModified</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">ETag</span>&gt;</span>\"39bfb88c11c65ed6424d2e1cd4db1826\"<span class="hljs-tag">&lt;/<span class="hljs-name">ETag</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Size</span>&gt;</span>10485760<span class="hljs-tag">&lt;/<span class="hljs-name">Size</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Owner</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">ID</span>&gt;</span>1252375643<span class="hljs-tag">&lt;/<span class="hljs-name">ID</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">Owner</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">StorageClass</span>&gt;</span>STANDARD<span class="hljs-tag">&lt;/<span class="hljs-name">StorageClass</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Contents</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Contents</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Key</span>&gt;</span>testLOL<span class="hljs-tag">&lt;/<span class="hljs-name">Key</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">LastModified</span>&gt;</span>2017-06-23T12:33:26.000Z<span class="hljs-tag">&lt;/<span class="hljs-name">LastModified</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">ETag</span>&gt;</span>\"fb31459ad10289ff49327fd91a3e1f6a\"<span class="hljs-tag">&lt;/<span class="hljs-name">ETag</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Size</span>&gt;</span>4<span class="hljs-tag">&lt;/<span class="hljs-name">Size</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Owner</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">ID</span>&gt;</span>1252375644<span class="hljs-tag">&lt;/<span class="hljs-name">ID</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">Owner</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">StorageClass</span>&gt;</span>STANDARD<span class="hljs-tag">&lt;/<span class="hljs-name">StorageClass</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Contents</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ListBucketResult</span></span></span>
+</code></pre>

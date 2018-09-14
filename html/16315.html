@@ -1,0 +1,170 @@
+<h2>1. 接口描述<br/></h2>
+<p>本接口（DescribeDisks）用于查询云硬盘列表。</p>
+<ul>
+<li>可以根据云硬盘ID、云硬盘类型或者云硬盘状态等信息来查询云硬盘的详细信息，不同条件之间为与(AND)的关系，过滤信息详细请见过滤器<code>Filter</code>。</li>
+<li>如果参数为空，返回当前用户一定数量（<code>Limit</code>所指定的数量，默认为20）的云硬盘列表。</li>
+</ul>
+<h2>2. 输入参数<br/></h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/362/15637">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：DescribeDisks。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2017-03-12。</td>
+</tr>
+<tr>
+<td>DiskIds.N</td>
+<td>否</td>
+<td>Array of String</td>
+<td>按照一个或者多个云硬盘ID查询。云硬盘ID形如：<code>disk-11112222</code>，此参数的具体格式可参考API<a href="/document/product/362/15633">简介</a>的ids.N一节）。参数不支持同时指定<code>DiskIds</code>和<code>Filters</code>。</td>
+</tr>
+<tr>
+<td>Filters.N</td>
+<td>否</td>
+<td>Array of <a href="/document/api/362/15669#Filter">Filter</a></td>
+<td>过滤条件。参数不支持同时指定<code>DiskIds</code>和<code>Filters</code>。<br><li>disk-usage - Array of String - 是否必填：否 -（过滤条件）按云盘类型过滤。 (SYSTEM_DISK：表示系统盘 &#124; DATA_DISK：表示数据盘)<br><li>disk-charge-type - Array of String - 是否必填：否 -（过滤条件）按照云硬盘计费模式过滤。 (PREPAID：表示预付费，即包年包月 &#124; POSTPAID_BY_HOUR：表示后付费，即按量计费。)<br><li>portable - Array of Bool - 是否必填：否 -（过滤条件）按是否为弹性云盘过滤。 (TRUE：表示弹性云盘 &#124; FALSE：表示非弹性云盘。)<br><li>project-id - Array of Integer - 是否必填：否 -（过滤条件）按云硬盘所属项目ID过滤。<br><li>disk-id - Array of String - 是否必填：否 -（过滤条件）按照云硬盘ID过滤。云盘ID形如：<code>disk-11112222</code>。<br><li>disk-name - Array of String - 是否必填：否 -（过滤条件）按照云盘名称过滤。<br><li>disk-type - Array of String - 是否必填：否 -（过滤条件）按照云盘介质类型过滤。(CLOUD_BASIC：表示普通云硬盘 &#124; CLOUD_PREMIUM：表示高性能云硬盘。&#124; CLOUD_SSD：SSD表示SSD云硬盘。)<br><li>disk-state - Array of String - 是否必填：否 -（过滤条件）按照云盘状态过滤。(UNATTACHED：未挂载 &#124; ATTACHING：挂载中 &#124; ATTACHED：已挂载 &#124; DETACHING：解挂中 &#124; EXPANDING：扩容中 &#124; ROLLBACKING：回滚中 &#124; TORECYCLE：待回收。)<br><li>instance-id - Array of String - 是否必填：否 -（过滤条件）按照云盘挂载的云主机实例ID过滤。可根据此参数查询挂载在指定云主机下的云硬盘。<br><li>zone - Array of String - 是否必填：否 -（过滤条件）按照<a href="/document/api/213/9452#zone">可用区</a>过滤。<br><li>instance-ip-address - Array of String - 是否必填：否 -（过滤条件）按云盘所挂载云主机的内网或外网IP过滤。<br><li>instance-name - Array of String - 是否必填：否 -（过滤条件）按云盘所挂载的实例名称过滤。</td>
+</tr>
+<tr>
+<td>Offset</td>
+<td>否</td>
+<td>Integer</td>
+<td>偏移量，默认为0。关于<code>Offset</code>的更进一步介绍请参考API<a href="/document/product/362/15633">简介</a>中的相关小节。</td>
+</tr>
+<tr>
+<td>Limit</td>
+<td>否</td>
+<td>Integer</td>
+<td>返回数量，默认为20，最大值为100。关于<code>Limit</code>的更进一步介绍请参考 API <a href="/document/product/362/15633">简介</a>中的相关小节。</td>
+</tr>
+<tr>
+<td>Order</td>
+<td>否</td>
+<td>String</td>
+<td>输出云盘列表的排列顺序。取值范围：<br><li>ASC：升序排列。<br><li>DESC：降序排列。</td>
+</tr>
+<tr>
+<td>OrderField</td>
+<td>否</td>
+<td>String</td>
+<td>云盘列表排序的依据字段。取值范围：<br><li>CREATETIME：依据云盘的创建时间排序。<br><li>DEADLINE：依据云盘的到期时间排序。<br>默认按云盘创建时间排序。</td>
+</tr>
+<tr>
+<td>ReturnBindAutoSnapshotPolicy</td>
+<td>否</td>
+<td>Boolean</td>
+<td>云盘详情中是否需要返回云盘绑定的定期快照策略ID，TRUE表示需要返回，FALSE表示不返回。</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 输出参数<br/></h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TotalCount</td>
+<td>Integer</td>
+<td>符合条件的云硬盘数量。</td>
+</tr>
+<tr>
+<td>DiskSet</td>
+<td>Array of <a href="/document/api/362/15669#Disk">Disk</a></td>
+<td>云硬盘的详细信息列表。</td>
+</tr>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 错误码<br/></h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InvalidFilter</td>
+<td>指定的Filter不被支持。</td>
+</tr>
+<tr>
+<td>InvalidParameterValue</td>
+<td>无效参数值。参数值格式错误或者参数值不被支持等。</td>
+</tr>
+<tr>
+<td>MissingParameter</td>
+<td>参数缺失。请求没有带必选参数。</td>
+</tr>
+</tbody>
+</table>
+<h2>5. 示例<br/></h2>
+<h2>示例1 查询所有已挂载的数据盘</br></h2>
+<h3>请求参数</br></h3>
+<pre><code>https://cbs.tencentcloudapi.com/?Action=DescribeDisks
+&amp;Filters.0.Name=disk-usage
+&amp;Filters.0.Values.0=DATA_DISK
+&amp;Filters.1.Name=disk-state
+&amp;Filters.1.Values.0=ATTACHED
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h3>返回参数</br></h3>
+<pre><code>{
+  "Response": {
+    "DiskSet": [
+      {
+        "Attached": true,
+        "AutoRenewFlagError": false,
+        "CreateTime": "2017-07-27 15:16:56",
+        "DeadlineError": false,
+        "DeadlineTime": "2017-10-27 15:17:05",
+        "DifferDaysOfDeadline": -139,
+        "DiskChargeType": "PREPAID",
+        "DiskId": "disk-5w50lrms",
+        "DiskName": "data1",
+        "DiskSize": 10,
+        "DiskState": "ATTACHED",
+        "DiskType": "CLOUD_BASIC",
+        "DiskUsage": "DATA_DISK",
+        "Encrypt": false,
+        "InstanceId": "ins-6p8zngem",
+        "IsReturnable": false,
+        "Placement": {
+          "ProjectId": 10086,
+          "Zone": "ap-guangzhou-2"
+        },
+        "Portable": true,
+        "RenewFlag": "NOTIFY_AND_AUTO_RENEW",
+        "ReturnFailCode": 2,
+        "RollbackPercent": 0,
+        "Rollbacking": false,
+        "SnapshotAbility": true
+      }
+    ],
+    "RequestId": "e63c7075-4b34-4825-9850-b19edb1eda89",
+    "TotalCount": 1
+  }
+}</code></pre>

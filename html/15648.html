@@ -1,0 +1,127 @@
+<h2>1. 接口描述<br/></h2>
+<p>本接口（CreateSnapshot）用于对指定云盘创建快照。</p>
+<ul>
+<li>只有具有快照能力的云硬盘才能创建快照。云硬盘是否具有快照能力可由<a href="/document/product/362/16315">DescribeDisks</a>接口查询，见SnapshotAbility字段。</li>
+<li>可创建快照数量限制见<a href="http://tce.futunn.com/doc/product/362/5145">产品使用限制</a>。</li>
+</ul>
+<h2>2. 输入参数<br/></h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/362/15637">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：CreateSnapshot。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2017-03-12。</td>
+</tr>
+<tr>
+<td>DiskId</td>
+<td>是</td>
+<td>String</td>
+<td>需要创建快照的云硬盘ID，可通过<a href="/document/product/362/16315">DescribeDisks</a>接口查询。</td>
+</tr>
+<tr>
+<td>SnapshotName</td>
+<td>否</td>
+<td>String</td>
+<td>快照名称，不传则新快照名称默认为“未命名”。</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 输出参数<br/></h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SnapshotId</td>
+<td>String</td>
+<td>新创建的快照ID。</td>
+</tr>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 错误码<br/></h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InsufficientSnapshotQuota</td>
+<td>快照配额不足。</td>
+</tr>
+<tr>
+<td>InvalidAccount.InsufficientBalance</td>
+<td>账户余额不足。</td>
+</tr>
+<tr>
+<td>InvalidDisk.NotSupportSnapshot</td>
+<td>云硬盘没有快照能力。</td>
+</tr>
+<tr>
+<td>InvalidDisk.NotSupported</td>
+<td>云硬盘不支持该操作。</td>
+</tr>
+<tr>
+<td>InvalidDisk.SnapshotCreating</td>
+<td>云硬盘正在创建快照，请稍后重试。</td>
+</tr>
+<tr>
+<td>InvalidDisk.TypeError</td>
+<td>云硬盘类型错误。</td>
+</tr>
+<tr>
+<td>InvalidDiskId.NotFound</td>
+<td>输入的<code>DiskId</code>不存在。</td>
+</tr>
+<tr>
+<td>InvalidParameterValue</td>
+<td>无效参数值。参数值格式错误或者参数值不被支持等。</td>
+</tr>
+<tr>
+<td>MissingParameter</td>
+<td>参数缺失。请求没有带必选参数。</td>
+</tr>
+</tbody>
+</table>
+<h2>5. 示例<br/></h2>
+<h2>示例1 创建快照</br></h2>
+<h3>请求参数</br></h3>
+<pre><code>http://cbs.tencentcloudapi.com/?Action=CreateSnapshot
+&amp;DiskId=disk-lzrg2pwi
+&amp;SnapshotName=snap_201711301015
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h3>返回参数</br></h3>
+<pre><code>{
+  "Response": {
+    "RequestId": "1bd35eca-0c9a-6e0b-938a-5a1f80511c19",
+    "SnapshotId": "snap-gybrif0z"
+  }
+}</code></pre>

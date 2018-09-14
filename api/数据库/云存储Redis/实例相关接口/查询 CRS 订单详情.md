@@ -5,77 +5,77 @@
 
 
 ## 2. 输入参数
-以下请求参数列表仅列出了接口请求参数，正式调用时需要加上公共请求参数，见<a href='/doc/api/372/4153' title='公共请求参数'>公共请求参数</a>页面。其中，此接口的Action字段为DescribeRedisDealDetail。
+以下请求参数列表仅列出了接口请求参数，正式调用时需要加上公共请求参数，见<a href='/document/product/239/7200' title='公共请求参数'>公共请求参数</a>页面。其中，此接口的Action字段为DescribeRedisDealDetail。
 
 | 参数名称 | 是否必选  | 类型 | 描述 |
 |---------|---------|---------|---------|
-| dealIds.n | 是 | String | 订单号组成的数组，数组下标从0开始 |
+| dealIds.n | 是 | String | 订单号组成的数组，数组下标从0开始。 |
 
 
 ## 3. 输出参数
 | 参数名称 | 类型 | 描述 |
 |---------|---------|---------|
 | code | Int | 公共错误码, 0表示成功，其他值表示失败。详见错误码页面的<a href='/document/api/239/1757' title='公共错误码'>公共错误码</a>。|
-| message | String | 错误信息描述, 成功时，该值为空 |
+| message | String | 错误信息描述, 成功时，该值为空。 |
 | codeDesc | String | 业务侧错误码英文描述。成功时返回Success，错误时返回具体业务错误原因。 |
-| dealDetails | Array | 返回的订单数组 |
+| dealDetails | Array | 返回的订单数组。 |
 
 **dealDetails数组结构：**
 
 | 参数名称 | 类型 | 描述 |
 |---------|---------|---------|
-| dealDetails.dealId | String | 订单号ID，调用云API时使用此ID |
-| dealDetails.dealName | String | 长订单ID，反馈订单问题给官方客服使用此ID |
-| dealDetails.zoneId | Int | 可用区id|
-| dealDetails.goodsNum | Int | 订单关联的实例数 |
-| dealDetails.creater | String | 创建用户uin |
-| dealDetails.creatTime | String | 订单创建时间 |
-| dealDetails.overdueTime | String | 订单超时时间 |
-| dealDetails.endTime | String | 订单完成时间 |
-| dealDetails.status | Int | 订单状态<br>1：未支付<br>2:已支付，未发货<br>3:发货中<br>4:发货成功<br>5:发货失败<br>6:已退款<br>7:已关闭订单<br>8:订单过期<br>9:订单已失效<br>10:产品已失效<br>11:代付拒绝<br>12:支付中 |
-| dealDetails.description | String | 订单状态描述 |
-| dealDetails.price | Int | 订单实际总价，单位：分 |
-| dealDetails.goodsDetail | Array | 返回的数组，不同订单的goodsDetail不相同 |
+| dealDetails.dealId | String | 订单号ID，调用云API时使用此ID。 |
+| dealDetails.dealName | String | 长订单ID，反馈订单问题给官方客服使用此ID。 |
+| dealDetails.zoneId | Int | 可用区id。|
+| dealDetails.goodsNum | Int | 订单关联的实例数。 |
+| dealDetails.creater | String | 创建用户uin。 |
+| dealDetails.creatTime | String | 订单创建时间。 |
+| dealDetails.overdueTime | String | 订单超时时间。 |
+| dealDetails.endTime | String | 订单完成时间。 |
+| dealDetails.status | Int | 订单状态：<br>1：未支付。<br>2:已支付，未发货。<br>3:发货中。<br>4:发货成功。<br>5:发货失败。<br>6:已退款。<br>7:已关闭订单。<br>8:订单过期。<br>9:订单已失效。<br>10:产品已失效。<br>11:代付拒绝。<br>12:支付中。 |
+| dealDetails.description | String | 订单状态描述。 |
+| dealDetails.price | Int | 订单实际总价，单位：分。 |
+| dealDetails.goodsDetail | Array | 返回的数组，不同订单的goodsDetail不相同。 |
 
 **创建实例goodsDetail数组：**
 
 | 参数名称 | 类型 | 描述 |
 |---------|---------|---------|
-| memSize| int | 实例容量， 单位:MB|
-| timeSpan | int | 购买时长， 单位以：timeUnit为准|
-| timeUnit | String | 购买时长单位， m- 月， d - 天|
-| redisIds | Array | 关联的redisId列表|
+| memSize| int | 实例容量， 单位:MB。|
+| timeSpan | int | 购买时长， 单位以：timeUnit为准。|
+| timeUnit | String | 购买时长单位， m- 月， d - 天。|
+| redisIds | Array | 关联的redisId列表。|
 
 **续费实例goodsDetail数组：**
 
 | 参数名称 | 类型 | 描述 |
 |---------|---------|---------|
-| curDeadline| String |  续费前，实例到期时间|
-| memSize| int | 实例容量， 单位:MB|
-| timeSpan | int | 购买时长， 单位以：timeUnit为准|
-| timeUnit | String | 购买时长单位， m- 月， d - 天
-| redisIds | Array | 关联的redisId列表|
+| curDeadline| String |  续费前，实例到期时间。|
+| memSize| int | 实例容量， 单位:MB。|
+| timeSpan | int | 购买时长， 单位以：timeUnit为准。|
+| timeUnit | String | 购买时长单位， m- 月， d - 天。
+| redisIds | Array | 关联的redisId列表。|
 
 **升级实例goodsDetail数组：**
 
 | 参数名称 | 类型 | 描述 |
 |---------|---------|---------|
-| oldMemSize | int | 升级前实例容量， 单位:MB|
-| newMemsize | int | 升级后实例容量， 单位:MB|
-| redisIds | Array | 关联的redisId列表|
+| oldMemSize | int | 升级前实例容量， 单位:MB。|
+| newMemsize | int | 升级后实例容量， 单位:MB。|
+| redisIds | Array | 关联的redisId列表。|
 
 ## 4. 错误码
 以下错误码表列出了该接口的业务逻辑错误码。
 
 | 错误代码 | 英文提示 | 错误描述 |
 |---------|---------|---------|
-|11059|DealIdNotFound|订单号不存在|
+|11059|DealIdNotFound|订单号不存在。|
 
 ## 5. 示例
 输入
 <pre>
 http://redis.api.qcloud.com/v2/index.php?Action=DescribeRedisDealDetail
-&<<a href="/doc/api/229/6976">公共请求参数</a>>
+&<<a href="/document/product/239/7200">公共请求参数</a>>
 &dealIds.0=432583
 &dealIds.1=432586
 &dealIds.2=432587

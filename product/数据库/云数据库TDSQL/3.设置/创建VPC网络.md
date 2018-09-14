@@ -82,7 +82,7 @@
 ![](http://imgcache.tcecqpoc.fsphere.cn/image/mccdn.qcloud.com/static/img/4853aa0215993d8ce40e965cafee6bf8/image.png)
 
 ### （可选）第六步：创建安全组进行网络流量控制
-[安全组](/doc/product/213/500)是云平台提供的实例级别防火墙，可以对任意云服务器进行入/出流量控制。
+[安全组](/document/product/213/12453)是云平台提供的实例级别防火墙，可以对任意云服务器进行入/出流量控制。
 
 1) 登录[云平台控制台](http://console.tcecqpoc.fsphere.cn/)，点击导航条【云服务器】选项卡，在左导航窗格中，单击【安全组】。
 

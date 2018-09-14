@@ -43,6 +43,7 @@
 ![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/4fee6ea61cfba11927f6891527237610/image.png)
 
 2. 在专有云 CFS 控制台，单击【新建】，弹出创建文件系统弹窗。在创建文件系统弹窗中填写相关信息，确认无误后，单击【确定】即可创建文件系统。
+3. 
 ![](http://imgcache.tcecqpoc.fsphere.cn/image/main.qcloudimg.com/raw/3797c04469bf0da994d2e2876a2a39ad.png)
  - 名称：您可以为创建的文件系统进行命名。
  - 地域和可用区：靠近您客户的地域可降低访问延迟，提高下载速度。
@@ -93,6 +94,7 @@ NFS 4.0 | 2049 |  telnet 2049
 ### 挂载 NFS 文件系统
 #### 1. 开启 NFS 服务
 挂载前，请确保系统已经启动 NFS 服务。此处以 Windows Server 2012 R2 为示例，开启 NFS 服务。
+
 1.1 打开【控制面板】>【程序】>【打开或关闭 windows 功能】>【服务器角色】页签中勾选【NFS server】。
 ![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/eaeed922e9d1f673e47137d80a88fa70/image.png)
 1.2 打开【控制面板】>【程序】>【打开或关闭 windows 功能】>【特性】页签中勾选【NFS 客户端】，勾选【NFS 客户端】即可开启 Windows NFS 客户端服务。
@@ -107,10 +109,12 @@ mount -h
 
 #### 3. 添加匿名访问用户和用户组
 3.1 打开注册表
+
 在命令行窗口输入 regedit 命令，回车即可打开注册表窗口。
 ![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/c9fca9a1b123a5b2dbc69b0ce66d539f/image.png)
 
 3.2 添加配置项 AnonymousUid 和 AnonymousGid
+
 在打开的注册表中找到如下路径并选中。 
 ```
 HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ClientForNFS\CurrentVersion\Default
@@ -120,22 +124,26 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ClientForNFS\CurrentVersion\Default
 ![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/80bb0cfbffbed939522459a830df3eac/image.png)
 
 3.3 重启使配置生效
+
 关闭注册表并重启 Windows 系统，完成注册表修改。
 
 ##### 4. 挂载文件系统
 ###### 通过图形界面挂载
-a.打开 "映射网路驱动器"
+a.打开 "映射网路驱动器"。
+
 登录到需要挂载文件系统的 Windows 上，在 "开始" 菜单中找到 "计算机"，单击鼠标右键出现菜单，点击菜单中的 "映射网路驱动器"。 
 ![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/5696d66a83d4e9b35196274f89e07dfc/image.png)
 ![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/6eeb1c0838e6aab185ed8b76dc736912/image.png)
 
-b.输入访问路径
+b.输入访问路径。
+
 在弹出的设置窗口中设置 "驱动器" 盘符名称及文件夹（即在 NFS 文件系统中看到的挂载目录）。
 ![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/caa18888e6da73b19de8eefc18ff3680/image.png)
 ![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/fbfba42f108e2dd0c31599242afa8878/image.png)
 
 
-c.验证读写
+c.验证读写。
+
 确认后，页面直接进入到已经挂载的文件系统中。可以右键新建一个文件来验证读写的正确性。
 ![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/60b9388885536ec7d81b1cf7f76c39d5/image.png)
 

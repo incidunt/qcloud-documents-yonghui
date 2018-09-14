@@ -273,7 +273,8 @@ Mysql5.5/5.6返回NULL, Mariadb10.1和Mysql5.7返回 2016-08-03 23:38:58
 
 
 #### 5.2 仅存在于TDSQL（MariaDB）中的变量
---------------------------------------------------
+
+
 - aria_block_size     8192
 - aria_checkpoint_interval     30
 - aria_checkpoint_log_activity     1048576

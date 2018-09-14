@@ -2,9 +2,9 @@
 访问控制列表（ACL）是基于资源的访问策略选项之一 ，可用来管理对存储桶和对象的访问。使用 ACL 可向其他根账户和用户组授予基本的读、写权限。
 
 #### 与访问策略有所不同的是，ACL 的管理权限有一些限制：
-- 仅支持对云平台的账户赋予权限；
-- 仅支持读对象、写对象、读 ACL、写 ACL 和全部权限等五个操作组；
-- 不支持赋予生效条件；
+- 仅支持对云平台的账户赋予权限。
+- 仅支持读对象、写对象、读 ACL、写 ACL 和全部权限等五个操作组。
+- 不支持赋予生效条件。
 - 不支持显示拒绝效力。
 
 #### ACL 支持的控制粒度：
@@ -79,8 +79,10 @@ COS 支持一系列的预定义授权，称之为标准 ACL，下表列出了标
 ## ACL 示例
 ### 为存储桶设置 ACL
 以下示例对存储桶授予了另一个根账户的读取权限：
+
 ![为存储桶设置 ACL](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/7088f7b6c3336668b4b04f63392e069d/image.jpg)
 
 ### 为对象设置 ACL
 以下示例对某个对象授予了另一个根账户的读取权限：
+
 ![为对象设置 ACL](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/9ed379e66236d84bdd3c070e99f95e7d/image.jpg)

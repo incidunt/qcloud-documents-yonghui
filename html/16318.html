@@ -1,0 +1,207 @@
+<h2>1. 接口描述<br/></h2>
+<p>本接口（DescribeDiskConfigQuota）用于查询云硬盘配额。</p>
+<h2>2. 输入参数<br/></h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/362/15637">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：DescribeDiskConfigQuota。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2017-03-12。</td>
+</tr>
+<tr>
+<td>InquiryType</td>
+<td>是</td>
+<td>String</td>
+<td>查询类别，取值范围。<br><li>INQUIRY_CBS_CONFIG：查询云盘配置列表。<br><li>INQUIRY_CVM_CONFIG：查询云盘与实例搭配的配置列表。</td>
+</tr>
+<tr>
+<td>Zones.N</td>
+<td>否</td>
+<td>Array of String</td>
+<td>查询一个或多个<a href="/document/api/213/9452#zone">可用区</a>下的配置。</td>
+</tr>
+<tr>
+<td>DiskChargeType</td>
+<td>否</td>
+<td>String</td>
+<td>付费模式。取值范围：<br><li>PREPAID：预付费。<br><li>POSTPAID_BY_HOUR：后付费。</td>
+</tr>
+<tr>
+<td>DiskType</td>
+<td>否</td>
+<td>String</td>
+<td>硬盘介质类型。取值范围：<br><li>CLOUD_BASIC：表示普通云硬盘。<br><li>CLOUD_PREMIUM：表示高性能云硬盘。<br><li>CLOUD_SSD：表示SSD云硬盘。</td>
+</tr>
+<tr>
+<td>DiskUsage</td>
+<td>否</td>
+<td>String</td>
+<td>系统盘或数据盘。取值范围：<br><li>SYSTEM_DISK：表示系统盘。<br><li>DATA_DISK：表示数据盘。</td>
+</tr>
+<tr>
+<td>InstanceFamilies.N</td>
+<td>否</td>
+<td>Array of String</td>
+<td>按照实例机型系列过滤。实例机型系列形如：S1、I1、M1等。详见<a href="/document/product/213/11518">实例类型</a>。</td>
+</tr>
+<tr>
+<td>CPU</td>
+<td>否</td>
+<td>Integer</td>
+<td>实例CPU核数。</td>
+</tr>
+<tr>
+<td>Memory</td>
+<td>否</td>
+<td>Integer</td>
+<td>实例内存大小。</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 输出参数<br/></h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DiskConfigSet</td>
+<td>Array of <a href="/document/api/362/15669#DiskConfig">DiskConfig</a></td>
+<td>云盘配置列表。</td>
+</tr>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 错误码<br/></h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InvalidParameterValue</td>
+<td>无效参数值。参数值格式错误或者参数值不被支持等。</td>
+</tr>
+<tr>
+<td>MissingParameter</td>
+<td>参数缺失。请求没有带必选参数。</td>
+</tr>
+</tbody>
+</table>
+<h2>5. 示例<br/></h2>
+<h2>示例1 查询广州三区的云硬盘配置</br></h2>
+<h3>请求参数</br></h3>
+<pre><code>http://cbs.tencentcloudapi.com/?Action=DescribeDiskConfigQuota
+&amp;InquiryType=INQUIRY_CBS_CONFIG
+&amp;Zones.0=ap-guangzhou-3
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h3>返回参数</br></h3>
+<pre><code>{
+  "Response": {
+    "DiskConfigSet": [
+      {
+        "Available": true,
+        "DiskChargeType": "PREPAID",
+        "DiskType": "CLOUD_PREMIUM",
+        "DiskUsage": "DATA_DISK",
+        "MaxDiskSize": 4000,
+        "MinDiskSize": 50,
+        "Zone": "ap-guangzhou-3"
+      },
+      {
+        "Available": false,
+        "DiskChargeType": "PREPAID",
+        "DiskType": "CLOUD_BASIC",
+        "DiskUsage": "DATA_DISK",
+        "MaxDiskSize": 16000,
+        "MinDiskSize": 10,
+        "Zone": "ap-guangzhou-3"
+      },
+      {
+        "Available": true,
+        "DiskChargeType": "PREPAID",
+        "DiskType": "CLOUD_SSD",
+        "DiskUsage": "DATA_DISK",
+        "MaxDiskSize": 4000,
+        "MinDiskSize": 100,
+        "Zone": "ap-guangzhou-3"
+      }
+    ],
+    "RequestId": "55db49cf-b9d7-da27-825b-5a02ba6884ca"
+  }
+}</code></pre>
+<h2>示例2 查询广州三区S3机型可搭配的云盘配置</br></h2>
+<h3>请求参数</br></h3>
+<pre><code>http://cbs.tencentcloudapi.com/?Action=DescribeDiskConfigQuota
+&amp;InquiryType=INQUIRY_CVM_CONFIG
+&amp;Zones.0=ap-guangzhou-3
+&amp;InstanceFamilies.0=S3
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h3>返回参数</br></h3>
+<pre><code>{
+  "Response": {
+    "DiskConfigSet": [
+      {
+        "Available": true,
+        "DeviceClass": "VSELF_3",
+        "DiskChargeType": "POSTPAID_BY_HOUR",
+        "DiskType": "CLOUD_BASIC",
+        "DiskUsage": "DATA_DISK",
+        "InstanceFamily": "S3",
+        "MaxDiskSize": 4000,
+        "MinDiskSize": 10,
+        "Zone": "ap-guangzhou-3"
+      },
+      {
+        "Available": true,
+        "DeviceClass": "VSELF_3",
+        "DiskChargeType": "PREPAID",
+        "DiskType": "CLOUD_BASIC",
+        "DiskUsage": "DATA_DISK",
+        "InstanceFamily": "S3",
+        "MaxDiskSize": 16000,
+        "MinDiskSize": 10,
+        "Zone": "ap-guangzhou-3"
+      },
+      {
+        "Available": true,
+        "DeviceClass": "VSELF_3",
+        "DiskChargeType": "POSTPAID_BY_HOUR",
+        "DiskType": "CLOUD_BASIC",
+        "DiskUsage": "SYSTEM_DISK",
+        "InstanceFamily": "S3",
+        "MaxDiskSize": 1024,
+        "MinDiskSize": 50,
+        "Zone": "ap-guangzhou-3"
+      }
+    ],
+    "RequestId": "8fdf8796-d60e-4326-8d68-1ee6a58952e9"
+  }
+}</code></pre>

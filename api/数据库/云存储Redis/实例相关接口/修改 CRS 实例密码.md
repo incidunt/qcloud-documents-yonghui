@@ -5,18 +5,18 @@
 密码规则： 长度为8-16个字符；至少包含字母、数字和字符（!@#%^()）中的两种
 
 ## 2. 输入参数
-以下请求参数列表仅列出了接口请求参数，正式调用时需要加上公共请求参数，见<a href='/doc/api/260/1753' title='公共请求参数'>公共请求参数</a>页面。其中，此接口的Action字段为ModfiyRedisPassword。
+以下请求参数列表仅列出了接口请求参数，正式调用时需要加上公共请求参数，见<a href='/document/product/239/7200' title='公共请求参数'>公共请求参数</a>页面。其中，此接口的Action字段为ModfiyRedisPassword。
 <table class="t"><tbody><tr>
 <th><b>参数名称</b></th>
 <th><b>是否必选</b></th>
 <th><b>类型</b></th>
 <th><b>描述</b></th>
 <tr>
-<td> redisId <td> 是 <td> String <td> 实例ID
+<td> redisId <td> 是 <td> String <td> 实例ID。
 <tr>
-<td> oldPassword <td> 是 <td> String <td> 老密码
+<td> oldPassword <td> 是 <td> String <td> 老密码。
 <tr>
-<td> password <td> 是 <td> String <td> 新密码，密码规则： 长度为8-16个字符；至少包含字母、数字和字符（!@#%^()）中的两种
+<td> password <td> 是 <td> String <td> 新密码，密码规则： 长度为8-16个字符；至少包含字母、数字和字符（!@#%^()）中的两种。
 </tbody></table>
 
 ## 3. 输出参数
@@ -27,11 +27,11 @@
 <tr>
 <td> code <td> Int <td> 公共错误码, 0表示成功，其他值表示失败。详见错误码页面的<a href='/document/api/239/1757' title='公共错误码'>公共错误码</a>。
 <tr>
-<td> message <td> String <td> 错误信息
+<td> message <td> String <td> 错误信息。
 <tr>
 <td> codeDesc <td> String <td> 业务侧错误码英文描述。成功时返回Success，错误时返回具体业务错误原因。
 <tr>
-<td> data <td> Array <td>返回的数组</td>
+<td> data <td> Array <td>返回的数组。</td>
 </tbody></table>
 
 **data数组结构：**
@@ -40,7 +40,7 @@
 <th><b>类型</b></th>
 <th><b>描述</b></th>
 <tr>
-<td> data.requestId <td> UInt <td> 任务ID, 可通过<a href='/doc/api/260/1387' >DescribeTaskInfo</a>接口查询任务执行状态
+<td> data.requestId <td> UInt <td> 任务ID, 可通过<a href='/doc/api/260/1387' >DescribeTaskInfo</a>接口查询任务执行状态。
 </tbody></table>
 
 ## 4. 错误码
@@ -48,18 +48,18 @@
 
 | 错误代码 | 英文提示 | 错误描述 |
 |---------|---------|---------|
-|11201|InvalidParameter|业务参数错误|
-|10701|InstanceNotExists|没有找到serialId对应的实例|
-|10707|InstanceLockedError|实例已被锁住，暂时不能执行该操作|
-|10702|InstanceStatusAbnormal|实例状态异常,暂时不能执行该操作（比如：流程中，已隔离，已删除）|
-|10501|PasswordEmpty|密码为空|
-|10502|OldPasswordError|重置密码时，旧密码错误|
-|11058|PasswordRuleError|密码规则错误，密码必须是8-16位字符，且至少包含字母、数字和字符（!@#%^*()）中的两种|
+|11201|InvalidParameter|业务参数错误。|
+|10701|InstanceNotExists|没有找到serialId对应的实例。|
+|10707|InstanceLockedError|实例已被锁住，暂时不能执行该操作。|
+|10702|InstanceStatusAbnormal|实例状态异常,暂时不能执行该操作（比如：流程中，已隔离，已删除）。|
+|10501|PasswordEmpty|密码为空。|
+|10502|OldPasswordError|重置密码时，旧密码错误。|
+|11058|PasswordRuleError|密码规则错误，密码必须是8-16位字符，且至少包含字母、数字和字符（!@#%^*()）中的两种。|
 
 ## 5. 示例
 <pre>
 http://redis.api.qcloud.com/v2/index.php?Action=ModfiyRedisPassword
-&<<a href="/doc/api/229/6976">公共请求参数</a>>
+&<<a href="/document/product/239/7200">公共请求参数</a>>
 &redisId=crs-ifmymj41
 &oldPassword=49A2d!e@f12e
 &password=12D3E@!r5ed

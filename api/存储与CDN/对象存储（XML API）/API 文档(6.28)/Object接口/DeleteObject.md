@@ -16,7 +16,7 @@ Content-Length: length
 Authorization: Auth String
 ```
 
-> Authorization: Auth String (详细参见 [请求签名](/document/product/436/7778) 章节)
+> Authorization: Auth String (详细参见 [请求签名](/document/product/436/7778) 章节)。
 
 ### 请求行
 ```
@@ -45,7 +45,7 @@ DELETE /ObjectName HTTP/1.1
 该请求操作无特殊的响应头。
 
 ### 响应体
-该请求的响应体为空
+该请求的响应体为空。
 
 ### 错误分析
 以下描述此请求可能会发生的一些特殊的且常见的错误情况：

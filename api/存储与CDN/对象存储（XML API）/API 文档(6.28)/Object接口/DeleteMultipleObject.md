@@ -4,10 +4,10 @@ Delete Multiple Object 接口请求实现在指定 Bucket 中批量删除 Object
 >此请求必须携带 Content-MD5 用来校验 Body 的完整性。
 
 ### 细节分析
-1. 每一个批量删除请求，最多只能包含 1000个 需要删除的对象；
-2. 批量删除支持二种模式的放回，verbose 模式和 quiet 模式，默认为 verbose 模式。verbose 模式返回每个 key 的删除情况，quiet 模式只返回删除失败的 key 的情况；
-3. 批量删除需要携带 Content-MD5 头部，用以校验请求 body 没有被修改；
-4. 批量删除请求允许删除一个不存在的 key，仍然认为成功；
+1. 每一个批量删除请求，最多只能包含 1000个 需要删除的对象。
+2. 批量删除支持二种模式的放回，verbose 模式和 quiet 模式，默认为 verbose 模式。verbose 模式返回每个 key 的删除情况，quiet 模式只返回删除失败的 key 的情况。
+3. 批量删除需要携带 Content-MD5 头部，用以校验请求 body 没有被修改。
+4. 批量删除请求允许删除一个不存在的 key，仍然认为成功。
 
 ## 请求
 
@@ -34,7 +34,7 @@ Authorization: Auth String
 
 ```
 
-> Authorization: Auth String (详细参见 [请求签名](/document/product/436/7778) 章节)
+> Authorization: Auth String (详细参见 [请求签名](/document/product/436/7778) 章节)。
 
 ### 请求行
 ```
@@ -54,8 +54,8 @@ POST /?delete HTTP/1.1
 
 |名称|描述|类型|必选|
 |:---|:---|:---|:---|
-| Content-Length | RFC 2616 中定义的 HTTP 请求内容长度（字节）| String | 是 |
-| Content-MD5 | RFC 1864 中定义的经过 Base64 编码的 128-bit 内容 MD5 校验值。此头部用来校验文件内容是否发生变化| String | 是 |
+| Content-Length | RFC 2616 中定义的 HTTP 请求内容长度（字节）。| String | 是 |
+| Content-MD5 | RFC 1864 中定义的经过 Base64 编码的 128-bit 内容 MD5 校验值。此头部用来校验文件内容是否发生变化。| String | 是 |
 
 ### 请求体
 该请求的请求体具体节点内容为：
@@ -76,10 +76,10 @@ POST /?delete HTTP/1.1
 
 |节点名称（关键字）|父节点|描述|类型|必选|
 |:---|:---|:---|:---|:---|
-| Delete |无| 说明本次删除的返回结果方式和目标 Object | Container | 是 |
-| Quiet | Delete|布尔值，这个值决定了是否启动 Quiet 模式。<br> 值为 true 启动 Quiet 模式，值为 false 则启动 Verbose 模式，默认值为 False | Boolean | 否 |
-| Object |Delete |说明每个将要删除的目标 Object 信息| Container | 是 |
-| Key | Delete.Object |目标 Object 文件名称| String | 是 |
+| Delete |无| 说明本次删除的返回结果方式和目标 Object。 | Container | 是 |
+| Quiet | Delete|布尔值，这个值决定了是否启动 Quiet 模式。<br> 值为 true 启动 Quiet 模式，值为 false 则启动 Verbose 模式，默认值为 False。 | Boolean | 否 |
+| Object |Delete |说明每个将要删除的目标 Object 信息。| Container | 是 |
+| Key | Delete.Object |目标 Object 文件名称。| String | 是 |
 
 
 ## 响应
@@ -108,28 +108,28 @@ POST /?delete HTTP/1.1
 
 |节点名称（关键字）|父节点|描述|类型|
 |:---|:---|:---|:---|
-| DeleteResult |无| 说明本次删除返回结果的方式和目标 Object | Container | 
+| DeleteResult |无| 说明本次删除返回结果的方式和目标 Object。 | Container | 
 
 Container 节点 DeleteResult 的内容：
 
 |节点名称（关键字）|父节点|描述|类型|
 |:---|:---|:---|:---|
-| Deleted | DeleteResult |说明本次删除的成功 Object 信息 | Boolean | 
-| Error| DeleteResult | 说明本次删除的失败 Object 信息 | Container | 
+| Deleted | DeleteResult |说明本次删除的成功 Object 信息。 | Boolean | 
+| Error| DeleteResult | 说明本次删除的失败 Object 信息。 | Container | 
 
 Container 节点 Deleted 的内容：
 
 |节点名称（关键字）|父节点|描述|类型|
 |:---|:---|:---|:---|
-| Key | DeleteResult.Deleted | Object 的名称 | String |
+| Key | DeleteResult.Deleted | Object 的名称。 | String |
 
 Container 节点 Error 的内容：
 
 |节点名称（关键字）|父节点|描述|类型|
 |:---|:---|:---|:---|
-| Key | DeleteResult.Error | 删除失败的 Object 的名称 | String |
-| Code  | DeleteResult.Error | 删除失败的错误代码 | String |
-| Message | DeleteResult.Error | 删除失败的错误信息 | String |
+| Key | DeleteResult.Error | 删除失败的 Object 的名称。 | String |
+| Code  | DeleteResult.Error | 删除失败的错误代码。 | String |
+| Message | DeleteResult.Error | 删除失败的错误信息。 | String |
 
 
 ### 错误分析
@@ -137,9 +137,10 @@ Container 节点 Error 的内容：
 
 | 错误码            |  HTTP状态码         |描述                                       |
 | ------------- | --------------------------------------- | -------------- |
-| InvalidRequest | 400 Bad Request |没有携带必填字段 Content-MD5，同时返回 `“Missing required header for this request: Content-MD5”` 错误信息 | 
-| MalformedXML   | 400 Bad Request |如果请求的 key 的个数，超过了 1000，会返回 MalformedXML 错误，同时返回 `“delete key size is greater than 1000”` | 
-| InvalidDigest  | 400 Bad Request |携带的 Content-MD5 和服务端计算的请求 body 的不一致          | 
+| InvalidRequest | 400 Bad Request |没有携带必填字段 Content-MD5，同时返回 `“Missing required header for this request: Content-MD5”` 错误信息。 | 
+| MalformedXML   | 400 Bad Request |如果请求的 key 的个数，超过了 1000，会返回 MalformedXML 错误，同时返回 `“delete key size is greater than 1000”`。 | 
+| InvalidDigest  | 400 Bad Request |携带的 Content-MD5 和服务端计算的请求 body 的不一致。| 
+
 获取更多关于 COS 的错误码的信息，或者产品所有的错误列表，请查看 [错误码](/document/product/436/7730) 文档。
 
 ## 实际案例

@@ -1,0 +1,80 @@
+<h2 id=".E5.8A.9F.E8.83.BD.E6.8F.8F.E8.BF.B0">功能描述</h2><p>Head Object 接口请求可以获取对应 Object 的 meta 信息数据，Head 的权限与 Get 的权限一致。</p>
+<h2 id=".E8.AF.B7.E6.B1.82">请求</h2><h4 id=".E8.AF.B7.E6.B1.82.E8.AF.AD.E6.B3.95.E7.A4.BA.E4.BE.8B">请求语法示例</h4><p><strong>shell:</strong> </p>
+<pre><code class="lang-shell"><span class="hljs-comment"># You can also use curl</span>
+curl -X HEAD http:<span class="hljs-comment">//{bucket}.cos.{region}.myqcloud.com/{ObjectName} \</span>
+  -H <span class="hljs-string">'If-Modified-Since: string'</span>
+</code></pre>
+<p><strong>http:</strong> </p>
+<pre><code class="lang-http"><span class="hljs-keyword">HEAD</span> <span class="hljs-string">http://{bucket}.cos.{region}.myqcloud.com/{ObjectName}</span> HTTP/1.1
+<span class="hljs-attribute">Host</span>: 
+
+<span class="php">
+<span class="hljs-keyword">If</span>-Modified-Since: string</span>
+</code></pre>
+<h3 id=".E8.AF.B7.E6.B1.82.E8.A1.8C">请求行</h3><pre><code><span class="hljs-keyword">HEAD</span> <span class="hljs-string">/{ObjectName}</span> HTTP/1.1
+</code></pre><p>该 API 接口接受 <code>HEAD</code> 请求。</p>
+<h3 id=".E8.AF.B7.E6.B1.82.E5.A4.B4">请求头</h3><h4 id=".E5.85.AC.E5.85.B1.E5.A4.B4.E9.83.A8">公共头部</h4><p>该请求操作的实现使用公共请求头，了解公共请求头详细请参见 <a href="/document/product/436/7728" title="公共请求头部">公共请求头部</a> 章节。</p>
+<h4 id=".E9.9D.9E.E5.85.AC.E5.85.B1.E5.A4.B4.E9.83.A8">非公共头部</h4><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>If-Modified-Since</td>
+<td>string</td>
+<td>否</td>
+<td>当 Object 在指定时间后被修改，则返回对应 Object 的 meta 信息，否则返回 304。</td>
+</tr>
+</tbody>
+</table>
+<h3 id=".E8.AF.B7.E6.B1.82.E4.BD.93">请求体</h3><p>该请求请求体为空。</p>
+<h2 id=".E5.93.8D.E5.BA.94">响应</h2><h3 id=".E5.93.8D.E5.BA.94.E5.A4.B4">响应头</h3><h4 id=".E5.85.AC.E5.85.B1.E5.93.8D.E5.BA.94.E5.A4.B4">公共响应头</h4><p>该响应使用公共响应头，了解公共响应头详细请参见 <a href="/document/product/436/7729" title="公共响应头部">公共响应头部</a> 章节。</p>
+<h4 id=".E7.89.B9.E6.9C.89.E5.93.8D.E5.BA.94.E5.A4.B4">特有响应头</h4><p>该请求操作的响应头具体数据为：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x-cos-meta- *</td>
+<td>string</td>
+<td>用户自定义的 meta。</td>
+</tr>
+<tr>
+<td>x-cos-object-type</td>
+<td>string</td>
+<td>用来表示 Object 是否可以被追加上传，枚举值：normal 或者 appendable。</td>
+</tr>
+<tr>
+<td>x-cos-storage-class</td>
+<td>string</td>
+<td>Object 的存储级别，枚举值：STANDARD,STANDARD_IA, NEARLINE。</td>
+</tr>
+</tbody>
+</table>
+<h3 id=".E5.93.8D.E5.BA.94.E4.BD.93">响应体</h3><p>该请求响应体为空。</p>
+<h2 id=".E5.AE.9E.E9.99.85.E6.A1.88.E4.BE.8B">实际案例</h2><h3 id=".E8.AF.B7.E6.B1.822">请求</h3><pre><code><span class="hljs-keyword">HEAD</span> <span class="hljs-string">/123</span> HTTP/1.1
+<span class="hljs-attribute">Host</span>: zuhaotestnorth-1251668577.cos.ap-beijing.myqcloud.com
+<span class="hljs-attribute">Date</span>: Thu, 12 Jan 2017 17:26:53 GMT
+<span class="hljs-attribute">Authorization</span>: q-sign-algorithm=sha1&amp;q-ak=AKIDWtTCBYjM5OwLB9CAwA1Qb2ThTSUjfGFO&amp;q-sign-time=1484213210;32557109210&amp;q-key-time=1484213210;32557109210&amp;q-header-list=host&amp;q-url-param-list=&amp;q-signature=ac61b8eb61964e7e6b935e89de163a479a25c210
+</code></pre><h3 id=".E5.93.8D.E5.BA.942">响应</h3><pre><code>HTTP/1.1 <span class="hljs-number">200</span> OK
+<span class="hljs-attribute">Content-Type</span>: application/xml
+<span class="hljs-attribute">Content-Length</span>: 16087
+<span class="hljs-attribute">Connection</span>: keep-alive
+<span class="hljs-attribute">Date</span>: Thu, 12 Jan 2017 17:26:53 GMT
+<span class="hljs-attribute">ETag</span>: \"9a4802d5c99dafe1c04da0a8e7e166bf\"
+<span class="hljs-attribute">Last-Modified</span>: Wed, 11 Jan 2017 07:30:07 GMT
+<span class="hljs-attribute">Server</span>: tencent-cos
+<span class="hljs-attribute">x-cos-object-type</span>: normal
+<span class="hljs-attribute">x-cos-request-id</span>: NTg3NzRiZGRfYmRjMzVfM2Y2OF81N2YzNA==
+<span class="hljs-attribute">x-cos-storage-class</span>: STANDARD
+</code></pre>

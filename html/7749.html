@@ -1,0 +1,194 @@
+<h2 id=".E5.8A.9F.E8.83.BD.E6.8F.8F.E8.BF.B0">功能描述</h2><p>Put Object 接口请求可以将本地的文件（Object）上传至指定 Bucket 中。该操作需要请求者对 Bucket 有 WRITE 权限。</p>
+<h2 id=".E8.AF.B7.E6.B1.82">请求</h2><h4 id=".E8.AF.B7.E6.B1.82.E8.AF.AD.E6.B3.95.E7.A4.BA.E4.BE.8B">请求语法示例</h4><p><strong>shell:</strong> </p>
+<pre><code class="lang-shell"><span class="hljs-comment"># You can also use curl</span>
+curl -X PUT http:<span class="hljs-comment">//{bucket}.cos.{region}.myqcloud.com/{ObjectName} \</span>
+  -H <span class="hljs-string">'Content-Length: string'</span> \
+  -H <span class="hljs-string">'Content-Disposition: string'</span> \
+  -H <span class="hljs-string">'Content-Encoding: string'</span> \
+  -H <span class="hljs-string">'Content-Type: string'</span> \
+  -H <span class="hljs-string">'Expect: string'</span> \
+  -H <span class="hljs-string">'Expires: string'</span> \
+  -H <span class="hljs-string">'x-cos-meta-*: string'</span> \
+  -H <span class="hljs-string">'x-cos-storage-class: STANDARD'</span> \
+  -H <span class="hljs-string">'Content-MD5: string'</span> \
+  -H <span class="hljs-string">'x-cos-acl: public-read'</span> \
+  -H <span class="hljs-string">'x-cos-grant-read: string'</span> \
+  -H <span class="hljs-string">'x-cos-grant-write: string'</span> \
+  -H <span class="hljs-string">'x-cos-grant-full-control: string'</span> \
+  -H <span class="hljs-string">'Content-Type: */*'</span> \
+  -H <span class="hljs-string">'Accept: application/xml'</span>
+</code></pre>
+<p><strong>http:</strong> </p>
+<pre><code class="lang-http">PUT http://{bucket}.<span class="hljs-built_in">cos</span>.{region}.myqcloud.com/{ObjectName} HTTP/<span class="hljs-number">1.1</span>
+Host: 
+Content-Type: */*
+Accept: application/xml
+Content-Length: <span class="hljs-built_in">string</span>
+Content-Disposition: <span class="hljs-built_in">string</span>
+Content-Encoding: <span class="hljs-built_in">string</span>
+Content-Type: <span class="hljs-built_in">string</span>
+Expect: <span class="hljs-built_in">string</span>
+Expires: <span class="hljs-built_in">string</span>
+x-<span class="hljs-built_in">cos</span>-meta-*: <span class="hljs-built_in">string</span>
+x-<span class="hljs-built_in">cos</span>-storage-class: STANDARD
+Content-MD5: <span class="hljs-built_in">string</span>
+x-<span class="hljs-built_in">cos</span>-acl: public-<span class="hljs-built_in">read</span>
+x-<span class="hljs-built_in">cos</span>-grant-<span class="hljs-built_in">read</span>: <span class="hljs-built_in">string</span>
+x-<span class="hljs-built_in">cos</span>-grant-<span class="hljs-built_in">write</span>: <span class="hljs-built_in">string</span>
+x-<span class="hljs-built_in">cos</span>-grant-full-control: <span class="hljs-built_in">string</span>
+</code></pre>
+<h3 id=".E8.AF.B7.E6.B1.82.E8.A1.8C">请求行</h3><pre><code><span class="hljs-keyword">PUT</span> <span class="hljs-string">/{ObjectName}</span> HTTP/1.1
+</code></pre><p>该 API 接口接受 <code>PUT</code> 请求。</p>
+<h3 id=".E8.AF.B7.E6.B1.82.E5.A4.B4">请求头</h3><h4 id=".E5.85.AC.E5.85.B1.E5.A4.B4.E9.83.A8">公共头部</h4><p>该请求操作的实现使用公共请求头，了解公共请求头详细请参见 <a href="/document/product/436/7728" title="公共请求头部">公共请求头部</a> 章节。</p>
+<h4 id=".E9.9D.9E.E5.85.AC.E5.85.B1.E5.A4.B4.E9.83.A8">非公共头部</h4><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Disposition</td>
+<td>string</td>
+<td>否</td>
+<td>RFC 2616 中定义的文件名称，将作为 Object 元数据保存。</td>
+</tr>
+<tr>
+<td>Content-Encoding</td>
+<td>string</td>
+<td>否</td>
+<td>RFC 2616 中定义的编码格式，将作为 Object 元数据保存。</td>
+</tr>
+<tr>
+<td>Expect</td>
+<td>string</td>
+<td>否</td>
+<td>当使用 Expect: 100-continue 时，在收到服务端确认后，才会发送请求内容。</td>
+</tr>
+<tr>
+<td>Expires</td>
+<td>string</td>
+<td>否</td>
+<td>RFC 2616 中定义的缓存策略，将作为 Object 元数据保存。</td>
+</tr>
+<tr>
+<td>x-cos-meta-*</td>
+<td>string</td>
+<td>否</td>
+<td>允许用户自定义的头部信息，将作为 Object 元数据返回。大小限制 2KB。</td>
+</tr>
+<tr>
+<td>x-cos-storage-class</td>
+<td>string</td>
+<td>否</td>
+<td>设置 Object 的存储级别，枚举值：STANDARD，STANDARD_IA，NEARLINE，默认值：STANDARD。</td>
+</tr>
+<tr>
+<td>x-cos-acl</td>
+<td>string</td>
+<td>否</td>
+<td>定义 Object 的 ACL 属性。有效值：private，public-read-write，public-read；默认值：private。</td>
+</tr>
+<tr>
+<td>x-cos-grant-read</td>
+<td>string</td>
+<td>否</td>
+<td>赋予被授权者读的权限。格式：x-cos-grant-read: id=&quot; &quot;,id=&quot; &quot;</td>
+</tr>
+<tr>
+<td>x-cos-grant-write</td>
+<td>string</td>
+<td>否</td>
+<td>赋予被授权者写的权限。格式：x-cos-grant-write: id=&quot; &quot;,id=&quot; &quot;</td>
+</tr>
+<tr>
+<td>x-cos-grant-full-control</td>
+<td>string</td>
+<td>否</td>
+<td>赋予被授权者读写权限。格式：x-cos-grant-full-control: id=&quot; &quot;,id=&quot; &quot;</td>
+</tr>
+</tbody>
+</table>
+<h3 id=".E8.AF.B7.E6.B1.82.E4.BD.93">请求体</h3><p>请求的请求体为 Object 文件内容。</p>
+<h2 id=".E5.93.8D.E5.BA.94">响应</h2><h3 id=".E5.93.8D.E5.BA.94.E5.A4.B4">响应头</h3><h4 id=".E5.85.AC.E5.85.B1.E5.93.8D.E5.BA.94.E5.A4.B4">公共响应头</h4><p>该响应使用公共响应头，了解公共响应头详细请参见 <a href="/document/product/436/7729" title="公共响应头部">公共响应头部</a> 章节。</p>
+<h4 id=".E7.89.B9.E6.9C.89.E5.93.8D.E5.BA.94.E5.A4.B4">特有响应头</h4><p>该请求操作的响应头具体数据为：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ETag</td>
+<td>string</td>
+<td>上传文件内容的MD5值。</td>
+</tr>
+</tbody>
+</table>
+<h3 id=".E5.93.8D.E5.BA.94.E4.BD.93">响应体</h3><p>该请求响应体为空。</p>
+<h3 id=".E9.94.99.E8.AF.AF.E7.A0.81">错误码</h3><table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+<th>http 状态码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SignatureDoesNotMatch</td>
+<td>提供的签名不符合规则，返回该错误码。</td>
+<td>403 <a href="https://tools.ietf.org/html/rfc7231#section-6.5.3">Forbidden</a></td>
+</tr>
+<tr>
+<td>NoSuchBucket</td>
+<td>如果试图添加的 Object 所在的 Bucket 不存在，返回该错误码。</td>
+<td>404 <a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+</tr>
+<tr>
+<td>MissingContentLength</td>
+<td>如果上传文件时，没有添加 Content-Length 头部，会返回该错误码。</td>
+<td>411 <a href="https://tools.ietf.org/html/rfc7231#section-6.5.10">Length Required</a></td>
+</tr>
+<tr>
+<td>InvalidURI</td>
+<td>对象 key 长度限制为 850，如果超过 850 会返回该错误。</td>
+<td>400 <a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+</tr>
+<tr>
+<td>EntityTooLarge</td>
+<td>如果添加的文件长度超过 5G，会返回该错误。</td>
+<td>400 <a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+</tr>
+<tr>
+<td>InvalidDigest</td>
+<td>如果用户上传文件时携带 Content-MD5 头部，COS 会校验 body 的 Md5 和用户携带的 MD5 是否一致，如果不一致将返回该错误。</td>
+<td>400 <a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+</tr>
+<tr>
+<td>KeyTooLong</td>
+<td>上传文件时携带的以 x-cos-meta 开头的自定义头部，每个自定义头部的 key 和 value 加起来不能超过 4k，否则返回该错误。</td>
+<td>400 <a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id=".E5.AE.9E.E9.99.85.E6.A1.88.E4.BE.8B">实际案例</h2><h3 id=".E8.AF.B7.E6.B1.822">请求</h3><pre><code>PUT /filename.jpg HTTP/1.1
+<span class="hljs-section">Host: zuhaotestsgnoversion-1251668577.cos.ap-beijing.myqcloud.com</span>
+<span class="hljs-section">Date: Wed, 28 Oct 2015 20:32:00 GMT</span>
+<span class="hljs-section">Authorization:q-sign-algorithm=sha1&amp;q-ak=AKIDWtTCBYjM5OwLB9CAwA1Qb2ThTSUjfGFO&amp;q-sign-time=1484639384;32557535384&amp;q-key-time=1484639384;32557535384&amp;q-header-list=host&amp;q-url-param-list=&amp;q-signature=5c07b7c67d56497d9aacb1adc19963135b7d00dc</span>
+<span class="hljs-section">Content-Length: 64</span>
+
+[Object]
+</code></pre><h3 id=".E5.93.8D.E5.BA.942">响应</h3><pre><code>HTTP/1.1200 OK
+<span class="hljs-attribute">Content-Type</span>: application/xml
+<span class="hljs-attribute">Content-Length</span>: 0
+<span class="hljs-attribute">Date</span>: Wed,16 Aug201711: 59: 33 GMT
+<span class="hljs-attribute">Server</span>: tencent-cos
+<span class="hljs-attribute">x-cos-request-id</span>: NTk5NDMzYTRfMjQ4OGY3Xzc3NGRfMWY=
+</code></pre>

@@ -1,0 +1,153 @@
+<h2>1. 接口描述<br/></h2>
+<p>本接口（DescribeSnapshots）用于查询快照的详细信息。</p>
+<ul>
+<li>根据快照ID、创建快照的云硬盘ID、创建快照的云硬盘类型等对结果进行过滤，不同条件之间为与(AND)的关系，过滤信息详细请见过滤器<code>Filter</code>。</li>
+<li>如果参数为空，返回当前用户一定数量（<code>Limit</code>所指定的数量，默认为20）的快照列表。</li>
+</ul>
+<h2>2. 输入参数<br/></h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/362/15637">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：DescribeSnapshots。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2017-03-12。</td>
+</tr>
+<tr>
+<td>SnapshotIds.N</td>
+<td>否</td>
+<td>Array of String</td>
+<td>要查询快照的ID列表。参数不支持同时指定<code>SnapshotIds</code>和<code>Filters</code>。</td>
+</tr>
+<tr>
+<td>Filters.N</td>
+<td>否</td>
+<td>Array of <a href="/document/api/362/15669#Filter">Filter</a></td>
+<td>过滤条件。参数不支持同时指定<code>SnapshotIds</code>和<code>Filters</code>。<br><li>snapshot-id - Array of String - 是否必填：否 -（过滤条件）按照快照的ID过滤。快照ID形如：<code>snap-11112222</code>。<br><li>snapshot-name - Array of String - 是否必填：否 -（过滤条件）按照快照名称过滤。<br><li>snapshot-state - Array of String - 是否必填：否 -（过滤条件）按照快照状态过滤。 (NORMAL：正常 &#124; CREATING：创建中 &#124; ROLLBACKING：回滚中。)<br><li>disk-usage - Array of String - 是否必填：否 -（过滤条件）按创建快照的云盘类型过滤。 (SYSTEM_DISK：代表系统盘 &#124; DATA_DISK：代表数据盘。)<br><li>project-id  - Array of String - 是否必填：否 -（过滤条件）按云硬盘所属项目ID过滤。<br><li>disk-id  - Array of String - 是否必填：否 -（过滤条件）按照创建快照的云硬盘ID过滤。<br><li>zone - Array of String - 是否必填：否 -（过滤条件）按照<a href="/document/api/213/9452#zone">可用区</a>过滤。</td>
+</tr>
+<tr>
+<td>Offset</td>
+<td>否</td>
+<td>Integer</td>
+<td>偏移量，默认为0。关于<code>Offset</code>的更进一步介绍请参考API<a href="/document/product/362/15633">简介</a>中的相关小节。</td>
+</tr>
+<tr>
+<td>Limit</td>
+<td>否</td>
+<td>Integer</td>
+<td>返回数量，默认为20，最大值为100。关于<code>Limit</code>的更进一步介绍请参考 API <a href="/document/product/362/15633">简介</a>中的相关小节。</td>
+</tr>
+<tr>
+<td>Order</td>
+<td>否</td>
+<td>String</td>
+<td>输出云盘列表的排列顺序。取值范围：<br><li>ASC：升序排列。<br><li>DESC：降序排列。</td>
+</tr>
+<tr>
+<td>OrderField</td>
+<td>否</td>
+<td>String</td>
+<td>快照列表排序的依据字段。取值范围：<br><li>CREATETIME：依据快照的创建时间排序。<br>默认按创建时间排序。</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 输出参数<br/></h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TotalCount</td>
+<td>Integer</td>
+<td>快照的数量。</td>
+</tr>
+<tr>
+<td>SnapshotSet</td>
+<td>Array of <a href="/document/api/362/15669#Snapshot">Snapshot</a></td>
+<td>快照的详情列表。</td>
+</tr>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 错误码<br/></h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InvalidFilter</td>
+<td>指定的Filter不被支持。</td>
+</tr>
+<tr>
+<td>InvalidParameterValue</td>
+<td>无效参数值。参数值格式错误或者参数值不被支持等。</td>
+</tr>
+<tr>
+<td>MissingParameter</td>
+<td>参数缺失。请求没有带必选参数。</td>
+</tr>
+</tbody>
+</table>
+<h2>5. 示例<br/></h2>
+<h2>示例1 查询广州二区状态为NORAML的快照</br></h2>
+<h3>请求参数</br></h3>
+<pre><code>https://cbs.tencentcloudapi.com/?Action=DescribeSnapshots
+&amp;Filters.0.Name=snapshot-state
+&amp;Filters.0.Values.0=NORMAL
+&amp;Filters.1.Name=zone
+&amp;Filters.1.Values.0=ap-guangzhou-2
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h3>返回参数</br></h3>
+<pre><code>{
+  "Response": {
+    "RequestId": "3a823099-86f1-6887-6273-5a1f8043d8a3",
+    "SnapshotSet": [
+      {
+        "CreateTime": "2018-04-12 17:34:45",
+        "DeadlineTime": null,
+        "DiskId": "disk-22rkwrvw",
+        "DiskSize": 10,
+        "DiskUsage": "DATA_DISK",
+        "Encrypt": false,
+        "IsPermanent": true,
+        "Percent": 100,
+        "Placement": {
+          "ProjectId": 0,
+          "Zone": "ap-guangzhou-2"
+        },
+        "SnapshotId": "snap-1i97mf6d",
+        "SnapshotName": "test_snap_count",
+        "SnapshotState": "NORMAL"
+      }
+    ],
+    "TotalCount": 1
+  }
+}</code></pre>

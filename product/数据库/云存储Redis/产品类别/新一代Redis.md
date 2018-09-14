@@ -79,11 +79,13 @@
 | 　 | 　 | 　 | 　 | 　 | slaveof | 　 |
 | 　 | 　 | 　 | 　 | 　 | slowlog | 　 |
 | 　 | 　 | 　 | 　 | 　 | sync | 　 |
+
 1. 与开源协议不一样，云平台 Redis 对于 pttl 等设置毫秒的过期时间，展示的最小单位为秒
 2. 与开源协议不一样，云平台 Redis 目前支持 string 类型 32MB 最大 value
 
 ## 系统架构说明
 ![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/2d76234a9bc57419f5b23b0398516600/jiagou.png)
+
 新一代 Redis 系统包括如下几大模块： 
 ### 接入服务（Access）： 
 Access 是接入服务，实现请求路由功能，用于分发用户数据请求。 

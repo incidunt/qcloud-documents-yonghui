@@ -1,0 +1,391 @@
+<h2 id=".E5.8A.9F.E8.83.BD.E6.8F.8F.E8.BF.B0">功能描述</h2><p>POST Object 接口请求允许使用者用表单的形式将文件（Object）上传至指定 Bucket 中。该操作需要请求者对 Bucket 有 WRITE 权限。所有由 HTTP 头部携带的 API 参数，都使用表单字段请求。</p>
+<h3 id=".E7.BB.86.E8.8A.82.E5.88.86.E6.9E.90">细节分析</h3><ol>
+<li>需要有 Bucket 的写权限。</li>
+<li>如果试图添加的 Object 的同名文件已经存在，那么新上传的文件，将覆盖原来的文件，成功时返回 200 OK。</li>
+</ol>
+<h2 id=".E8.AF.B7.E6.B1.82">请求</h2><p>语法示例：</p>
+<pre><code><span class="hljs-attribute">POST</span> / HTTP/<span class="hljs-number">1</span>.<span class="hljs-number">1</span>
+Headers
+Form
+</code></pre><blockquote>
+<p>Signature（详细参见 <a href="/document/product/436/7778">请求签名</a> 章节）。</p>
+</blockquote>
+<h3 id=".E8.AF.B7.E6.B1.82.E5.A4.B4">请求头</h3><h4 id=".E5.BF.85.E9.80.89.E5.A4.B4.E9.83.A8">必选头部</h4><p>该请求操作需要用到如下必选请求头：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">描述</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">必选</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Content-Length</td>
+<td style="text-align:left">RFC 2616 中定义的 HTTP 请求内容长度（字节）。</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">是</td>
+</tr>
+</tbody>
+</table>
+<h3 id=".E8.A1.A8.E5.8D.95.E5.AD.97.E6.AE.B5">表单字段</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">描述</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">必选</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">acl</td>
+<td style="text-align:left">文件的权限，不填默认继承，详见<a href="/document/product/436/7748">Put Object ACL</a>。</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:left">Cache-Control, Content-Type, Content-Disposition, Content-Encoding, Expires</td>
+<td style="text-align:left">RFC 2616 中定义的头部，详见<a href="/document/product/436/7749">Put Object</a>。</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:left">file</td>
+<td style="text-align:left">文件内容，作为表单的最后一个字段。</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">key</td>
+<td style="text-align:left">上传后的文件名，使用 <strong>${filename}</strong> 则会进行替换。例如a/b/${filename}，上传文件 a1.txt，那么最终的上传路径就是 a/b/a1.txt。</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">success_action_redirect</td>
+<td style="text-align:left">若设置优先生效，返回 303 并提供 Location 头部，在 URL 尾部加上 bucket={bucket}&amp;key={key}&amp;etag={%22etag%22} 参数。</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:left">success_action_status</td>
+<td style="text-align:left">可选 200，201，204 默认返回 204。若填写 success_action_redirect 则会略此设置。</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:left">x-cos-meta- *</td>
+<td style="text-align:left">自定义的信息，将作为 Object 元数据返回。大小限制 2K。</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:left">x-cos-storage-class</td>
+<td style="text-align:left">设置 Object 的存储级别，枚举值：STANDARD，STANDARD_IA，默认值：STANDARD。</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:left">policy</td>
+<td style="text-align:left">Base64 编码。用于做请求检查，如果请求的内容和  Policy 指定的条件不符，返回 403 AccessDenied。</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">否</td>
+</tr>
+</tbody>
+</table>
+<h4 id="policy">Policy</h4><h5 id=".E5.9F.BA.E6.9C.AC.E6.A0.BC.E5.BC.8F">基本格式</h5><pre><code class="lang-json">{ <span class="hljs-attr">"expiration"</span>: <span class="hljs-string">"2007-12-01T12:00:00.000Z"</span>,
+  <span class="hljs-attr">"conditions"</span>: [
+    {<span class="hljs-attr">"acl"</span>: <span class="hljs-string">"public-read"</span> },
+    {<span class="hljs-attr">"bucket"</span>: <span class="hljs-string">"johnsmith"</span> },
+    [<span class="hljs-string">"starts-with"</span>, <span class="hljs-string">"$key"</span>, <span class="hljs-string">"user/eric/"</span>],
+  ]
+}
+</code></pre>
+<h5 id="expiration">Expiration</h5><p>设置该 POST Policy 的超时时间，使用 ISO8601 GMT 时间，例如 2017-12-01T12:00:00.000Z。</p>
+<h5 id="conditions-.E8.A7.84.E5.88.99">Conditions 规则</h5><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>完全匹配</td>
+<td>使用<code>{&quot;key&quot;: &quot;value&quot;}</code>或<code>[&quot;eq&quot;, &quot;$key&quot;, &quot;value&quot;]</code>方式表达。</td>
+</tr>
+<tr>
+<td>前缀匹配</td>
+<td>使用 <code>[&quot;starts-with&quot;, &quot;$key&quot;, &quot;value&quot;]</code>方式表达，value 可留空。</td>
+</tr>
+<tr>
+<td>范围匹配</td>
+<td>仅用于<code>[&quot;content-length-range&quot;, int1, int2]</code>则文件字节数必须在 int1 和 int2 范围内。</td>
+</tr>
+</tbody>
+</table>
+<h5 id="conditions-.E5.8F.82.E6.95.B0">Conditions 参数</h5><p>所有参数均为非必选，不填可以不校验。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+<th>匹配方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>acl</td>
+<td>文件 ACL 属性的许可范围，可不填。</td>
+<td>完全、前缀</td>
+</tr>
+<tr>
+<td>bucket</td>
+<td>指定上传的 Bucket。</td>
+<td>完全</td>
+</tr>
+<tr>
+<td>content-length-range</td>
+<td>指定文件的上传大小范围。</td>
+<td>范围</td>
+</tr>
+<tr>
+<td>五标准头部</td>
+<td>Cache-Control Content-Type Content-Disposition Content-Encoding Expires</td>
+<td>完全、前缀</td>
+</tr>
+<tr>
+<td>key</td>
+<td>对象的存储路径。</td>
+<td>完全、前缀</td>
+</tr>
+<tr>
+<td>success_action_redirect</td>
+<td>上传成功后返回的 URL。</td>
+<td>完全、前缀</td>
+</tr>
+<tr>
+<td>success_action_status</td>
+<td>上传成功后返回的状态。</td>
+<td>完全</td>
+</tr>
+<tr>
+<td>x-cos-credential</td>
+<td>格式   <em><your-access-key-id></em>/<em><date></em>/<em><aws-region></em>/<em><aws-service></em>/aws4_request。</td>
+<td>完全</td>
+</tr>
+<tr>
+<td>x-cos-date</td>
+<td>ISO8601的 UTC 时间。</td>
+<td>完全</td>
+</tr>
+<tr>
+<td>x-cos-security-token</td>
+<td>暂不支持。</td>
+<td></td>
+</tr>
+<tr>
+<td>x-cos-meta-*</td>
+<td>用户自定义的头部。</td>
+<td>完全、前缀</td>
+</tr>
+<tr>
+<td>x-cos-*</td>
+<td>其他需要签署的 aws 头部。</td>
+<td>完全</td>
+</tr>
+</tbody>
+</table>
+<h2 id=".E5.93.8D.E5.BA.94">响应</h2><h3 id=".E5.93.8D.E5.BA.94.E5.A4.B4">响应头</h3><h4 id=".E5.85.AC.E5.85.B1.E5.93.8D.E5.BA.94.E5.A4.B4">公共响应头</h4><p>该响应使用公共响应头,了解公共响应头详细请参见 <a href="/document/product/436/7729">公共响应头部</a> 章节。</p>
+<h4 id=".E7.89.B9.E6.9C.89.E5.93.8D.E5.BA.94.E5.A4.B4">特有响应头</h4><p>该请求操作的响应头具体数据为：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">描述</th>
+<th style="text-align:left">类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ETag</td>
+<td style="text-align:left">返回文件的 MD5 算法校验值。ETag 的值可以用于检查 Object 在上传过程中是否有损坏。</td>
+<td style="text-align:left">String</td>
+</tr>
+<tr>
+<td style="text-align:left">Location</td>
+<td style="text-align:left">若指定了上传 success_action_redirect 则返回对应的值，若无指定则返回对象完整的路径。</td>
+<td style="text-align:left">String</td>
+</tr>
+</tbody>
+</table>
+<h3 id=".E5.93.8D.E5.BA.94.E4.BD.93">响应体</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">节点名称（关键字）</th>
+<th style="text-align:left">父节点</th>
+<th style="text-align:left">描述</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">必选</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">PostResponse</td>
+<td style="text-align:left">无</td>
+<td style="text-align:left">保存 POST Object 结果的容器。</td>
+<td style="text-align:left">Container</td>
+<td style="text-align:left">是</td>
+</tr>
+</tbody>
+</table>
+<p>Container 节点 PostResponse 的内容：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">节点名称（关键字）</th>
+<th style="text-align:left">父节点</th>
+<th style="text-align:left">描述</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">必选</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Location</td>
+<td style="text-align:left">PostResponse</td>
+<td style="text-align:left">对象的完整路径。</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">Bucket</td>
+<td style="text-align:left">PostResponse</td>
+<td style="text-align:left">对象所在的存储桶。</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">Key</td>
+<td style="text-align:left">PostResponse</td>
+<td style="text-align:left">对象 key 名。</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">ETag</td>
+<td style="text-align:left">PostResponse</td>
+<td style="text-align:left">Etag 内容。</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">是</td>
+</tr>
+</tbody>
+</table>
+<h3 id=".E9.94.99.E8.AF.AF.E5.88.86.E6.9E.90">错误分析</h3><p>以下描述此请求可能会发生的一些特殊的且常见的错误情况：</p>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>HTTP 状态码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InvalidDigest</td>
+<td>400 Bad Request</td>
+<td>如果用户上传文件时携带 Content-MD5 头部，COS 会校验 body 的 Md5 和用户携带的 MD5 是否一致，如果不一致将返回 InvalidDigest。</td>
+</tr>
+<tr>
+<td>KeyTooLong</td>
+<td>400 Bad Request</td>
+<td>上传文件时携带的以x-cos-meta开头的自定义头部，每个自定义头部的key和value加起来不能超过4k，否则返回 KeyTooLong 错误。</td>
+</tr>
+<tr>
+<td>MissingContentLength</td>
+<td>411 Length Required</td>
+<td>如果上传文件时，没有添加 Content-Length 头部，会返回该错误码。</td>
+</tr>
+<tr>
+<td>NoSuchBucket</td>
+<td>404 Not Found</td>
+<td>如果试图添加的 Object 所在的 Bucket 不存在，返回 404 Not Found 错误，错误码：NoSuchBucket。</td>
+</tr>
+<tr>
+<td>EntityTooLarge</td>
+<td>400 Bad Request</td>
+<td>如果添加的文件长度超过5G，会返回 EntityTooLarge，并返回错误信息<code>“Your proposed upload exceeds the maximum allowed object size”</code>。</td>
+</tr>
+<tr>
+<td>InvalidURI</td>
+<td>400 Bad Request</td>
+<td>对象 key 长度限制为 850，如果超过 850 会返回 InvalidURI。</td>
+</tr>
+</tbody>
+</table>
+<p>获取更多关于 COS 的错误码的信息，或者产品所有的错误列表，请查看 <a href="/document/product/436/7730">错误码</a> 文档。</p>
+<h2 id=".E5.AE.9E.E9.99.85.E6.A1.88.E4.BE.8B">实际案例</h2><h3 id=".E8.AF.B7.E6.B1.822">请求</h3><pre><code><span class="hljs-keyword">POST</span> <span class="hljs-string">/</span> HTTP/1.1
+<span class="hljs-attribute">Connection</span>: keep-alive
+<span class="hljs-attribute">Accept-Encoding</span>: gzip, deflate
+<span class="hljs-attribute">Accept</span>: */*
+<span class="hljs-attribute">User-Agent</span>: python-requests/2.12.4
+<span class="hljs-attribute">Host</span>: xxxx-123456.cos.ap-guangzhou.myqcloud.com
+<span class="hljs-attribute">Content-Length</span>: 1352
+<span class="hljs-attribute">Content-Type</span>: multipart/form-data; boundary=e07f2a7876ae4755ae18d300807ad879
+
+<span class="lua"><span class="hljs-comment">--e07f2a7876ae4755ae18d300807ad879</span>
+Content-Disposition: form-data; name=<span class="hljs-string">"key"</span>
+
+a/${filename}
+<span class="hljs-comment">--e07f2a7876ae4755ae18d300807ad879</span>
+Content-Disposition: form-data; name=<span class="hljs-string">"success_action_status"</span>
+
+<span class="hljs-number">201</span>
+<span class="hljs-comment">--e07f2a7876ae4755ae18d300807ad879</span>
+Content-Disposition: form-data; name=<span class="hljs-string">"Acl"</span>
+
+public-<span class="hljs-built_in">read</span>
+<span class="hljs-comment">--e07f2a7876ae4755ae18d300807ad879</span>
+Content-Disposition: form-data; name=<span class="hljs-string">"x-cos-storage-class"</span>
+
+STANDARD
+<span class="hljs-comment">--e07f2a7876ae4755ae18d300807ad879</span>
+Content-Disposition: form-data; name=<span class="hljs-string">"Signature"</span>
+
+q-sign-algorithm=sha1&amp;q-ak=AKIDZfbOAo7cllgPvF9cXFrJD0a1ICvR98JM&amp;q-sign-<span class="hljs-built_in">time</span>=<span class="hljs-number">1512983814</span>;<span class="hljs-number">1512984814</span>&amp;q-key-<span class="hljs-built_in">time</span>=<span class="hljs-number">1512983814</span>;<span class="hljs-number">1512984814</span>&amp;q-url-param-list=&amp;q-header-list=host&amp;q-signature=<span class="hljs-number">2</span>ffd2ae714e7445a8da000ec5d51771ff5056500
+<span class="hljs-comment">--e07f2a7876ae4755ae18d300807ad879</span>
+Content-Disposition: form-data; name=<span class="hljs-string">"policy"</span>
+
+eyJjb25kaXRpb25zIjogW3siYnVja2V0IjogImtpdG1hbnMzdGVzdDEifSwgWyJjb250ZW50LWxlbmd0aC1yYW5nZSIsIDAsIDEwMDAwMDAwXSwgWyJzdGFydHMtd2l0aCIsICJ4LWNvcy1tZXRhLWJiIiwgIjEyIl1dLCAiZXhwaXJhdGlvbiI6ICIyMDQ3LTEyLTAxVDEyOjAwOjAwLjAwMFoifQ==
+<span class="hljs-comment">--e07f2a7876ae4755ae18d300807ad879</span>
+Content-Disposition: form-data; name=<span class="hljs-string">"x-Cos-meta-bb"</span>
+
+<span class="hljs-number">124</span>
+<span class="hljs-comment">--e07f2a7876ae4755ae18d300807ad879</span>
+Content-Disposition: form-data; name=<span class="hljs-string">"key1"</span>
+
+<span class="hljs-number">1</span>
+<span class="hljs-comment">--e07f2a7876ae4755ae18d300807ad879</span>
+Content-Disposition: form-data; name=<span class="hljs-string">"file"</span>; filename=<span class="hljs-string">"empty:a"</span>
+
+
+<span class="hljs-comment">--e07f2a7876ae4755ae18d300807ad879--</span></span>
+</code></pre><h3 id=".E5.93.8D.E5.BA.942">响应</h3><pre><code>HTTP/1.1 <span class="hljs-number">201</span>
+<span class="hljs-attribute">Content-Type</span>: application/xml
+<span class="hljs-attribute">Content-Length</span>: 232
+<span class="hljs-attribute">Connection</span>: keep-alive
+<span class="hljs-attribute">Date</span>: Mon, 11 Dec 2017 09:16:56 GMT
+<span class="hljs-attribute">ETag</span>: "d41d8cd98f00b204e9800998ecf8427e"
+<span class="hljs-attribute">Location</span>: http://xxxx-123456.cos.ap-guangzhou.myqcloud.com/a/empty:a
+<span class="hljs-attribute">Server</span>: tencent-cos
+<span class="hljs-attribute">x-cos-request-id</span>: NWEyZTRkMDZfMjQ4OGY3MGFfNTE4Yl81
+
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">PostResponse</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Location</span>&gt;</span>http://xxxx-123456.cos.ap-guangzhou.myqcloud.com/a/empty:a<span class="hljs-tag">&lt;/<span class="hljs-name">Location</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Bucket</span>&gt;</span>xxxx-123456<span class="hljs-tag">&lt;/<span class="hljs-name">Bucket</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Key</span>&gt;</span>a/empty:a<span class="hljs-tag">&lt;/<span class="hljs-name">Key</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">ETag</span>&gt;</span>d41d8cd98f00b204e9800998ecf8427e<span class="hljs-tag">&lt;/<span class="hljs-name">ETag</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">PostResponse</span>&gt;</span></span>
+</code></pre>

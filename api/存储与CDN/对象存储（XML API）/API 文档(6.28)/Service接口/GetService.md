@@ -13,7 +13,7 @@ Date: GMT Date
 Authorization: Auth String
 ```
 
-> Authorization: Auth String (详细参见 [请求签名](/document/product/436/7778) 章节)
+> Authorization: Auth String (详细参见 [请求签名](/document/product/436/7778) 章节)。
 
 ### 请求行
 ```
@@ -25,6 +25,7 @@ GET / HTTP/1.1
 
 **公共头部**
 该请求操作的实现使用公共请求头,了解公共请求头详细请参见 [公共请求头部](/document/product/436/7728) 章节。
+
 **非公共头部**
 该请求操作无特殊的请求头部信息。
 ### 请求体
@@ -94,16 +95,16 @@ Container 节点 Bucket 的内容：
 
 | 节点名称（关键字）          |父节点 | 描述                                    | 类型        |
 | ------------ | ------------------------------------- | --------- |:--|
-| Name      | ListAllMyBucketsResult.Buckets.Bucket | 存储桶的名字，由用户自定义字符串和系统生成appid数字串由中划线连接而成，如：mybucket-1250000000| String    |
-| Location        | ListAllMyBucketsResult.Buckets.Bucket  | Bucket 所在地域。默认为空 | String    |
-| CreateDate          | ListAllMyBucketsResult.Buckets.Bucket | Bucket 创建时间。ISO8601 格式，例如 2016-11-09T08:46:32.000Z  | Date   |
+| Name      | ListAllMyBucketsResult.Buckets.Bucket | 存储桶的名字，由用户自定义字符串和系统生成appid数字串由中划线连接而成，如：mybucket-1250000000。| String    |
+| Location        | ListAllMyBucketsResult.Buckets.Bucket  | Bucket 所在地域。默认为空。 | String    |
+| CreateDate          | ListAllMyBucketsResult.Buckets.Bucket | Bucket 创建时间。ISO8601 格式，例如 2016-11-09T08:46:32.000Z。  | Date   |
 
 ### 错误分析
 以下描述此请求可能会发生的一些特殊的且常见的错误情况：
 
 |错误码|HTTP状态码|描述|
 |-----|--------------|-----------|
-|AccessDenied|403 Forbidden|1. 请求中没有用户验证信息（签名为空，即匿名访问）；<br> 2. 用户使用 v4 的签名调用了该接口，同样会返回该错误。|
+|AccessDenied|403 Forbidden|1. 请求中没有用户验证信息（签名为空，即匿名访问）。<br> 2. 用户使用 v4 的签名调用了该接口，同样会返回该错误。|
 
 备注：具体的错误原因可参考返回的 message 进行排查。
 获取更多关于COS的错误码的信息，或者产品所有的错误列表，请查看 [错误码](/document/product/436/7730) 文档。

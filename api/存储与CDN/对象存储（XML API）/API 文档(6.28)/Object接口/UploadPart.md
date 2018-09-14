@@ -2,8 +2,8 @@
 Upload Part 接口请求实现将对象按照分块的方式上传到 COS。最多支持 10000 分块，每个分块大小为 1 MB 到 5 GB ，最后一个分块可以小于 1 MB。
 
 ### 细节分析
-1. 分块上传首先需要进行初始化，使用 Initiate Multipart Upload 接口实现，初始化后会得到一个 uploadId ，唯一标识本次上传；
-2. 在每次请求 Upload Part 时，需要携带 partNumber 和 uploadId，partNumber 为块的编号，支持乱序上传；
+1. 分块上传首先需要进行初始化，使用 Initiate Multipart Upload 接口实现，初始化后会得到一个 uploadId ，唯一标识本次上传。
+2. 在每次请求 Upload Part 时，需要携带 partNumber 和 uploadId，partNumber 为块的编号，支持乱序上传。
 3. 当传入 uploadId 和 partNumber 都相同的时候，后传入的块将覆盖之前传入的块。当 uploadId 不存在时会返回 404 错误，NoSuchUpload。
 
 ## 请求
@@ -17,7 +17,7 @@ Content-Length: Size
 Authorization: Auth String
 ```
 
-> Authorization: Auth String (详细参见 [请求签名](/document/product/436/7778) 章节)
+> Authorization: Auth String (详细参见 [请求签名](/document/product/436/7778) 章节)。
 
 ### 请求行
 ```
@@ -34,8 +34,8 @@ PUT /ObjectName?partNumber=PartNumber&uploadId=UploadId HTTP/1.1
 
 | 参数名称       | 描述                                       | 类型     | 必选   |
 | :--------- | :--------------------------------------- | :----- | :--- |
-| partNumber | 标识本次分块上传的编号                              | String | 是    |
-| uploadId   | 标识本次分块上传的 ID；<br>使用 Initiate Multipart Upload 接口初始化分片上传时会得到一个 uploadId，该 ID 不但唯一标识这一分块数据，也标识了这分块数据在整个文件内的相对位置 | String | 是    |
+| partNumber | 标识本次分块上传的编号。  | String | 是    |
+| uploadId   | 标识本次分块上传的 ID。<br>使用 Initiate Multipart Upload 接口初始化分片上传时会得到一个 uploadId，该 ID 不但唯一标识这一分块数据，也标识了这分块数据在整个文件内的相对位置。| String | 是    |
 
 ### 请求头
 
@@ -48,15 +48,15 @@ PUT /ObjectName?partNumber=PartNumber&uploadId=UploadId HTTP/1.1
 
 | 名称             | 描述                            | 类型     | 必选   |
 | :------------- | :---------------------------- | :----- | :--- |
-| Content-Length | RFC 2616 中定义的 HTTP 请求内容长度（字节） | String | 是    |
+| Content-Length | RFC 2616 中定义的 HTTP 请求内容长度（字节）。 | String | 是    |
 
 **推荐头部**
 该请求操作推荐请求头使用推荐头部，具体内容如下：
 
 | 名称          | 描述                                       | 类型     | 必选   |
 | :---------- | :--------------------------------------- | :----- | :--- |
-| Expect      | RFC 2616 中定义的 HTTP 请求内容长度（字节）            | String | 否    |
-| Content-MD5 | RFC 1864 中定义的经过Base64编码的128-bit 内容 MD5 校验值。此头部用来校验文件内容是否发生变化 | String | 否    |
+| Expect      | RFC 2616 中定义的 HTTP 请求内容长度（字节）。    | String | 否    |
+| Content-MD5 | RFC 1864 中定义的经过Base64编码的128-bit 内容 MD5 校验值。此头部用来校验文件内容是否发生变化。| String | 否    |
 
 ### 请求体
 该请求的操作请求体为空。

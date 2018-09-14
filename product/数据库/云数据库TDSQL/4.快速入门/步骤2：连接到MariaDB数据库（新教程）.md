@@ -1,6 +1,6 @@
 连接到MariaDB数据库的方式有两种：
 
-- 内网访问：使用云平台中一台与MariaDB数据库实例网络相通的CVM来访问MariaDB数据库实例的内网地址。（注意：此台CVM需要与数据库处于某个VPC下的同一个子网中，关于VPC的更多信息请查看<a href="/document/product/215/535" target="_blank">VPC概述</a>。）
+- 内网访问：使用云平台中一台与MariaDB数据库实例网络相通的CVM来访问MariaDB数据库实例的内网地址。（注意：此台CVM需要与数据库处于某个VPC下的同一个子网中，关于VPC的更多信息请查看<a href="/document/product/215" target="_blank">VPC概述</a>。）
 - 外网访问：在外网的Windows或者Linux主机中，安装数据库客户端来访问云平台中的MariaDB数据库实例的外网地址。
 
 <font color="red">**安全提示：**</font>外网访问需要开启数据库实例的外网地址，从而使您的数据库服务暴露在公网上，此操作可能导致数据库被入侵或攻击。建议您使用内网访问的方式来登录数据库。
@@ -29,7 +29,7 @@
 
 ## 访问数据库
 连接到MariaDB数据库的方式有两种：
- - 内网访问：使用云平台中一台与MariaDB数据库实例网络相通的CVM来访问MariaDB数据库实例的内网地址。（注意：此台CVM需要与数据库处于某个VPC下的同一个子网中，关于VPC的更多信息请查看<a href="/document/product/215/535" target="_blank">VPC概述</a>。）
+ - 内网访问：使用云平台中一台与MariaDB数据库实例网络相通的CVM来访问MariaDB数据库实例的内网地址。（注意：此台CVM需要与数据库处于某个VPC下的同一个子网中，关于VPC的更多信息请查看<a href="/document/product/215" target="_blank">VPC概述</a>。）
  - 外网访问：在外网的Windows或者Linux主机中，安装数据库客户端来访问云平台中的MariaDB数据库实例的外网地址。
 
 ### 内网访问
