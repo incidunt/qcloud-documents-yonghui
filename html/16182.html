@@ -1,0 +1,108 @@
+<h2>1. 接口描述<br/></h2>
+<p>本接口（DescribeBackupTime）用于获取云数据库的备份时间。后台系统将根据此配置定期进行实例备份。</p>
+<h2>2. 输入参数<br/></h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/237/16147">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：DescribeBackupTime。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2017-03-12。</td>
+</tr>
+<tr>
+<td>InstanceIds.N</td>
+<td>是</td>
+<td>Array of String</td>
+<td>实例ID，形如：tdsql-ow728lmc，可以通过 DescribeDBInstances 查询实例详情获得。</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 输出参数<br/></h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TotalCount</td>
+<td>Integer</td>
+<td>返回的配置数量</td>
+</tr>
+<tr>
+<td>Items</td>
+<td><a href="/document/api/237/16191">DBBackupTimeConfig</a></td>
+<td>实例备份时间配置信息</td>
+</tr>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 错误码<br/></h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FailedOperation.OssOperationFailed</td>
+<td>请求后端接口失败。</td>
+</tr>
+<tr>
+<td>InternalError.DbOperationFailed</td>
+<td>查询数据库失败。</td>
+</tr>
+<tr>
+<td>InternalError.GetInstanceDetailFailed</td>
+<td>获取实例详情失败。</td>
+</tr>
+<tr>
+<td>InternalError.InnerSystemError</td>
+<td>内部系统错误。</td>
+</tr>
+</tbody>
+</table>
+<h2>5. 示例<br/></h2>
+<h2>示例1 查询云数据库实例的备份时间窗口配置</br></h2>
+<h3>请求参数</br></h3>
+<pre><code>https://mariadb.tencentcloudapi.com/?Action=DescribeBackupTime
+&amp;InstanceIds.0=tdsql-fdpjf5zh
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h3>返回参数</br></h3>
+<pre><code>{
+  "Response": {
+    "Items": [
+      {
+        "EndBackupTime": "23:59",
+        "InstanceId": "tdsql-33y5ai5p",
+        "StartBackupTime": "00:00"
+      }
+    ],
+    "RequestId": "caca6ca7-9ef0-48e0-aa7a-4327a1ac001c",
+    "TotalCount": 1
+  }
+}</code></pre>

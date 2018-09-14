@@ -1,0 +1,96 @@
+<h2>1. 接口描述<br/></h2>
+<p>本接口（OpenDBExtranetAccess）用于开通云数据库实例的外网访问。开通外网访问后，您可通过外网域名和端口访问实例，可使用查询实例列表接口获取外网域名和端口信息。</p>
+<h2>2. 输入参数<br/></h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/237/16147">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：OpenDBExtranetAccess。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2017-03-12。</td>
+</tr>
+<tr>
+<td>InstanceId</td>
+<td>是</td>
+<td>String</td>
+<td>待开放外网访问的实例ID。形如：tdsql-ow728lmc，可以通过 DescribeDBInstances 查询实例详情获得。</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 输出参数<br/></h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FlowId</td>
+<td>Integer</td>
+<td>异步任务Id，可通过 DescribeFlow 查询任务状态。</td>
+</tr>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 错误码<br/></h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FailedOperation.CreateFlowFailed</td>
+<td>创建流程失败。</td>
+</tr>
+<tr>
+<td>ResourceNotFound.NoInstanceFound</td>
+<td>找不到指定的数据库实例。</td>
+</tr>
+<tr>
+<td>ResourceUnavailable.InstanceAlreadyDeleted</td>
+<td>数据库实例已被删除。</td>
+</tr>
+<tr>
+<td>ResourceUnavailable.InstanceStatusAbnormal</td>
+<td>数据库实例状态不正确，当前无法操作。</td>
+</tr>
+</tbody>
+</table>
+<h2>5. 示例<br/></h2>
+<h2>示例1 开通云数据库实例的外网访问</br></h2>
+<h3>请求参数</br></h3>
+<pre><code>https://mariadb.tencentcloudapi.com/?Action=OpenDBExtranetAccess
+&amp;InstanceId=tdsql-avw0207d
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h3>返回参数</br></h3>
+<pre><code>{
+  "Response": {
+    "FlowId": 3323,
+    "RequestId": "901bd41c-08a2-4001-8364-5a63f32056ae"
+  }
+}</code></pre>

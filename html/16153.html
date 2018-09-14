@@ -1,0 +1,119 @@
+<h2>1. 接口描述<br/></h2>
+<p>本接口(ModifyDBParameters)用于修改数据库参数。</p>
+<h2>2. 输入参数<br/></h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/237/16147">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：ModifyDBParameters。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2017-03-12。</td>
+</tr>
+<tr>
+<td>InstanceId</td>
+<td>是</td>
+<td>String</td>
+<td>实例 ID，形如：tdsql-ow728lmc。</td>
+</tr>
+<tr>
+<td>Params.N</td>
+<td>是</td>
+<td>Array of <a href="/document/api/237/16191">DBParamValue</a></td>
+<td>参数列表，每一个元素是Param和Value的组合。</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 输出参数<br/></h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InstanceId</td>
+<td>String</td>
+<td>实例 ID，形如：tdsql-ow728lmc。</td>
+</tr>
+<tr>
+<td>Config</td>
+<td>Array of <a href="/document/api/237/16191">ParamModifyResult</a></td>
+<td>参数修改结果</td>
+</tr>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 错误码<br/></h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InternalError.DbOperationFailed</td>
+<td>查询数据库失败。</td>
+</tr>
+<tr>
+<td>InternalError.GetDbConfigFailed</td>
+<td>获取数据库实例参数失败。</td>
+</tr>
+<tr>
+<td>ResourceUnavailable.InstanceAlreadyDeleted</td>
+<td>数据库实例已被删除。</td>
+</tr>
+<tr>
+<td>ResourceUnavailable.InstanceHasBeenLocked</td>
+<td>数据库实例已经被锁定，当前无法操作。</td>
+</tr>
+<tr>
+<td>ResourceUnavailable.InstanceStatusAbnormal</td>
+<td>数据库实例状态不正确，当前无法操作。</td>
+</tr>
+</tbody>
+</table>
+<h2>5. 示例<br/></h2>
+<h2>示例1 修改数据库参数</br></h2>
+<h3>请求参数</br></h3>
+<pre><code>https://mariadb.tencentcloudapi.com/?Action=DescribeDBParameters
+&amp;InstanceId=tdsql-ige1a5k3
+&amp;Params.0.Param=character_set_server
+&amp;Params.0.Value=utf8
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h3>返回参数</br></h3>
+<pre><code>{
+  "Response": {
+    "Config": [
+      {
+        "Code": 0,
+        "Param": "character_set_server"
+      }
+    ],
+    "InstanceId": "tdsql-ige1a5k3",
+    "RequestId": "161061"
+  }
+}</code></pre>

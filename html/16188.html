@@ -1,0 +1,116 @@
+<h2>1. 接口描述<br/></h2>
+<p>本接口(DescribeDBInstanceSpecs)用于查询可创建的云数据库可售卖的规格配置。</p>
+<h2>2. 输入参数<br/></h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/237/16147">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：DescribeDBInstanceSpecs。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2017-03-12。</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 输出参数<br/></h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Specs</td>
+<td>Array of <a href="/document/api/237/16191">InstanceSpec</a></td>
+<td>按机型分类的可售卖规格列表</td>
+</tr>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 错误码<br/></h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InternalError.DbOperationFailed</td>
+<td>查询数据库失败。</td>
+</tr>
+</tbody>
+</table>
+<h2>5. 示例<br/></h2>
+<h2>示例1 查询云数据库可售卖规格</br></h2>
+<h3>请求参数</br></h3>
+<pre><code>https://mariadb.tencentcloudapi.com/?Action=DescribeDBInstanceSpecs
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h3>返回参数</br></h3>
+<pre><code>{
+  "Response": {
+    "RequestId": "694b99aa-d45e-485e-821b-e84ae16479c2",
+    "Specs": [
+      {
+        "Machine": "TS85",
+        "SpecInfos": [
+          {
+            "Machine": "TS85",
+            "MaxStorage": 3000,
+            "Memory": 64,
+            "MinStorage": 10,
+            "NodeCount": 3,
+            "Pid": 10820,
+            "Qps": 33000,
+            "SuitInfo": "日独立用户数上百万人的中型应用",
+            "TypeName": "标准版"
+          },
+          {
+            "Machine": "TS85",
+            "MaxStorage": 3000,
+            "Memory": 96,
+            "MinStorage": 10,
+            "NodeCount": 3,
+            "Pid": 10820,
+            "Qps": 49000,
+            "SuitInfo": "日独立用户数上千万人的大型应用",
+            "TypeName": "标准版"
+          },
+          {
+            "Machine": "TS85",
+            "MaxStorage": 3000,
+            "Memory": 120,
+            "MinStorage": 10,
+            "NodeCount": 3,
+            "Pid": 10820,
+            "Qps": 61000,
+            "SuitInfo": "日独立用户数上千万人的大型应用",
+            "TypeName": "标准版"
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre>

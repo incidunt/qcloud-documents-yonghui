@@ -1,0 +1,1 @@
+请参考 [QQ 钱包](http://qpay.qq.com/qpaywiki/showdocument.php?pid=38&docid=58) 文档。

@@ -1,0 +1,111 @@
+<h2>1. 接口描述<br/></h2>
+<p>本接口(DescribeSaleInfo)用于查询云数据库可售卖的地域和可用区信息。</p>
+<h2>2. 输入参数<br/></h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/237/16147">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：DescribeSaleInfo。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2017-03-12。</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 输出参数<br/></h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RegionList</td>
+<td>Array of <a href="/document/api/237/16191">RegionInfo</a></td>
+<td>可售卖地域信息列表</td>
+</tr>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 错误码<br/></h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InternalError.DbOperationFailed</td>
+<td>查询数据库失败。</td>
+</tr>
+</tbody>
+</table>
+<h2>5. 示例<br/></h2>
+<h2>示例1 查询云数据库可售卖地域和可用区信息</br></h2>
+<h3>请求参数</br></h3>
+<pre><code>https://dcdb.tencentcloudapi.com/?Action=DescribeSaleInfo
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h3>返回参数</br></h3>
+<pre><code>{
+  "Response": {
+    "RegionList": [
+      {
+        "AvailableChoice": [
+          {
+            "MasterZone": {
+              "Zone": "ap-chengdu-1",
+              "ZoneId": 160001,
+              "ZoneName": "成都一区"
+            },
+            "SlaveZones": [
+              {
+                "Zone": "ap-chengdu-1",
+                "ZoneId": 160001,
+                "ZoneName": "成都一区"
+              }
+            ]
+          }
+        ],
+        "Region": "ap-chengdu",
+        "RegionId": 16,
+        "RegionName": "成都",
+        "ZoneList": [
+          {
+            "Zone": "ap-chengdu-2",
+            "ZoneId": 160002,
+            "ZoneName": "成都二区"
+          },
+          {
+            "Zone": "ap-chengdu-1",
+            "ZoneId": 160001,
+            "ZoneName": "成都一区"
+          }
+        ]
+      }
+    ],
+    "RequestId": "145967"
+  }
+}</code></pre>

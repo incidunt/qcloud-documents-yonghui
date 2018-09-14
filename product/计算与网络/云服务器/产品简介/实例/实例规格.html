@@ -1,0 +1,445 @@
+﻿
+<!-- saved from url=(0180) -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body><div class="paragraph">
+    <p> 创建云平台云服务器时，用户指定的实例类型决定了实例的主机硬件配置。每个实例类型提供不同的计算、内存和存储功能。用户可基于需要部署运行的应用规模，选择一种适当的实例类型。这些实例族由 CPU、内存、存储、异构硬件和网络带宽组成不同的组合，您可灵活地为您的应用程序选择适当的资源。</p>
+    </div>
+    <div class="sect1">
+    <h2 id="_实例类型"> 实例类型 </h2>
+    <div class="sectionbody">
+    <div class="paragraph">
+    <p> 云平台实例族可分为以下类型：</p>
+    </div>
+    <div class="dlist">
+    <dl>
+    <dt class="hdlist1"><a href="#S"> 标准型实例族 </a></dt>
+    <dd>
+    <p>
+    <a href="#S2"> 标准型 S2</a></p>
+    </dd>
+    </dl>
+    </div>
+    </div>
+    </div>
+    <div class="sect1">
+    <h2 id="_实例限制"> 实例限制 </h2>
+    <div class="sectionbody">
+    <div class="ulist">
+    <ul>
+    <li>
+    <p> 在一个区域中可以启动的实例总数存在限制，有关限制的更多信息，请参阅  <a href="/document/product/213/2664">CVM 实例购买限制 </a></p>
+    </li>
+    <li>
+    <p> 实例的系统盘和数据盘挂载限制
+    为了保证磁盘的 IO 性能体验，云平台对于随实例购买的数据盘有的大小和类型限制，请参考对应实例族的磁盘搭配模块；必要时您可以通过购买独立云硬盘来规避实例的磁盘限制。</p>
+    </li>
+    </ul>
+    </div>
+    <div class="paragraph">
+    <p> 根据您的业务场景，可以分为以下实例族。</p>
+    </div>
+    </div>
+    </div>
+    <div class="sect1">
+    <h2 id="S"> 标准型实例族 </h2>
+    <div class="sectionbody">
+    <div class="paragraph">
+    <p> 标准型实例是计算、内存和网络资源的均衡，可满足大多数场景下的应用资源需求。</p>
+    </div>
+    <table class="tableblock frame-none grid-all spread custom-style">
+    <colgroup>
+    <col style="width: 57.1428%;">
+    <col style="width: 42.8572%;">
+    <col style="width: 57.1428%;">
+    <col style="width: 42.8572%;">
+    </colgroup>
+    <tbody>
+    <tr>
+    <td class="tableblock halign-left valign-top"><div><div class="sect2">
+    <h3 id="S2"> 标准型 S2</h3>
+    <div class="paragraph">
+    <p> 标准型 S2 实例是较新一代的标准型实例，此系列提供了平衡的计算、内存和网络资源，是很多应用程序的良好选择。</p>
+    </div>
+    <div class="paragraph">
+    <p> 标准型 S2 实例采用英特尔 ® 至强 ® Broadwell 处理器，整数和浮点运算性能相比以往提升 40%；搭配 DDR4 内存，性能提升 30%；网络收发能力最高可达 40 万 pps</p>
+    </div>
+    <div class="sect3">
+    <h4 id="_实例特点_2"> 实例特点 </h4>
+    <div class="ulist">
+    <ul>
+    <li>
+    <p> 采用Intel Xeon E5-2680 v4（Broadwell）@2.4GHz 处理器，DDR4 内存 </p>
+    </li>
+    <li>
+    <p>CPU 性能相比系列 1 标准型 S1 提升 20%</p>
+    </li>
+    <li>
+    <p> 网络收发能力最高可达 40 万 pps</p>
+    </li>
+    <li>
+    <p> 存储可搭配本地盘、普通云盘和 SSD 云盘 </p>
+    </li>
+    <li>
+    <p> 计算、内存和网络资源的平衡 </p>
+    </li>
+    </ul>
+    </div>
+    </div>
+    <div class="sect3">
+    <h4 id="_使用场景_2"> 使用场景 </h4>
+    <div class="paragraph">
+    <p> 用于中小型数据库和需要附加内存的数据处理任务以及缓存集群，也用于运行 SAP、Microsoft SharePoint、集群计算和其他企业应用程序的后端服务器。</p>
+    </div>
+    </div>
+    <div class="sect3">
+    <h4 id="_实例要求_2"> 实例要求 </h4>
+    <div class="ulist">
+    <ul>
+    <li>
+    <p> 支持在私有网络中启动 S2 实例；</p>
+    </li>
+    <li>
+    <p>S2 实例支持购买配置，请参阅右侧实例规格。确保您选择的 S2 实例大小达到您的操作系统和应用程序的最低 CPU 内存要求。在许多使用案例中，带有消耗大量内存和 CPU 资源的图形用户界面的操作系统（例如，Windows）可能需要更大的实例大小。随着您的工作负载对内存和 CPU 的需求随着时间增加，您可以扩展到更高的配置或选用其他类型实例。</p>
+    </li>
+    </ul>
+    </div>
+    </div>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><table class="tableblock frame-all grid-all spread">
+    <colgroup>
+    <col style="width: 33.3333%;">
+    <col style="width: 16.6666%;">
+    <col style="width: 16.6666%;">
+    <col style="width: 33.3335%;">
+    </colgroup>
+    <thead>
+    <tr>
+    <th class="tableblock halign-left valign-top"> 规格 </th>
+    <th class="tableblock halign-left valign-top">vCPU
+    
+    （核）</th>
+    <th class="tableblock halign-left valign-top"> 内存
+    
+    
+    （GB）</th>
+    <th class="tableblock halign-left valign-top"> 内网带宽能力
+    
+    （Gbps）</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>S2.SMALL1</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>1</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>1</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>1.5</p>
+    </div></div></td>
+    </tr>
+    <tr>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>S2.SMALL2</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>1</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>2</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>1.5</p>
+    </div></div></td>
+    </tr>
+    <tr>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>S2.SMALL4</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>1</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>4</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>1.5</p>
+    </div></div></td>
+    </tr>
+    <tr>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>S2.MEDIUM4</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>2</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>4</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>1.5</p>
+    </div></div></td>
+    </tr>
+    <tr>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>S2.MEDIUM8</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>2</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>8</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>1.5</p>
+    </div></div></td>
+    </tr>
+    <tr>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>S2.MEDIUM2</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>2</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>2</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>1.5</p>
+    </div></div></td>
+    </tr>
+    <tr>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>S2.LARGE8</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>4</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>8</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>1.5</p>
+    </div></div></td>
+    </tr>
+    <tr>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>S2.LARGE16</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>4</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>16</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>1.5</p>
+    </div></div></td>
+    </tr>
+    <tr>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>S2.2XLARGE16</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>8</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>16</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>1.5</p>
+    </div></div></td>
+    </tr>
+    <tr>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>S2.2XLARGE32</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>8</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>32</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>1.5</p>
+    </div></div></td>
+    </tr>
+    <tr>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>S2.2XLARGE8</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>8</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>8</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>1.5</p>
+    </div></div></td>
+    </tr>
+    <tr>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>S2.2XLARGE64</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>8</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>64</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>1.5</p>
+    </div></div></td>
+    </tr>
+    <tr>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>S2.3XLARGE24</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>12</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>24</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>2.5</p>
+    </div></div></td>
+    </tr>
+    <tr>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>S2.3XLARGE48</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>12</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>48</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>2.5</p>
+    </div></div></td>
+    </tr>
+    <tr>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>S2.4XLARGE32</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>16</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>32</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>3.0</p>
+    </div></div></td>
+    </tr>
+    <tr>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>S2.4XLARGE48</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>16</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>48</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>3.0</p>
+    </div></div></td>
+    </tr>
+    <tr>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>S2.4XLARGE64</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>16</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>64</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>3.0</p>
+    </div></div></td>
+    </tr>
+    <tr>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>S2.6XLARGE48</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>24</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>48</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>4.5</p>
+    </div></div></td>
+    </tr>
+    <tr>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>S2.6XLARGE96</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>24</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>96</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>4.5</p>
+    </div></div></td>
+    </tr>
+    <tr>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>S2.8XLARGE64</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>32</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>64</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>6.0</p>
+    </div></div></td>
+    </tr>
+    <tr>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>S2.8XLARGE128</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>32</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>128</p>
+    </div></div></td>
+    <td class="tableblock halign-left valign-top"><div><div class="paragraph">
+    <p>6.0</p>
+    </div></div></td>
+    </tr>
+    </tbody>
+    </table></div></td>
+    </tr>
+    </tbody>
+    </table>
+    <table class="tableblock frame-none grid-all spread custom-style">
+    <colgroup>
+    <col style="width: 57.1428%;">
+    <col style="width: 42.8572%;">
+    </colgroup>
+    </table>
+    <table class="tableblock frame-none grid-all spread custom-style">
+    <colgroup>
+    <col style="width: 57.1428%;">
+    <col style="width: 42.8572%;">
+    </colgroup>
+    </table>
+    </div>
+    </div>
+
+
+    </body></html>

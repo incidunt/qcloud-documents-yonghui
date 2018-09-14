@@ -1,0 +1,139 @@
+<h2>1. 接口描述<br/></h2>
+<p>本接口(DescribeDBLogFiles)用于获取数据库的各种日志列表，包括冷备、binlog、errlog和slowlog。</p>
+<h2>2. 输入参数<br/></h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/237/16147">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：DescribeDBLogFiles。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2017-03-12。</td>
+</tr>
+<tr>
+<td>InstanceId</td>
+<td>是</td>
+<td>String</td>
+<td>实例 ID，形如：tdsql-ow728lmc。</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>是</td>
+<td>Integer</td>
+<td>请求日志类型，取值只能为1、2、3或者4。1-binlog，2-冷备，3-errlog，4-slowlog。</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 输出参数<br/></h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InstanceId</td>
+<td>String</td>
+<td>实例 ID，形如：tdsql-ow728lmc。</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>Integer</td>
+<td>请求日志类型，取值只能为1、2、3或者4。1-binlog，2-冷备，3-errlog，4-slowlog。</td>
+</tr>
+<tr>
+<td>Total</td>
+<td>Integer</td>
+<td>请求日志总数</td>
+</tr>
+<tr>
+<td>Files</td>
+<td>Array of <a href="/document/api/237/16191">LogFileInfo</a></td>
+<td>包含uri、length、mtime（修改时间）等信息。</td>
+</tr>
+<tr>
+<td>Vpcprefix</td>
+<td>String</td>
+<td>如果是VPC网络的实例，做用本前缀加上URI为下载地址。</td>
+</tr>
+<tr>
+<td>Normalprefix</td>
+<td>String</td>
+<td>如果是普通网络的实例，做用本前缀加上URI为下载地址。</td>
+</tr>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 错误码<br/></h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InternalError.DbOperationFailed</td>
+<td>查询数据库失败。</td>
+</tr>
+<tr>
+<td>InternalError.GetDbConfigFailed</td>
+<td>获取数据库实例参数失败。</td>
+</tr>
+<tr>
+<td>ResourceUnavailable.InstanceAlreadyDeleted</td>
+<td>数据库实例已被删除。</td>
+</tr>
+<tr>
+<td>ResourceUnavailable.InstanceStatusAbnormal</td>
+<td>数据库实例状态不正确，当前无法操作。</td>
+</tr>
+</tbody>
+</table>
+<h2>5. 示例<br/></h2>
+<h2>示例1 无</br></h2>
+<h3>请求参数</br></h3>
+<pre><code>https://mariadb.tencentcloudapi.com/?Action=DescribeDBLogFiles
+&amp;InstanceId=tdsql-ow728lmc
+&amp;Type=1
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h3>返回参数</br></h3>
+<pre><code>{
+  "Response": {
+    "Files": [
+      {
+        "Length": 5253724,
+        "Mtime": 1468822981,
+        "Uri": "/1/noshard_108/set_1468578840_203059/1468578832/859932065/000001/5ce7d1a8f26c2dfcf1de22d4e9792b11b0b0057450684d266e1bf9a8aa6ea272"
+      }
+    ],
+    "InstanceId": "tdsql-ow728lmc",
+    "Normalprefix": "http://10.66.255.253:8083",
+    "RequestId": "7212a9ec-a235-2144-98d4-59fbe6f14d79",
+    "Total": 1,
+    "Type": 1,
+    "Vpcprefix": "http://169.254.0.27:8083"
+  }
+}</code></pre>

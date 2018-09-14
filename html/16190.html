@@ -1,0 +1,94 @@
+<h2>1. 接口描述<br/></h2>
+<p>本接口（ModifyDBInstanceName）用于修改云数据库实例的名称。</p>
+<h2>2. 输入参数<br/></h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/237/16147">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：ModifyDBInstanceName。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2017-03-12。</td>
+</tr>
+<tr>
+<td>InstanceId</td>
+<td>是</td>
+<td>String</td>
+<td>待修改的实例 ID。形如：tdsql-ow728lmc，可以通过 DescribeDBInstances 查询实例详情获得。</td>
+</tr>
+<tr>
+<td>InstanceName</td>
+<td>是</td>
+<td>String</td>
+<td>新的实例名称。允许的字符为字母、数字、下划线、连字符和中文。</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 输出参数<br/></h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 错误码<br/></h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InternalError.DbOperationFailed</td>
+<td>查询数据库失败。</td>
+</tr>
+<tr>
+<td>InvalidParameterValue.InstanceNameIllegal</td>
+<td>非法的实例名称。</td>
+</tr>
+<tr>
+<td>ResourceNotFound.NoInstanceFound</td>
+<td>找不到指定的数据库实例。</td>
+</tr>
+</tbody>
+</table>
+<h2>5. 示例<br/></h2>
+<h2>示例1 修改实例名称</br></h2>
+<h3>请求参数</br></h3>
+<pre><code>https://mariadb.tencentcloudapi.com/?Action=ModifyDBInstanceName
+&amp;InstanceId=tdsql-fdpjf5zh
+&amp;InstanceName=newname
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h3>返回参数</br></h3>
+<pre><code>{
+  "Response": {
+    "InstanceId": "tdsql-fdpjf5zh",
+    "RequestId": "6a6b0cc7-c183-4e50-bf19-b83aa9fe77fc"
+  }
+}</code></pre>

@@ -1,0 +1,195 @@
+<h2>1. 接口描述<br/></h2>
+<p>本接口(DescribeDBSlowLogs)用于查询慢查询日志列表。</p>
+<h2>2. 输入参数<br/></h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/237/16147">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：DescribeDBSlowLogs。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2017-03-12。</td>
+</tr>
+<tr>
+<td>InstanceId</td>
+<td>是</td>
+<td>String</td>
+<td>实例 ID，形如：tdsql-ow728lmc。</td>
+</tr>
+<tr>
+<td>Offset</td>
+<td>是</td>
+<td>Integer</td>
+<td>从结果的第几条数据开始返回</td>
+</tr>
+<tr>
+<td>Limit</td>
+<td>是</td>
+<td>Integer</td>
+<td>返回的结果条数</td>
+</tr>
+<tr>
+<td>StartTime</td>
+<td>是</td>
+<td>Timestamp</td>
+<td>查询的起始时间，形如2016-07-23 14:55:20。</td>
+</tr>
+<tr>
+<td>EndTime</td>
+<td>否</td>
+<td>Timestamp</td>
+<td>查询的结束时间，形如2016-08-22 14:55:20。</td>
+</tr>
+<tr>
+<td>Db</td>
+<td>否</td>
+<td>String</td>
+<td>要查询的具体数据库名称</td>
+</tr>
+<tr>
+<td>OrderBy</td>
+<td>否</td>
+<td>String</td>
+<td>排序指标，取值为query_time_sum或者query_count。</td>
+</tr>
+<tr>
+<td>OrderByType</td>
+<td>否</td>
+<td>String</td>
+<td>排序类型，desc或者asc。</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 输出参数<br/></h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Data</td>
+<td>Array of <a href="/document/api/237/16191">SlowLogData</a></td>
+<td>慢查询日志数据</td>
+</tr>
+<tr>
+<td>LockTimeSum</td>
+<td>String</td>
+<td>所有语句锁时间总和</td>
+</tr>
+<tr>
+<td>QueryCount</td>
+<td>String</td>
+<td>所有语句查询总次数</td>
+</tr>
+<tr>
+<td>Total</td>
+<td>String</td>
+<td>总记录数</td>
+</tr>
+<tr>
+<td>QueryTimeSum</td>
+<td>String</td>
+<td>所有语句查询时间总和</td>
+</tr>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 错误码<br/></h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InternalError.DbOperationFailed</td>
+<td>查询数据库失败。</td>
+</tr>
+<tr>
+<td>InternalError.GetInstanceInfoFailed</td>
+<td>获取后端实例信息失败。</td>
+</tr>
+<tr>
+<td>InternalError.LogDBFailed</td>
+<td>获取SlowLog失败。</td>
+</tr>
+<tr>
+<td>InvalidParameter.IllegalTime</td>
+<td>错误的时间参数。</td>
+</tr>
+<tr>
+<td>ResourceUnavailable.InstanceAlreadyDeleted</td>
+<td>数据库实例已被删除。</td>
+</tr>
+<tr>
+<td>ResourceUnavailable.InstanceStatusAbnormal</td>
+<td>数据库实例状态不正确，当前无法操作。</td>
+</tr>
+</tbody>
+</table>
+<h2>5. 示例<br/></h2>
+<h2>示例1 查询慢查询日志列表</br></h2>
+<h3>请求参数</br></h3>
+<pre><code>https://mariadb.tencentcloudapi.com/?Action=DescribeDBParameters
+&amp;InstanceId=tdsql-ige1a5k3
+&amp;Offset=0
+&amp;Limit=20
+&amp;StartTime=2017-08-06 00:00:00
+&amp;EndTime=2017-08-07 23:59:59
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h3>返回参数</br></h3>
+<pre><code>{
+  "Response": {
+    "Data": [
+      {
+        "CheckSum": "14090621765287179955",
+        "Db": "",
+        "FingerPrint": "replace into sysdb.statustable set ts = from_unixtime(?),ip=?,port=?",
+        "LockTimeAvg": "0.00",
+        "LockTimeMax": "0.00",
+        "LockTimeMin": "0.00",
+        "LockTimeSum": "0.00",
+        "QueryCount": "1",
+        "QueryTimeAvg": "1.13",
+        "QueryTimeMax": "1.13",
+        "QueryTimeMin": "1.13",
+        "QueryTimeSum": "1.13",
+        "RowsExaminedSum": "0.00",
+        "RowsSentSum": "0.00",
+        "TsMax": "2016-08-06 11:32:10",
+        "TsMin": "2016-08-06 11:32:10",
+        "User": "agent"
+      }
+    ],
+    "InstanceId": "tdsql-ige1a5k3",
+    "LockTimeSum": "0",
+    "QueryCount": "1",
+    "QueryTimeSum": "1.13",
+    "RequestId": "1e74e824-6d2b-495d-b347-5250cdf8e964",
+    "Total": "1"
+  }
+}</code></pre>

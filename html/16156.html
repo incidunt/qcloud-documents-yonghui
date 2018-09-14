@@ -1,0 +1,303 @@
+<h2>1. 接口描述<br/></h2>
+<p>本接口(DescribeDBPerformanceDetails)用于查看实例性能数据详情。</p>
+<h2>2. 输入参数<br/></h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/237/16147">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：DescribeDBPerformanceDetails。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2017-03-12。</td>
+</tr>
+<tr>
+<td>InstanceId</td>
+<td>是</td>
+<td>String</td>
+<td>实例 ID，形如：tdsql-ow728lmc。</td>
+</tr>
+<tr>
+<td>StartTime</td>
+<td>是</td>
+<td>Date</td>
+<td>开始日期，格式yyyy-mm-dd。</td>
+</tr>
+<tr>
+<td>EndTime</td>
+<td>是</td>
+<td>Date</td>
+<td>结束日期，格式yyyy-mm-dd。</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 输出参数<br/></h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Master</td>
+<td><a href="/document/api/237/16191">PerformanceMonitorSet</a></td>
+<td>主节点性能监控数据</td>
+</tr>
+<tr>
+<td>Slave1</td>
+<td><a href="/document/api/237/16191">PerformanceMonitorSet</a></td>
+<td>备机1性能监控数据</td>
+</tr>
+<tr>
+<td>Slave2</td>
+<td><a href="/document/api/237/16191">PerformanceMonitorSet</a></td>
+<td>备机2性能监控数据，如果实例是一主一从，则没有该字段。</td>
+</tr>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 错误码<br/></h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InternalError.InnerSystemError</td>
+<td>内部系统错误。</td>
+</tr>
+<tr>
+<td>InvalidParameterValue.ShardNotExist</td>
+<td>分片不存在。</td>
+</tr>
+<tr>
+<td>ResourceNotFound.NoInstanceFound</td>
+<td>找不到指定的数据库实例。</td>
+</tr>
+<tr>
+<td>ResourceUnavailable.InstanceStatusAbnormal</td>
+<td>数据库实例状态不正确，当前无法操作。</td>
+</tr>
+</tbody>
+</table>
+<h2>5. 示例<br/></h2>
+<h2>示例1 查看实例性能数据详情</br></h2>
+<h3>请求参数</br></h3>
+<pre><code>https://mariadb.tencentcloudapi.com/?Action=DescribeDBPerformanceDetails
+&amp;InstanceId=tdsql-ige1a5k3
+&amp;StartTime=2018-03-19
+&amp;EndTime=2018-03-19
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h3>返回参数</br></h3>
+<pre><code>{
+  "Response": {
+    "Master": {
+      "ConnActive": {
+        "Data": [
+          1,
+          1,
+          1
+        ],
+        "EndTime": "2018-03-24 23:59:59",
+        "StartTime": "2018-03-24 00:00:00"
+      },
+      "DeleteTotal": {
+        "Data": [
+          1,
+          1,
+          1
+        ],
+        "EndTime": "2018-03-24 23:59:59",
+        "StartTime": "2018-03-24 00:00:00"
+      },
+      "DiskIops": {
+        "Data": [
+          1,
+          1,
+          1
+        ],
+        "EndTime": "2018-03-24 23:59:59",
+        "StartTime": "2018-03-24 00:00:00"
+      },
+      "InsertTotal": {
+        "Data": [
+          1,
+          1,
+          1
+        ],
+        "EndTime": "2018-03-24 23:59:59",
+        "StartTime": "2018-03-24 00:00:00"
+      },
+      "IsMasterSwitched": {
+        "Data": [
+          1,
+          1,
+          1
+        ],
+        "EndTime": "2018-03-24 23:59:59",
+        "StartTime": "2018-03-24 00:00:00"
+      },
+      "LongQuery": {
+        "Data": [
+          1,
+          1,
+          1
+        ],
+        "EndTime": "2018-03-24 23:59:59",
+        "StartTime": "2018-03-24 00:00:00"
+      },
+      "MemHitRate": {
+        "Data": [
+          1,
+          1,
+          1
+        ],
+        "EndTime": "2018-03-24 23:59:59",
+        "StartTime": "2018-03-24 00:00:00"
+      },
+      "SelectTotal": {
+        "Data": [
+          1,
+          1,
+          1
+        ],
+        "EndTime": "2018-03-24 23:59:59",
+        "StartTime": "2018-03-24 00:00:00"
+      },
+      "SlaveDelay": {
+        "Data": [
+          1,
+          1,
+          1
+        ],
+        "EndTime": "2018-03-24 23:59:59",
+        "StartTime": "2018-03-24 00:00:00"
+      },
+      "UpdateTotal": {
+        "Data": [
+          1,
+          1,
+          1
+        ],
+        "EndTime": "2018-03-24 23:59:59",
+        "StartTime": "2018-03-24 00:00:00"
+      }
+    },
+    "RequestId": "198842",
+    "Slave1": {
+      "ConnActive": {
+        "Data": [
+          1,
+          1,
+          1
+        ],
+        "EndTime": "2018-03-24 23:59:59",
+        "StartTime": "2018-03-24 00:00:00"
+      },
+      "DeleteTotal": {
+        "Data": [
+          1,
+          1,
+          1
+        ],
+        "EndTime": "2018-03-24 23:59:59",
+        "StartTime": "2018-03-24 00:00:00"
+      },
+      "DiskIops": {
+        "Data": [
+          1,
+          1,
+          1
+        ],
+        "EndTime": "2018-03-24 23:59:59",
+        "StartTime": "2018-03-24 00:00:00"
+      },
+      "InsertTotal": {
+        "Data": [
+          1,
+          1,
+          1
+        ],
+        "EndTime": "2018-03-24 23:59:59",
+        "StartTime": "2018-03-24 00:00:00"
+      },
+      "IsMasterSwitched": {
+        "Data": [
+          1,
+          1,
+          1
+        ],
+        "EndTime": "2018-03-24 23:59:59",
+        "StartTime": "2018-03-24 00:00:00"
+      },
+      "LongQuery": {
+        "Data": [
+          1,
+          1,
+          1
+        ],
+        "EndTime": "2018-03-24 23:59:59",
+        "StartTime": "2018-03-24 00:00:00"
+      },
+      "MemHitRate": {
+        "Data": [
+          1,
+          1,
+          1
+        ],
+        "EndTime": "2018-03-24 23:59:59",
+        "StartTime": "2018-03-24 00:00:00"
+      },
+      "SelectTotal": {
+        "Data": [
+          1,
+          1,
+          1
+        ],
+        "EndTime": "2018-03-24 23:59:59",
+        "StartTime": "2018-03-24 00:00:00"
+      },
+      "SlaveDelay": {
+        "Data": [
+          1,
+          1,
+          1
+        ],
+        "EndTime": "2018-03-24 23:59:59",
+        "StartTime": "2018-03-24 00:00:00"
+      },
+      "UpdateTotal": {
+        "Data": [
+          1,
+          1,
+          1
+        ],
+        "EndTime": "2018-03-24 23:59:59",
+        "StartTime": "2018-03-24 00:00:00"
+      }
+    }
+  }
+}</code></pre>

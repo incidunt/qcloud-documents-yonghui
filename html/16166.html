@@ -1,0 +1,162 @@
+<h2>1. 接口描述<br/></h2>
+<p>本接口（GrantAccountPrivileges）用于给云数据库账号赋权。
+注意：相同用户名，不同Host是不同的账号。</p>
+<h2>2. 输入参数<br/></h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/237/16147">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：GrantAccountPrivileges。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2017-03-12。</td>
+</tr>
+<tr>
+<td>InstanceId</td>
+<td>是</td>
+<td>String</td>
+<td>实例 ID，形如：tdsql-ow728lmc，可以通过 DescribeDBInstances 查询实例详情获得。</td>
+</tr>
+<tr>
+<td>UserName</td>
+<td>是</td>
+<td>String</td>
+<td>登录用户名。</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>是</td>
+<td>String</td>
+<td>用户允许的访问 host，用户名+host唯一确定一个账号。</td>
+</tr>
+<tr>
+<td>DbName</td>
+<td>是</td>
+<td>String</td>
+<td>数据库名。如果为 *，表示设置全局权限（即 *.*），此时忽略 Type 和 Object 参数。</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>否</td>
+<td>String</td>
+<td>类型,可以填入 table 、 view 、 proc 、 func 和 *。当 DbName 为具体数据库名，Type为 * 时，表示设置该数据库权限（即db.*），此时忽略 Object 参数。</td>
+</tr>
+<tr>
+<td>Object</td>
+<td>否</td>
+<td>String</td>
+<td>具体的 Type 的名称，比如 Type 为 table 时就是具体的表名。DbName 和 Type 都为具体名称，则 Object 表示具体对象名，不能为 * 或者为空。</td>
+</tr>
+<tr>
+<td>ColName</td>
+<td>否</td>
+<td>String</td>
+<td>当 Type=table 时，ColName 为 * 表示对表授权，如果为具体字段名，表示对字段授权。</td>
+</tr>
+<tr>
+<td>Privileges.N</td>
+<td>是</td>
+<td>Array of String</td>
+<td>全局权限： SELECT，INSERT，UPDATE，DELETE，CREATE，DROP，REFERENCES，INDEX，ALTER，CREATE TEMPORARY TABLES，LOCK TABLES，EXECUTE，CREATE VIEW，SHOW VIEW，CREATE ROUTINE，ALTER ROUTINE，EVENT，TRIGGER，SHOW DATABASES。 <br/>库权限： SELECT，INSERT，UPDATE，DELETE，CREATE，DROP，REFERENCES，INDEX，ALTER，CREATE TEMPORARY TABLES，LOCK TABLES，EXECUTE，CREATE VIEW，SHOW VIEW，CREATE ROUTINE，ALTER ROUTINE，EVENT，TRIGGER <br/>表/视图权限： SELECT，INSERT，UPDATE，DELETE，CREATE，DROP，REFERENCES，INDEX，ALTER，CREATE VIEW，SHOW VIEW，TRIGGER <br/>存储过程/函数权限： ALTER ROUTINE，EXECUTE <br/>字段权限： INSERT，REFERENCES，SELECT，UPDATE</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 输出参数<br/></h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 错误码<br/></h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FailedOperation.ModifyRightFailed</td>
+<td>修改账号权限失败。</td>
+</tr>
+<tr>
+<td>InternalError.DbOperationFailed</td>
+<td>查询数据库失败。</td>
+</tr>
+<tr>
+<td>InternalError.GetRightFailed</td>
+<td>获取账号当前权限失败。</td>
+</tr>
+<tr>
+<td>InternalError.InnerSystemError</td>
+<td>内部系统错误。</td>
+</tr>
+<tr>
+<td>InvalidParameterValue.BadUserRight</td>
+<td>指定的权限无法赋予给该账号。</td>
+</tr>
+<tr>
+<td>InvalidParameterValue.SuperUserForbidden</td>
+<td>系统用户不允许操作。</td>
+</tr>
+<tr>
+<td>ResourceUnavailable.InstanceAlreadyDeleted</td>
+<td>数据库实例已被删除。</td>
+</tr>
+<tr>
+<td>ResourceUnavailable.InstanceStatusAbnormal</td>
+<td>数据库实例状态不正确，当前无法操作。</td>
+</tr>
+</tbody>
+</table>
+<h2>5. 示例<br/></h2>
+<h2>示例1 给云数据库账号赋权</br></h2>
+<h3>请求参数</br></h3>
+<pre><code>https://mariadb.tencentcloudapi.com/?Action=GrantAccountPrivileges
+&amp;InstanceId=tdsql-fdpjf5zh
+&amp;UserName=testuser1
+&amp;Host=172.17.%
+&amp;DbName=*
+&amp;Type=*
+&amp;Privileges.0=select
+&amp;Privileges.1=update
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h3>返回参数</br></h3>
+<pre><code>{
+  "Response": {
+    "ColName": "",
+    "DbName": "*",
+    "Host": "172.17.%",
+    "InstanceId": "tdsql-fdpjf5zh",
+    "Object": "",
+    "RequestId": "87201772-351f-4fb5-9164-fe757fbadb79",
+    "Type": "*",
+    "UserName": "testuser1"
+  }
+}</code></pre>

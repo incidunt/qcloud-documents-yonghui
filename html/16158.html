@@ -1,0 +1,160 @@
+<h2>1. 接口描述<br/></h2>
+<p>本接口(DescribeDBResourceUsage)用于查看数据库实例资源的使用情况。</p>
+<h2>2. 输入参数<br/></h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/237/16147">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：DescribeDBResourceUsage。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2017-03-12。</td>
+</tr>
+<tr>
+<td>InstanceId</td>
+<td>是</td>
+<td>String</td>
+<td>实例 ID，形如：tdsql-ow728lmc。</td>
+</tr>
+<tr>
+<td>StartTime</td>
+<td>是</td>
+<td>Date</td>
+<td>开始日期，格式yyyy-mm-dd。</td>
+</tr>
+<tr>
+<td>EndTime</td>
+<td>是</td>
+<td>Date</td>
+<td>结束日期，格式yyyy-mm-dd。</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 输出参数<br/></h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BinlogDiskAvailable</td>
+<td><a href="/document/api/237/16191">MonitorData</a></td>
+<td>binlog日志磁盘可用空间,单位GB。</td>
+</tr>
+<tr>
+<td>DataDiskAvailable</td>
+<td><a href="/document/api/237/16191">MonitorData</a></td>
+<td>磁盘可用空间,单位GB。</td>
+</tr>
+<tr>
+<td>CpuUsageRate</td>
+<td><a href="/document/api/237/16191">MonitorData</a></td>
+<td>CPU利用率</td>
+</tr>
+<tr>
+<td>MemAvailable</td>
+<td><a href="/document/api/237/16191">MonitorData</a></td>
+<td>内存可用空间,单位GB。</td>
+</tr>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 错误码<br/></h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FailedOperation.OssOperationFailed</td>
+<td>请求后端接口失败。</td>
+</tr>
+<tr>
+<td>InternalError.InnerSystemError</td>
+<td>内部系统错误。</td>
+</tr>
+<tr>
+<td>InvalidParameterValue.ShardNotExist</td>
+<td>分片不存在。</td>
+</tr>
+<tr>
+<td>ResourceNotFound.NoInstanceFound</td>
+<td>找不到指定的数据库实例。</td>
+</tr>
+</tbody>
+</table>
+<h2>5. 示例<br/></h2>
+<h2>示例1 查看实例资源使用情况</br></h2>
+<h3>请求参数</br></h3>
+<pre><code>https://mariadb.tencentcloudapi.com/?Action=DescribeDBResourceUsage
+&amp;InstanceId=tdsql-ige1a5k3
+&amp;StartTime=2018-03-19
+&amp;EndTime=2018-03-19
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h3>返回参数</br></h3>
+<pre><code>{
+  "Response": {
+    "BinlogDiskAvailable": {
+      "Data": [
+        1,
+        1,
+        1
+      ],
+      "EndTime": "2018-03-24 23:59:59",
+      "StartTime": "2018-03-24 00:00:00"
+    },
+    "CpuUsageRate": {
+      "Data": [
+        1,
+        1,
+        1
+      ],
+      "EndTime": "2018-03-24 23:59:59",
+      "StartTime": "2018-03-24 00:00:00"
+    },
+    "DataDiskAvailable": {
+      "Data": [
+        1,
+        1,
+        1
+      ],
+      "EndTime": "2018-03-24 23:59:59",
+      "StartTime": "2018-03-24 00:00:00"
+    },
+    "MemAvailable": {
+      "Data": [
+        1,
+        1,
+        1
+      ],
+      "EndTime": "2018-03-24 23:59:59",
+      "StartTime": "2018-03-24 00:00:00"
+    },
+    "RequestId": "170076"
+  }
+}</code></pre>

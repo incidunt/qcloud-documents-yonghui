@@ -1,0 +1,177 @@
+<h2>1. 接口描述<br/></h2>
+<p>本接口（CreateAccount）用于创建云数据库账号。一个实例可以创建多个不同的账号，相同的用户名+不同的host是不同的账号。</p>
+<h2>2. 输入参数<br/></h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/237/16147">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：CreateAccount。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2017-03-12。</td>
+</tr>
+<tr>
+<td>InstanceId</td>
+<td>是</td>
+<td>String</td>
+<td>实例 ID，形如：tdsql-ow728lmc，可以通过 DescribeDBInstances 查询实例详情获得。</td>
+</tr>
+<tr>
+<td>UserName</td>
+<td>是</td>
+<td>String</td>
+<td>登录用户名，由字幕、数字、下划线和连字符组成，长度为1~32位。</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>是</td>
+<td>String</td>
+<td>可以登录的主机，与mysql 账号的 host 格式一致，可以支持通配符，例如 %，10.%，10.20.%。</td>
+</tr>
+<tr>
+<td>Password</td>
+<td>是</td>
+<td>String</td>
+<td>账号密码，由字母、数字或常见符号组成，不能包含分号、单引号和双引号，长度为6~32位。</td>
+</tr>
+<tr>
+<td>ReadOnly</td>
+<td>否</td>
+<td>Integer</td>
+<td>是否创建为只读账号，0：否， 1：该账号的sql请求优先选择备机执行，备机不可用时选择主机执行，2：优先选择备机执行，备机不可用时操作失败。</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>否</td>
+<td>String</td>
+<td>账号备注，可以包含中文、英文字符、常见符号和数字，长度为0~256字符。</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 输出参数<br/></h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InstanceId</td>
+<td>String</td>
+<td>实例Id，透传入参。</td>
+</tr>
+<tr>
+<td>UserName</td>
+<td>String</td>
+<td>用户名，透传入参。</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>String</td>
+<td>允许访问的 host，透传入参。</td>
+</tr>
+<tr>
+<td>ReadOnly</td>
+<td>Integer</td>
+<td>透传入参。</td>
+</tr>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 错误码<br/></h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FailedOperation.CreateUserFailed</td>
+<td>创建账号失败。</td>
+</tr>
+<tr>
+<td>FailedOperation.OssOperationFailed</td>
+<td>请求后端接口失败。</td>
+</tr>
+<tr>
+<td>InternalError.DbOperationFailed</td>
+<td>查询数据库失败。</td>
+</tr>
+<tr>
+<td>InternalError.GetUserListFailed</td>
+<td>获取账号列表失败。</td>
+</tr>
+<tr>
+<td>InvalidParameter.CharacterError</td>
+<td>密码包含了非法字符。</td>
+</tr>
+<tr>
+<td>InvalidParameterValue.AccountAlreadyExists</td>
+<td>想要创建的账号已经存在。</td>
+</tr>
+<tr>
+<td>InvalidParameterValue.SuperUserForbidden</td>
+<td>系统用户不允许操作。</td>
+</tr>
+<tr>
+<td>ResourceUnavailable.InstanceAlreadyDeleted</td>
+<td>数据库实例已被删除。</td>
+</tr>
+<tr>
+<td>ResourceUnavailable.InstanceHasBeenLocked</td>
+<td>数据库实例已经被锁定，当前无法操作。</td>
+</tr>
+<tr>
+<td>ResourceUnavailable.InstanceStatusAbnormal</td>
+<td>数据库实例状态不正确，当前无法操作。</td>
+</tr>
+<tr>
+<td>UnsupportedOperation.OldProxyVersion</td>
+<td>Proxy软件版本太旧，请联系客服升级到新版本后再试。</td>
+</tr>
+</tbody>
+</table>
+<h2>5. 示例<br/></h2>
+<h2>示例1 为云数据库实例创建访问账号</br></h2>
+<h3>请求参数</br></h3>
+<pre><code>https://mariadb.tencentcloudapi.com/?Action=CreateAccount
+&amp;InstanceId=tdsql-fdpjf5zh
+&amp;UserName=testuser1
+&amp;Host=172.17.%
+&amp;Password=1234qweri#
+&amp;Description=测试帐号
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h3>返回参数</br></h3>
+<pre><code>{
+  "Response": {
+    "CdbInstanceId": "tdsql-fdpjf5zh",
+    "DelayThresh": 0,
+    "Host": "172.17.%",
+    "Readonly": 0,
+    "RequestId": "2cc4e4dc-c3e9-4858-ab80-03e3526cf24d",
+    "UserName": "testuser1"
+  }
+}</code></pre>
