@@ -1,51 +1,53 @@
 本文档介绍 Windows 云服务器的自定义配置方法。
 不同于快速配置，自定义配置选项齐全，您可根据需求选择合适的配置。
 
-<div id="page1"></div>
-## 前提条件
+
+## 前提条件  
 
  1. 开始自定义配置前，您需完成[【快速入门 Windows 云服务器】](/doc/product/213/2764#.E6.AD.A5.E9.AA.A4.E4.B8.80.EF.BC.9A.E5.87.86.E5.A4.87.E4.B8.8E.E9.80.89.E5.9E.8B)文档中的步骤一。
  2. 登录云平台官网，选择【云产品】-【计算与网络】-【云服务器】，单击【立即选购】按钮，进入 [云服务器购买页面](http://buy.tcecqpoc.fsphere.cn/?tab=custom&devPayMode=hourly&regionId=50000019&zoneId=50190001&instanceType=S2.SMALL1&step=1&bandwidthType=TRAFFIC_POSTPAID_BY_HOUR) 。
  3. 单击【自定义配置】，进入自定义配置界面。
 
-<div id="page2"></div>
-## 选择地域与机型
-![](//mc.qcloudimg.com/static/img/3ed8bab8cce3dde578a6e3fb14267ea5/image.png)
+
+## 选择地域与机型  
+
+![](//mc.qcloudimg.com/static/img/3ed8bab8cce3dde578a6e3fb14267ea5/image.png)  
+
  1. 选择计费模式：包年包月或按量付费（无法购买按量付费云服务器的用户请先进行 [实名认证](http://console.tcecqpoc.fsphere.cn//developer/infomation) ）。更多信息请看 [计费模式说明](/document/product/213/2180) 。
 
  2. 选择地域和可用区。当您需要多台云服务器时，选择不同可用区可实现容灾效果。
 
- 3. 选择机型和配置。
+ 3. 选择机型和配置。  
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;根据底层硬件的不同，云平台目前提供了 **系列 1** 和 **系列 2** （下文也称为 **上一代实例** 和 **当前一代实例** ）两种不同的实例系列，不同的实例系列提供如下实例类型：
 
 - 上一代实例类型：标准型S1，高IO型I1，内存型M1
-- 当前一代实例类型：[标准型S2](/doc/product/213/7154)，[高IO型I2](/doc/product/213/7155)，[内存型M2](/doc/product/213/7156)，[计算型C2](/doc/product/213/7157)，[GPU型G2](/doc/product/560)，[FPGA型FX2](/doc/product/565) 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为获得最佳性能，我们建议您在新建实例时使用当前一代实例类型。实例类型详细说明，请参见 [实例类型概述](/doc/product/213/7153) 。
+- 当前一代实例类型：[标准型S2](/doc/product/213/7154)，[高IO型I2](/doc/product/213/7155)，[内存型M2](/doc/product/213/7156)，[计算型C2](/doc/product/213/7157) 
+为获得最佳性能，我们建议您在新建实例时使用当前一代实例类型。实例类型详细说明，请参见 [实例类型概述](/doc/product/213/7153)。
 
 >注意：
 >不同的地域与可用区下的系列、机型会有所不同。
 
 单击【下一步：选择镜像】按钮，进入选择镜像页面。
 
-<div id="page3"></div>
+
 ## 选择镜像
-![](//mc.qcloudimg.com/static/img/56c4ecbdb12dd0a366ecf701153fce1d/image.png)
+
+![](//mc.qcloudimg.com/static/img/56c4ecbdb12dd0a366ecf701153fce1d/image.png)  
  1. 选择镜像提供方。
 云平台提供公共镜像、自定义镜像、共享镜像、服务市场，您可参考 [镜像类型](/doc/product/213/4941) 文档进行选择。
-对于刚开始使用云平台的用户，推荐选择公共镜像，其中包含了正版 Windows 操作系统，后续运行环境自行搭建。
-
- 2. 选择操作系统：选择 Windows Server 。
- 
- 3. 选择系统版本。
--  系统内含正版激活，无需额外付费（北美地域除外）。 
--  适合于运行 Windows 下开发的程序，如 .NET。 
--  支持 SQL Server 和其他更多数据库（需自行安装）。 
+对于刚开始使用云平台的用户，推荐选择公共镜像，其中包含了正版 Windows 操作系统，后续运行环境自行搭建。  
+ 2. 选择操作系统：选择 Windows Server 。  
+ 3. 选择系统版本。  
+-   系统内含正版激活，无需额外付费（北美地域除外）。   
+-   适合于运行 Windows 下开发的程序，如 .NET。  
+-   支持 SQL Server 和其他更多数据库（需自行安装）。  
 
 单击【下一步：选择存储与网络】按钮，进入选择存储与网络页面。
 
-<div id="page4"></div>
+
 ## 选择存储与网络
-![](//mc.qcloudimg.com/static/img/e95a5bf7bf47c60f43dd0ee62946b67a/image.png)
+
+![](//mc.qcloudimg.com/static/img/e95a5bf7bf47c60f43dd0ee62946b67a/image.png)  
  1. 选择硬盘类型和数据盘大小。
 云平台提供云硬盘和本地硬盘两种类型。（均默认 50GB 系统盘，系统盘大小任选）
 - 云硬盘：采用一盘三备的分布式存储方式，数据可靠性高
@@ -70,16 +72,17 @@
 
 单击【下一步：设置信息】按钮，进入设置信息页面。
 
-<div id="page5"></div>
+
 ## 设置信息
-![](//mc.qcloudimg.com/static/img/fbc4230b5e6a19ef6ec60ffebfc62aaa/image.png)
+
+![](//image/mc.qcloudimg.com/static/img/fbc4230b5e6a19ef6ec60ffebfc62aaa/image.png)  
  1. 命名主机：您可选择创建后命名，也可立即命名。
 
  2. 登录信息设置：您可设置密码，也可自动生成。设置的密码可在创建后修改，自动生成的密码将会以站内信方式发送。
 
- 3. 选择安全组（**确保登录端口 3389 开放**，更多信息见 [安全组](/doc/product/213/%E5%AE%89%E5%85%A8%E7%BB%84)） 。
+ 3. 选择安全组（**确保登录端口 3389 开放**，更多信息见 [安全组](/document/product/213/12452)） 。
 
-单击【立即购买】按钮，完成支付后即可进入 [控制台](http://console.tcecqpoc.fsphere.cn//cvm) 查收您的云服务器。
+单击【立即购买】按钮，完成支付后即可进入 [控制台](http://console.tcecqpoc.fsphere.cn/cvm) 查收您的云服务器。
 
 云服务器创建好后将会收到站内信，内容包括实例名称、公网 IP 地址、内网 IP 地址、登录名、初始登录密码等信息。您可以使用这些信息登录和管理实例，也请尽快更改您的 Windows 登录密码保障主机安全性。
 

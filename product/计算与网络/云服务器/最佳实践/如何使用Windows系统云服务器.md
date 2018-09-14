@@ -1,5 +1,5 @@
 本节以视频形式向您介绍如何登录Windows云服务器，以及如何上传文件到云服务器。
-阅读本节之前，请确认您已成功购买一台云服务器。[快速入门Windows云服务器 >>](http://cloud.tencent.com/document/product/213/2764)
+阅读本节之前，请确认您已成功购买一台云服务器。[快速入门Windows云服务器 >>](/doc/product/213/2764)
 
 同时云平台实验室提供了实践动手的教程，可帮助您熟悉云平台 CVM 的使用。您可单击进入 [实验室](http://cloud.tencent.com/developer/labs?utm_source=doc8042&utm_medium=qclab)。其中，Windows 云服务器使用指引可参考 [体验 Windows 系统 CVM](http://cloud.tencent.com/developer/labs/lab/10157)。
 

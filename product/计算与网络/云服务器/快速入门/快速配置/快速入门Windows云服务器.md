@@ -1,10 +1,8 @@
 
 本文档主要介绍如何快速使用 Windows 系统的云服务器实例的相关功能，引导新手快速了解云服务器的创建和配置。
 
-<div id="page1"></div>
 
 ## 步骤一：准备与选型
-
 
 ### 确定云服务器所在地域及可用区
 地域选择原则：
@@ -15,8 +13,8 @@
 相同地域下的云服务器可以通过内网相互通信（内网通信）。
 不同地域之间的云服务器不能通过内网互相通信（通信需经过公网）。
 
-
 ## 步骤二：创建 Windows 云服务器
+
 本步骤介绍 Windows 云服务器的创建，云平台提供快速配置 和自定义配置两种方式。本部分以快速配置为例说明，若快速配置不能满足您的需求，您可参考 [自定义配置 Windows 云服务器](/doc/product/213/10516) 文档进行配置。
 
  1. 登录云平台官网，选择【云产品】-【计算与网络】-【云服务器】，单击【立即选购】按钮，进入 [云服务器购买页面](http://buy.tcecqpoc.fsphere.cn/?tab=custom&devPayMode=hourly&regionId=50000019&zoneId=50190001&instanceType=S2.SMALL1&step=1&bandwidthType=TRAFFIC_POSTPAID_BY_HOUR) 。
@@ -36,11 +34,13 @@
 
 查看站内信请见下一步骤。
  
-<div id="Inter-Page">  </div>
+
 ## 步骤三：登录 Windows 云服务器
+
 本部分操作介绍登录 Windows 云服务器的常用方法，不同情况下可以使用不同的登录方式，此处介绍控制台登录，更多登录方式请见   [登录 Windows 实例](/doc/product/213/5435) 。
 
 ### 前提条件
+
 登录到云服务器时，需要使用管理员帐号和对应的密码。
 
  * 管理员账号：对于 Windows 类型的实例，管理员帐号统一为 Administrator
@@ -48,6 +48,7 @@
    更多内容请参考 [登录密码](/doc/product/213/6093) 。
    
 ### 查看站内信及云服务器信息
+
 完成云服务器的购买和创建后，云服务器的实例名称、公网 IP 地址、内网 IP 地址、登录名、初始登录密码等信息都将以 [站内信](http://console.tcecqpoc.fsphere.cn/message) 的方式发送到账户上。
 
  1. 登录 [云服务器控制台](http://console.tcecqpoc.fsphere.cn/cvm) 。登录后即可看到公网 IP 地址、内网 IP 地址等信息。
@@ -56,13 +57,12 @@
 
  3. 站内信页面即可查看新创建的云服务器，及登录名与密码等信息。
 
-
-<div id="page4"></div>
 ## 步骤四：格式化与分区数据盘
 
 这里以 Windows 2012 R2 为例进行格式化说明。
 
 ### 前提条件
+
  - 已购买数据盘的用户，需要格式化数据盘才可使用。未购买数据盘的用户可以跳过此步骤。
  - 请确保您已完成步骤三操作，登录到云服务器。
 
@@ -75,7 +75,7 @@
  3. 在磁盘1上右键单击，选择【联机】：
 	![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/1217193557509925a622dcdb81aa2e35/image.png)
 
- 4. 右键单击，选择【初始化磁盘】：
+ 4. 右键单击，选择【初始化磁盘】：  
 	![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/94ab92867d77ea69bc803a0b20f2b941/image.png)
 
  5. 根据分区方式的不同，选择【GPT】或【MBR】，单击【确定】按钮：
@@ -94,13 +94,13 @@
  3. 输入分区所需磁盘大小，单击【下一步】：
 	![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/05c8d1425a0208597b1d2c75a9c811b6/image.png)
 
- 4. 输入驱动器号，单击【下一步】：
+ 4. 输入驱动器号，单击【下一步】：  
 	![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/737ed569049ad617715efb06fe44e7b2/image.png)
 
  5. 选择文件系统，格式化分区，单击【下一步】：
 	![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/896cb3f2705fb9fcd04c236b8fb9ec59/image.png)
 
- 6. 完成新建简单卷，单击【完成】：
+ 6. 完成新建简单卷，单击【完成】：  
 	![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/1e257b9c76d80f30b34f612496b8007b/image.png)
 
  7. 在【开始】中打开【这台电脑】，查看新分区：

@@ -1,9 +1,9 @@
-CPU 使用率过高，容易引起服务响应速度变慢、服务器登录不上等问题。可以使用 [云监控](http://cloud.tencent.com/document/product/248/13466)，创建 CPU 使用率阈值告警，当 CPU 使用率超过阈值时，将及时通知到您。
-CPU 使用率过高排查的步骤大致为：定位消耗 CPU 的具体进程，对 CPU 占用率高的进程进行分析。如果为异常进程，可能是病毒或木马导致，可以自行终止进程，或者使用安全软件进行查杀；如果是业务进程，则需要分析是否由于访问量变化引起，是否存在优化空间；如果是云平台组件进程，请 [发起工单](http://console.cloud.tencent.com/workorder/category) 联系我们进行进一步定位处理。
+CPU 使用率过高，容易引起服务响应速度变慢、服务器登录不上等问题。可以使用 [云监控](/document/product/248/13466)，创建 CPU 使用率阈值告警，当 CPU 使用率超过阈值时，将及时通知到您。
+CPU 使用率过高排查的步骤大致为：定位消耗 CPU 的具体进程，对 CPU 占用率高的进程进行分析。如果为异常进程，可能是病毒或木马导致，可以自行终止进程，或者使用安全软件进行查杀；如果是业务进程，则需要分析是否由于访问量变化引起，是否存在优化空间；如果是云平台组件进程，请系我们进行进一步定位处理。
 下面将介绍 Linux 系统下如何定位出 CPU 使用率过高的进程。
 ## 定位工具介绍：top 命令
-**top**：Linux 系统下常用的监控工具，用于实时获取进程级别的 CPU 使用情况。下图是 top 命令的输出信息。
-![](http://mc.qcloudimg.com/static/img/8aab6354efba19443ffe88f3ace00794/image.png)
+**top**：Linux 系统下常用的监控工具，用于实时获取进程级别的 CPU 使用情况。下图是 top 命令的输出信息。  
+![](http://mc.qcloudimg.com/static/img/8aab6354efba19443ffe88f3ace00794/image.png)  
 上半部分显示 CPU 和内存资源的总体使用情况：
 第一行：系统当前时间，当前登录用户个数以及系统负载。
 第二行：系统总进程数、运行中进程数、休眠、睡眠和僵尸进程数量。
@@ -28,26 +28,26 @@ CPU 使用率过高排查的步骤大致为：定位消耗 CPU 的具体进程�
 ### 使用工具定位 CPU 使用率高的进程
 前面介绍了 top 工具，下面介绍如何利用该工具定位出 CPU 使用率高的进程。
 1. 通过 SSH 或者 VNC 方式登录实例
-说明：CPU 使用率过高，容易引起服务器登录不上，此时可以尝试使用 VNC 登录的方式。使用 VNC 登录实例的方法详见 [登录Linux 实例](http://cloud.tencent.com/document/product/213/5436) 相关小节。
+说明：CPU 使用率过高，容易引起服务器登录不上，此时可以尝试使用 VNC 登录的方式。使用 VNC 登录实例的方法详见 [登录Linux 实例](/document/product/213/5436) 相关小节。
 
 2. 输入 top 命令查看系统负载。
 
-3. 输入大写 P，进程按 CPU 使用率降序排列；通过排序，可以方便得获得占用 CPU 资源较多的进程，进行进一步的分析。
-![](http://mc.qcloudimg.com/static/img/8aab6354efba19443ffe88f3ace00794/image.png)
+3. 输入大写 P，进程按 CPU 使用率降序排列；通过排序，可以方便得获得占用 CPU 资源较多的进程，进行进一步的分析。  
+![](http://mc.qcloudimg.com/static/img/8aab6354efba19443ffe88f3ace00794/image.png)  
 
 4. 分析占用 CPU 高的进程。
  1. 如果为业务进程，建议分析业务程序是否有优化空间，进行优化或者提升实例的资源配置。
  2. 如果为异常进程，实例可能中毒，可以自行终止进程、使用安全软件进行查杀或者进行数据备份后，重装系统。
- 3. 如果为云平台组件进程，占用 CPU 超过 20%，请 [发起工单](http://console.cloud.tencent.com/workorder/category) 联系我们进行进一步定位处理。	
+ 3. 如果为云平台组件进程，占用 CPU 超过 20%，请联系我们进行进一步定位处理。	
 常见的云平台组件有：
 sap00x：安全组件进程
 Barad_agent：监控组件进程
 secu-tcs-agent：安全组件进程
 
 ### 使用 top 命令结束进程
-1. 键入小写 k，输入想要结束进程的 pid（默认为排序第一的进程），回车。
-![](http://mc.qcloudimg.com/static/img/020f93a8988e5354de47f34da6444849/image.png)
-2. 操作成功，界面会出现 Send pid 984 signal [15/sigterm] 的提示信息，回车确认即可。
+1. 键入小写 k，输入想要结束进程的 pid（默认为排序第一的进程），回车。  
+![](http://mc.qcloudimg.com/static/img/020f93a8988e5354de47f34da6444849/image.png)  
+2. 操作成功，界面会出现 Send pid 984 signal [15/sigterm] 的提示信息，回车确认即可。  
 ![](http://mc.qcloudimg.com/static/img/0613aa978f9bffe78617a6374cd6ead6/image.png)
 
 ### kswapd0 进程占用 CPU 较高的处理
