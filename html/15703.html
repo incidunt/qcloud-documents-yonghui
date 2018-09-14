@@ -1,0 +1,140 @@
+<h2 id="1.-.E6.8E.A5.E5.8F.A3.E6.8F.8F.E8.BF.B0">1. 接口描述</h2>
+<p>本接口 (ImportKeyPair) 用于导入密钥对。</p>
+<ul>
+<li>本接口的功能是将密钥对导入到用户账户，并不会自动绑定到实例。如需绑定可以使用<a href="/document/api/213/9404">AssociasteInstancesKeyPair</a>接口。</li>
+<li>需指定密钥对名称以及该密钥对的公钥文本。</li>
+<li>如果用户只有私钥，可以通过 <code>SSL</code> 工具将私钥转换成公钥后再导入。 </li>
+</ul>
+<h2 id="2.-.E8.BE.93.E5.85.A5.E5.8F.82.E6.95.B0">2. 输入参数</h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/213/15692">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：ImportKeyPair</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2017-03-12</td>
+</tr>
+<tr>
+<td>KeyName</td>
+<td>是</td>
+<td>String</td>
+<td>密钥对名称，可由数字，字母和下划线组成，长度不超过25个字符。</td>
+</tr>
+<tr>
+<td>ProjectId</td>
+<td>是</td>
+<td>Integer</td>
+<td>密钥对创建后所属的<a href="/document/product/378/10863">项目</a>ID。<br><br>可以通过以下方式获取项目ID：<br><li>通过<a href="https://tce.cloud.yonghui.cn/project">项目列表</a>查询项目ID。<br><li>通过调用接口 <a href="/document/api/378/4400">DescribeProject</a>，取返回信息中的 <code>projectId</code> 获取项目ID。<br/><br/>如果是默认项目，直接填0就可以。</td>
+</tr>
+<tr>
+<td>PublicKey</td>
+<td>是</td>
+<td>String</td>
+<td>密钥对的公钥内容，<code>OpenSSH RSA</code> 格式。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3.-.E8.BE.93.E5.87.BA.E5.8F.82.E6.95.B0">3. 输出参数</h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>KeyId</td>
+<td>String</td>
+<td>密钥对ID。</td>
+</tr>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4.-.E9.94.99.E8.AF.AF.E7.A0.81">4. 错误码</h2>
+<p>以下仅列出了接口业务逻辑相关的错误码，其他错误码详见<a href="/document/api/213/15694#.E5.85.AC.E5.85.B1.E9.94.99.E8.AF.AF.E7.A0.81">公共错误码</a>。</p>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InternalServerError</td>
+<td>操作内部错误。</td>
+</tr>
+<tr>
+<td>InvalidKeyPair.LimitExceeded</td>
+<td>密钥对数量超过限制。</td>
+</tr>
+<tr>
+<td>InvalidKeyPairName.Duplicate</td>
+<td>密钥对名称重复。</td>
+</tr>
+<tr>
+<td>InvalidKeyPairNameEmpty</td>
+<td>密钥名称为空。</td>
+</tr>
+<tr>
+<td>InvalidKeyPairNameIncludeIllegalChar</td>
+<td>密钥名称包含非法字符。密钥名称只支持英文、数字和下划线。</td>
+</tr>
+<tr>
+<td>InvalidKeyPairNameTooLong</td>
+<td>密钥名称超过25个字符。</td>
+</tr>
+<tr>
+<td>InvalidParameterValue</td>
+<td>无效参数值。参数值格式错误或者参数值不被支持等。</td>
+</tr>
+<tr>
+<td>InvalidPublicKey.Duplicate</td>
+<td>无效密钥公钥。指定公钥已经存在。</td>
+</tr>
+<tr>
+<td>InvalidPublicKey.Malformed</td>
+<td>无效密钥公钥。指定公钥格式错误，不符合<code>OpenSSH RSA</code>格式要求。</td>
+</tr>
+<tr>
+<td>MissingParameter</td>
+<td>参数缺失。请求没有带必选参数。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5.-.E7.A4.BA.E4.BE.8B">5. 示例</h2>
+<h3 id=".E7.A4.BA.E4.BE.8B1-.E5.AF.BC.E5.85.A5.E7.A7.98.E9.92.A5.E5.AF.B9">示例1 导入秘钥对</h3>
+<h4>请求参数</h4>
+<pre><code>https://cvm.tencentcloudapi.com/?Action=ImportKeyPair
+&amp;keyName=operation_key
+&amp;ProjectId=0
+&amp;PublicKey=ssh-rsa XXXXXXXXXXXX== skey_45071
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h4>返回参数</h4>
+<pre><code>{
+  "Response": {
+    "KeyId": "skey-4e5ty7i8",
+    "RequestId": "6EF60BEC-0242-43AF-BB20-270359FB54A7"
+  }
+}</code></pre>

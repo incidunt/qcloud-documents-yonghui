@@ -1,0 +1,125 @@
+<h2 id="1.-.E6.8E.A5.E5.8F.A3.E6.8F.8F.E8.BF.B0">1. 接口描述</h2>
+<p>本接口 (ResizeInstanceDisks) 用于扩容实例的数据盘。</p>
+<ul>
+<li>目前只支持扩容随实例购买的数据盘，且<a href="/document/api/213/9452#block_device">数据盘类型</a>为：<code>CLOUD_BASIC</code>、<code>CLOUD_PREMIUM</code>、<code>CLOUD_SSD</code>。* 目前不支持<a href="/document/product/416">CDH</a>实例使用该接口扩容数据盘。</li>
+<li>对于包年包月实例，使用该接口会涉及扣费，请确保账户余额充足。可通过<a href="/document/product/378/4397"><code>DescribeAccountBalance</code></a>接口查询账户余额。</li>
+<li>目前只支持扩容一块数据盘。 </li>
+</ul>
+<h2 id="2.-.E8.BE.93.E5.85.A5.E5.8F.82.E6.95.B0">2. 输入参数</h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/213/15692">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：ResizeInstanceDisks</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2017-03-12</td>
+</tr>
+<tr>
+<td>InstanceId</td>
+<td>是</td>
+<td>String</td>
+<td>待操作的实例ID。可通过<a href="/document/product/213/15728"><code>DescribeInstances</code></a>接口返回值中的<code>InstanceId</code>获取。</td>
+</tr>
+<tr>
+<td>DataDisks.N</td>
+<td>是</td>
+<td>Array of <a href="/document/api/213/15753#DataDisk">DataDisk</a></td>
+<td>待扩容的数据盘配置信息。只支持扩容随实例购买的数据盘，且<a href="/document/api/213/9452#block_device">数据盘类型</a>为：<code>CLOUD_BASIC</code>、<code>CLOUD_PREMIUM</code>、<code>CLOUD_SSD</code>。数据盘容量单位：GB。最小扩容步长：10G。关于数据盘类型的选择请参考硬盘产品简介。可选数据盘类型受到实例类型<code>InstanceType</code>限制。另外允许扩容的最大容量也因数据盘类型的不同而有所差异。</td>
+</tr>
+<tr>
+<td>ForceStop</td>
+<td>否</td>
+<td>Boolean</td>
+<td>是否对运行中的实例选择强制关机。建议对运行中的实例先手动关机，然后再重置用户密码。取值范围：<br><li>TRUE：表示在正常关机失败后进行强制关机<br><li>FALSE：表示在正常关机失败后不进行强制关机<br><br>默认取值：FALSE。<br><br>强制关机的效果等同于关闭物理计算机的电源开关。强制关机可能会导致数据丢失或文件系统损坏，请仅在服务器不能正常关机时使用。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3.-.E8.BE.93.E5.87.BA.E5.8F.82.E6.95.B0">3. 输出参数</h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4.-.E9.94.99.E8.AF.AF.E7.A0.81">4. 错误码</h2>
+<p>以下仅列出了接口业务逻辑相关的错误码，其他错误码详见<a href="/document/api/213/15694#.E5.85.AC.E5.85.B1.E9.94.99.E8.AF.AF.E7.A0.81">公共错误码</a>。</p>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InternalServerError</td>
+<td>操作内部错误。</td>
+</tr>
+<tr>
+<td>InvalidAccount.InsufficientBalance</td>
+<td>账户余额不足。</td>
+</tr>
+<tr>
+<td>InvalidAccount.UnpaidOrder</td>
+<td>账户有未支付订单。</td>
+</tr>
+<tr>
+<td>InvalidInstance.NotSupported</td>
+<td>不被支持的实例。</td>
+</tr>
+<tr>
+<td>InvalidInstanceId.Malformed</td>
+<td>无效实例<code>ID</code>。指定的实例<code>ID</code>格式错误。例如实例<code>ID</code>长度错误<code>ins-1122</code>。</td>
+</tr>
+<tr>
+<td>InvalidInstanceId.NotFound</td>
+<td>没有找到相应实例。</td>
+</tr>
+<tr>
+<td>InvalidParameterValue</td>
+<td>无效参数值。参数值格式错误或者参数值不被支持等。</td>
+</tr>
+<tr>
+<td>MissingParameter</td>
+<td>参数缺失。请求没有带必选参数。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5.-.E7.A4.BA.E4.BE.8B">5. 示例</h2>
+<h3 id=".E7.A4.BA.E4.BE.8B1-.E9.87.8D.E7.BD.AE.E4.B8.80.E5.9D.97.E6.8C.87.E5.AE.9Aid.E7.9A.84.E7.A3.81.E7.9B.98.E5.A4.A7.E5.B0.8F">示例1 重置一块指定id的磁盘大小</h3>
+<h4>请求参数</h4>
+<pre><code>https://cvm.tencentcloudapi.com/?Action=ResizeInstanceDisks
+&amp;InstanceId=ins-r8hr2upy
+&amp;DataDisks.0.DiskSize=100
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h4>返回参数</h4>
+<pre><code>{
+  "Response": {
+    "RequestId": "d39d6c09-44e9-4e80-8661-77b5ff3cbc15"
+  }
+}</code></pre>

@@ -1,0 +1,121 @@
+<h2 id="1.-.E6.8E.A5.E5.8F.A3.E6.8F.8F.E8.BF.B0">1. 接口描述</h2>
+<p>本接口 (ModifyInstancesAttribute) 用于修改实例的属性（目前只支持修改实例的名称）。</p>
+<ul>
+<li>“实例名称”仅为方便用户自己管理之用，腾讯云并不以此名称作为提交工单或是进行实例管理操作的依据。</li>
+<li>支持批量操作。每次请求批量实例的上限为100。 </li>
+</ul>
+<h2 id="2.-.E8.BE.93.E5.85.A5.E5.8F.82.E6.95.B0">2. 输入参数</h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/213/15692">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：ModifyInstancesAttribute</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2017-03-12</td>
+</tr>
+<tr>
+<td>InstanceIds.N</td>
+<td>是</td>
+<td>Array of String</td>
+<td>一个或多个待操作的实例ID。可通过<a href="/document/product/213/15728"><code>DescribeInstances</code></a> API返回值中的<code>InstanceId</code>获取。每次请求允许操作的实例数量上限是100。</td>
+</tr>
+<tr>
+<td>InstanceName</td>
+<td>否</td>
+<td>String</td>
+<td>实例名称。可任意命名，但不得超过60个字符。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3.-.E8.BE.93.E5.87.BA.E5.8F.82.E6.95.B0">3. 输出参数</h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4.-.E9.94.99.E8.AF.AF.E7.A0.81">4. 错误码</h2>
+<p>以下仅列出了接口业务逻辑相关的错误码，其他错误码详见<a href="/document/api/213/15694#.E5.85.AC.E5.85.B1.E9.94.99.E8.AF.AF.E7.A0.81">公共错误码</a>。</p>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InternalServerError</td>
+<td>操作内部错误。</td>
+</tr>
+<tr>
+<td>InvalidInstance.NotSupported</td>
+<td>不被支持的实例。</td>
+</tr>
+<tr>
+<td>InvalidInstanceId.Malformed</td>
+<td>无效实例<code>ID</code>。指定的实例<code>ID</code>格式错误。例如实例<code>ID</code>长度错误<code>ins-1122</code>。</td>
+</tr>
+<tr>
+<td>InvalidInstanceId.NotFound</td>
+<td>没有找到相应实例。</td>
+</tr>
+<tr>
+<td>InvalidInstanceName.TooLong</td>
+<td>指定的InstanceName字符串长度超出限制，必须小于等于60字节。</td>
+</tr>
+<tr>
+<td>InvalidParameterValue</td>
+<td>无效参数值。参数值格式错误或者参数值不被支持等。</td>
+</tr>
+<tr>
+<td>InvalidParameterValue.LimitExceeded</td>
+<td>参数值数量超过限制。</td>
+</tr>
+<tr>
+<td>MissingParameter</td>
+<td>参数缺失。请求没有带必选参数。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5.-.E7.A4.BA.E4.BE.8B">5. 示例</h2>
+<h3 id=".E7.A4.BA.E4.BE.8B1-.E4.BF.AE.E6.94.B9.E5.AE.9E.E4.BE.8B.E5.90.8D.E7.A7.B0">示例1 修改实例名称</h3>
+<h4>场景描述</h4>
+<p>本示例用于修改两个实例的名称。</p>
+<h4>请求参数</h4>
+<pre><code>https://cvm.tencentcloudapi.com/?Action=ModifyInstancesAttribute
+&amp;InstanceIds.0=ins-r8hr2upy
+&amp;InstanceIds.1=ins-5d8a23rs
+&amp;InstanceName=Mysql_Server
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h4>返回参数</h4>
+<pre><code>{
+  "Response": {
+    "RequestId": "6ef60bec-0242-43af-bb20-270359fb54a7"
+  }
+}</code></pre>

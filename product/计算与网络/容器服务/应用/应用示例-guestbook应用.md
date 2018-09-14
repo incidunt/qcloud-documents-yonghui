@@ -64,7 +64,7 @@ Guestbook留言板是一个比较典型的web应用服务，由一个frontend前
   [3]: http://console.tcecqpoc.fsphere.cn/ccs/application
   [4]: http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/f94effc7b5ec3cdcd9821c27ea6b2871/image.png
   [5]: http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/4e6d2c9483b595a773ef7bc9fe70d57b/image.png
-  [6]: http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/8e4e1a1d62d87803bb220cdb33fbeb07/image.png
+  [6]: /document/product/457/11951
   [7]: http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/6529c013018af4adfb2dcdf2ae030085/image.png
   [9]: http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/bc929d90e0ee89ef24d8c2bdf3bcff63/image.png
   [10]:http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/0cb66aea86f1db958db13ebbee05f563/image.png

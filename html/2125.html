@@ -1,0 +1,117 @@
+<p>LNMP 环境代表 Linux 系统下 Nginx + MySQL + PHP 网站服务器架构。本文档介绍 CentOS 下的 LNMP 环境搭建。<br>本文档包含软件安装内容，请确保您已熟悉软件安装方法，请参见 <a href="/document/product/213/2046">CentOS 环境下通过 YUM 安装软件</a> 。</p>
+<h2 id=".E5.AE.89.E8.A3.85.E9.85.8D.E7.BD.AE-nginx">安装配置 Nginx</h2><ol>
+<li><p>自动安装 Nginx。输入命令：</p>
+<pre><code>yum <span class="hljs-keyword">install</span> nginx
+service nginx <span class="hljs-keyword">start</span>
+chkconfig <span class="hljs-comment">--levels 235 nginx on</span>
+</code></pre></li>
+<li><p>启动 Nginx 服务。<br>云服务器系统版本为 CentOS 7.0 及以上，可直接启动服务。系统版本为 CentOS 7.0 以下（如 CentOS 6.8），直接启动服务会失败，需要先修改 Nginx 的配置文件。</p>
+<ol>
+<li>请先检查系统版本。CentOS 7.0 以下版本进行第 ii 步，CentOS 7.0 及以上版本进行第 iii 步。输入命令：<pre><code>cat /etc/redhat-<span class="hljs-keyword">release</span>
+</code></pre></li>
+<li>确定系统版本在 CentOS 7.0 以下后，修改 /etc/nginx/conf.d 下的 default.conf 文件，注释掉 [::]:80 配置行。<ul>
+<li>注释前：<br><img src="https://main.qcloudimg.com/raw/92464436c50f491e5af651c81da6a4ea.png" alt=""></li>
+<li>注释后：<br><img src="https://main.qcloudimg.com/raw/6658bdfba8e32507a04e0e9dfd4428ff.png" alt=""></li>
+</ul>
+</li>
+<li>启动 Nginx 服务<pre><code><span class="hljs-attribute">service</span> nginx restart
+</code></pre></li>
+</ol>
+</li>
+<li><p>命令行测试 Nginx 服务是否正常运行。输入命令：<code>wget http://127.0.0.1</code> 。<br>若服务正常，显示结果如下。</p>
+<pre><code>--2013-02-20 17:07:26-- http://127.0.0.1/
+Connecting to 127.0.0.1:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 151 [text/html]
+Saving to: `index.html'
+<span class="hljs-meta">100%</span><span class="bash">[===================================&gt;] 151 --.-K/s <span class="hljs-keyword">in</span> 0s </span>
+2013-02-20 17:07:26 (37.9 MB/s) - `index.html' saved [151/151]
+</code></pre></li>
+<li><p>浏览器中测试 Nginx 服务是否正常运行。访问 CentOS 云服务器公网 IP。<br>若服务正常，显示结果如下。<br><img src="//mc.qcloudimg.com/static/img/fce31b900d308c4a5d57b1d316574a58/image.png" alt=""></p>
+</li>
+</ol>
+<h2 id=".E5.AE.89.E8.A3.85.E9.85.8D.E7.BD.AE-mysql">安装配置 MySQL</h2><blockquote>
+<p><strong>注意：</strong><br>从 CentOS 7 系统开始，MariaDB 成为 yum 源中默认的数据库安装包。在 CentOS 7 及以上的系统中使用 yum 安装 MySQL 包将无法使用 MySQL。您可以选择使用完全兼容的 MariaDB，或自行安装较低版本的 MySQL。</p>
+</blockquote>
+<ol>
+<li><p>安装 MySQL。输入以下命令：</p>
+<ul>
+<li>适用于 CentOS 7.0 或以后版本：<pre><code>yum <span class="hljs-keyword">install</span> mariadb mariadb-<span class="hljs-keyword">server</span>
+</code></pre></li>
+<li>适用于 CentOS 6.8 或以前版本：<pre><code>yum <span class="hljs-keyword">install</span> mysql mysql-<span class="hljs-keyword">server</span> mysql-devel
+</code></pre></li>
+</ul>
+</li>
+<li><p>启动 MySQL 服务。输入命令：</p>
+<ul>
+<li>适用于 CentOS 7.0 或以后版本：<pre><code>systemctl <span class="hljs-keyword">start</span> mariadb.service
+</code></pre></li>
+<li>适用于 CentOS 6.8 或以前版本：<pre><code>service mysqld <span class="hljs-keyword">start</span>
+</code></pre></li>
+</ul>
+</li>
+<li>登录 MySQL ，删除空用户。输入命令：</li>
+</ol>
+<pre><code><span class="hljs-meta">mysql&gt;</span><span class="bash">select user,host,password from mysql.user;</span>
+<span class="hljs-meta">mysql&gt;</span><span class="bash">drop user <span class="hljs-string">''</span>@localhost;</span>
+</code></pre><ol>
+<li>修改 root 密码。输入命令：<pre><code><span class="hljs-meta">mysql&gt;</span><span class="bash">update mysql.user <span class="hljs-built_in">set</span> password = PASSWORD(<span class="hljs-string">'此处输入您新设密码'</span>) <span class="hljs-built_in">where</span> user=<span class="hljs-string">'root'</span>;</span>
+<span class="hljs-meta">mysql&gt;</span><span class="bash">flush privileges;</span>
+</code></pre></li>
+</ol>
+<h2 id=".E5.AE.89.E8.A3.85.E9.85.8D.E7.BD.AE-php">安装配置 PHP</h2><ol>
+<li>安装 PHP 。输入命令进行安装：<pre><code>yum <span class="hljs-keyword">install</span> php lighttpd-fastcgi php-cli php-mysql php-gd php-imap php-ldap
+php-odbc php-pear php-<span class="hljs-keyword">xml</span> php-xmlrpc php-mbstring php-mcrypt php-mssql php-snmp php-soap
+</code></pre></li>
+<li>安装所需组件使 PHP 支持 MySQL、FastCGI 模式。<pre><code>yum <span class="hljs-keyword">install</span>  php-tidy php-common php-devel php-fpm php-mysql
+</code></pre></li>
+</ol>
+<h2 id="nginx-.E4.B8.8E-php-fpm-.E9.9B.86.E6.88.90">Nginx 与 PHP-FPM 集成</h2><ol>
+<li><p>启动 PHP-FPM。输入命令启动 PHP-FPM 服务：<code>service php-fpm start</code> 。</p>
+</li>
+<li><p>输入命令查看 PHP-FPM 默认配置：<code>cat /etc/php-fpm.d/www.conf |grep -i &#39;listen =&#39;</code><br>返回结果为：<code>listen = 127.0.0.1:9000</code>，表明 PHP-FPM 默认配置的监听端口为 9000，只需修改配置，将 PHP 解析的请求转发到 127.0.0.0:9000 处理即可。</p>
+</li>
+<li><p>修改 Nginx 配置。<br>输入命令查找 Nginx 配置文件：<code>nginx -t</code><br>使用<code>vi</code>命令修改该配置文件：<br><img src="//mccdn.qcloud.com/static/img/43addfa0593b6daa1fb19f957dad1425/image.png" alt=""><br>在配置文件中找到以下片段，修改红色部分：</p>
+</li>
+</ol>
+<div class="code">
+<pre>  
+server {
+ <font color="red"> listen       80;</font>
+  <font color="red">root   /usr/share/nginx/html;</font>
+ <font color="red"> server_name  localhost;</font>
+  #charset koi8-r;
+  #access_log  /var/log/nginx/log/host.access.log  main;
+  <font color="red">location / {
+      index  index.html index.htm;
+  }</font>
+  #error_page  404              /404.html;
+  # redirect server error pages to the static page /50x.html
+  #
+  error_page   500 502 503 504  /50x.html;
+  location = /50x.html {
+      root   /usr/share/nginx/html;
+  }
+  # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+  #
+  <font color="red">location ~ \.php$ {
+      fastcgi_pass   127.0.0.1:9000;
+      fastcgi_index   index.php;
+      fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+      include        fastcgi_params;
+  }</font>
+}
+</pre>
+</div>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;4. 修改完成后，按“ Esc ”键，输入“ :wq ”，保存文件并返回。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;5. 查看配置是否正确。输入命令：<code>cat /etc/nginx/nginx.conf</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;6. 配置完成后，重启服务。输入命令：<code>service nginx restart</code> 。</p>
+<h2 id=".E7.8E.AF.E5.A2.83.E9.85.8D.E7.BD.AE.E9.AA.8C.E8.AF.81">环境配置验证</h2><p>用以下命令在 web 目录下创建 index.php：</p>
+<pre><code><span class="hljs-attribute">vim</span> /usr/share/nginx/html/index.php
+</code></pre><p>写入如下内容：</p>
+<pre><code><span class="php"><span class="hljs-meta">&lt;?php</span>
+<span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;title&gt;Test Page&lt;/title&gt;"</span>;
+<span class="hljs-keyword">echo</span> <span class="hljs-string">"hello world"</span>;
+<span class="hljs-meta">?&gt;</span></span>
+</code></pre><p>在浏览器中，访问 CentOS 云服务器公网 IP ，查看环境配置是否成功。如果页面可以显示“hello world”，说明配置成功。</p>

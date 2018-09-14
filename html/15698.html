@@ -1,0 +1,131 @@
+<h2 id="1.-.E6.8E.A5.E5.8F.A3.E6.8F.8F.E8.BF.B0">1. 接口描述</h2>
+<p>本接口 (AssociateInstancesKeyPairs) 用于将密钥绑定到实例上。</p>
+<ul>
+<li>将密钥的公钥写入到实例的<code>SSH</code>配置当中，用户就可以通过该密钥的私钥来登录实例。</li>
+<li>如果实例原来绑定过密钥，那么原来的密钥将失效。</li>
+<li>如果实例原来是通过密码登录，绑定密钥后无法使用密码登录。</li>
+<li>支持批量操作。每次请求批量实例的上限为100。如果批量实例存在不允许操作的实例，操作会以特定错误码返回。 </li>
+</ul>
+<h2 id="2.-.E8.BE.93.E5.85.A5.E5.8F.82.E6.95.B0">2. 输入参数</h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/213/15692">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：AssociateInstancesKeyPairs</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2017-03-12</td>
+</tr>
+<tr>
+<td>InstanceIds.N</td>
+<td>是</td>
+<td>Array of String</td>
+<td>一个或多个待操作的实例ID，每次请求批量实例的上限为100。<br>可以通过以下方式获取可用的实例ID：<br><li>通过登录<a href="https://console.tce.futunn.com/cvm/index">控制台</a>查询实例ID。<br><li>通过调用接口 <a href="/document/product/213/15728">DescribeInstances</a> ，取返回信息中的<code>InstanceId</code>获取实例ID。</td>
+</tr>
+<tr>
+<td>KeyIds.N</td>
+<td>是</td>
+<td>Array of String</td>
+<td>一个或多个待操作的密钥对ID，每次请求批量密钥对的上限为100。密钥对ID形如：<code>skey-3glfot13</code>。<br>可以通过以下方式获取可用的密钥ID：<br><li>通过登录<a href="https://console.tce.futunn.com/cvm/sshkey">控制台</a>查询密钥ID。<br><li>通过调用接口 <a href="/document/api/213/15699">DescribeKeyPairs</a> ，取返回信息中的<code>KeyId</code>获取密钥对ID。</td>
+</tr>
+<tr>
+<td>ForceStop</td>
+<td>否</td>
+<td>Boolean</td>
+<td>是否对运行中的实例选择强制关机。建议对运行中的实例先手动关机，然后再重置用户密码。取值范围：<br><li>TRUE：表示在正常关机失败后进行强制关机。<br><li>FALSE：表示在正常关机失败后不进行强制关机。<br>默认取值：FALSE。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3.-.E8.BE.93.E5.87.BA.E5.8F.82.E6.95.B0">3. 输出参数</h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4.-.E9.94.99.E8.AF.AF.E7.A0.81">4. 错误码</h2>
+<p>以下仅列出了接口业务逻辑相关的错误码，其他错误码详见<a href="/document/api/213/15694#.E5.85.AC.E5.85.B1.E9.94.99.E8.AF.AF.E7.A0.81">公共错误码</a>。</p>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InternalServerError</td>
+<td>操作内部错误。</td>
+</tr>
+<tr>
+<td>InvalidInstance.NotSupported</td>
+<td>不被支持的实例。</td>
+</tr>
+<tr>
+<td>InvalidInstanceId.Malformed</td>
+<td>无效实例<code>ID</code>。指定的实例<code>ID</code>格式错误。例如实例<code>ID</code>长度错误<code>ins-1122</code>。</td>
+</tr>
+<tr>
+<td>InvalidInstanceId.NotFound</td>
+<td>没有找到相应实例。</td>
+</tr>
+<tr>
+<td>InvalidKeyPairId.Malformed</td>
+<td>无效密钥对ID。指定的密钥对ID格式错误，例如 <code>ID</code> 长度错误<code>skey-1122</code>。</td>
+</tr>
+<tr>
+<td>InvalidKeyPairId.NotFound</td>
+<td>无效密钥对ID。指定的密钥对ID不存在。</td>
+</tr>
+<tr>
+<td>InvalidParameterValue</td>
+<td>无效参数值。参数值格式错误或者参数值不被支持等。</td>
+</tr>
+<tr>
+<td>InvalidParameterValue.LimitExceeded</td>
+<td>参数值数量超过限制。</td>
+</tr>
+<tr>
+<td>MissingParameter</td>
+<td>参数缺失。请求没有带必选参数。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5.-.E7.A4.BA.E4.BE.8B">5. 示例</h2>
+<h3 id=".E7.A4.BA.E4.BE.8B1-.E7.BB.91.E5.AE.9A.E4.BA.91.E4.B8.BB.E6.9C.BA.E5.AF.86.E9.92.A5.E5.AF.B9">示例1 绑定云主机密钥对</h3>
+<h4>请求参数</h4>
+<pre><code>https://cvm.tencentcloudapi.com/?Action=AssociateInstancesKeyPairs
+&amp;InstanceIds.0=ins-1e4r6y8i
+&amp;InstanceIds.1=ins-3e56fg78
+&amp;KeyIds.0=skey-4e5ty7i8
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h4>返回参数</h4>
+<pre><code>{
+  "Response": {
+    "RequestId": "6ef60bec-0242-43af-bb20-270359fb54a7"
+  }
+}</code></pre>

@@ -1,0 +1,73 @@
+<p>LNMP 环境代表 Linux 系统下 Nginx + MySQL + PHP 网站服务器架构。本文档介绍 SUSE 下的 LNMP 环境搭建。<br>本文档包含软件安装内容，请确保您已熟悉软件安装方法，请参见  <a href="/document/product/213/2047">Opensuse 环境下通过 YaST 安装软件</a> 。</p>
+<h2 id=".E5.AE.89.E8.A3.85.E9.85.8D.E7.BD.AE-nginx">安装配置 Nginx</h2><ol>
+<li><p>自动安装 Nginx。输入命令：</p>
+<pre><code>yum <span class="hljs-keyword">install</span> nginx
+service nginx <span class="hljs-keyword">start</span>
+chkconfig <span class="hljs-comment">--levels 235 nginx on</span>
+</code></pre></li>
+<li><p>启动 Nginx 服务。输入命令：<code>service nginx restart</code>。</p>
+</li>
+<li><p>命令行测试 Nginx 服务是否正常运行。输入命令：<code>wget http://127.0.0.1</code> 。<br>若服务正常，显示结果如下。</p>
+<pre><code>--2013-02-20 17:07:26-- http://127.0.0.1/
+Connecting to 127.0.0.1:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 151 [text/html]
+Saving to: `index.html'
+<span class="hljs-meta">100%</span><span class="bash">[===================================&gt;] 151 --.-K/s <span class="hljs-keyword">in</span> 0s </span>
+2013-02-20 17:07:26 (37.9 MB/s) - `index.html' saved [151/151]
+</code></pre></li>
+<li><p>浏览器中测试 Nginx 服务是否正常运行。访问 CentOS 云服务器公网 IP。<br>若服务正常，显示结果如下。<br><img src="//mc.qcloudimg.com/static/img/fce31b900d308c4a5d57b1d316574a58/image.png" alt=""></p>
+</li>
+</ol>
+<h2 id=".E5.AE.89.E8.A3.85.E9.85.8D.E7.BD.AE-mysql">安装配置 MySQL</h2><ol>
+<li><p>安装 MySQL。输入命令：<code>yum install mysql mysql-server mysql-devel</code> 。</p>
+</li>
+<li><p>启动 MySQL 服务。输入命令：<code>service mysqld start</code> 。</p>
+</li>
+<li><p>登录 MySQL ，删除空用户。输入命令：</p>
+<pre><code><span class="hljs-meta">mysql&gt;</span><span class="bash">select user,host,password from mysql.user;</span>
+<span class="hljs-meta">mysql&gt;</span><span class="bash">drop user <span class="hljs-string">''</span>@localhost;</span>
+</code></pre></li>
+<li><p>修改 root 密码。输入命令：</p>
+<pre><code><span class="hljs-meta">mysql&gt;</span><span class="bash">update mysql.user <span class="hljs-built_in">set</span> password = PASSWORD(<span class="hljs-string">'此处输入您新设密码'</span>) <span class="hljs-built_in">where</span> user=<span class="hljs-string">'root'</span>;</span>
+<span class="hljs-meta">mysql&gt;</span><span class="bash">flush privileges;</span>
+</code></pre></li>
+</ol>
+<h2 id=".E5.AE.89.E8.A3.85.E9.85.8D.E7.BD.AEphp">安装配置PHP</h2><ol>
+<li>安装 PHP 。输入命令进行安装：<pre><code>yum <span class="hljs-keyword">install</span> php lighttpd-fastcgi php-cli php-mysql php-gd php-imap php-ldap
+php-odbc php-pear php-<span class="hljs-keyword">xml</span> php-xmlrpc php-mbstring php-mcrypt php-mssql php-snmp php-soap
+</code></pre></li>
+<li>安装所需组件使 PHP 支持 MySQL、FastCGI 模式。<pre><code>yum <span class="hljs-keyword">install</span>  php-tidy php-common php-devel php-fpm php-mysql
+</code></pre></li>
+</ol>
+<h2 id="nginx-.E4.B8.8E-php-fpm-.E9.9B.86.E6.88.90">Nginx 与 PHP-FPM 集成</h2><ol>
+<li><p>新建配置文件 php-fpm.conf，输入命令：<code>vim /etc/php5/fpm/php-fpm.conf</code> 。</p>
+</li>
+<li><p>写入以下内容：</p>
+<pre><code>[global]
+error_log = /var/log/php-fpm.log
+[www]
+user = nobody
+group = nobody
+listen = 127.0.0.1:9000
+pm = dynamic
+pm.max_children = 5
+pm.start_servers = 2
+pm.min_spare_servers = 1
+pm.max_spare_servers = 3
+</code></pre></li>
+<li><p>启动服务。输入命令：</p>
+<pre><code>/etc/init.d/mysql <span class="hljs-keyword">start</span> 
+/etc/init.d/php-fpm <span class="hljs-keyword">start</span> 
+/etc/init.d/nginx <span class="hljs-keyword">start</span>
+</code></pre><p>如图所示：<br><img src="//mccdn.qcloud.com/img56b01d2fa2d5c.png" alt=""></p>
+</li>
+</ol>
+<h2 id=".E7.8E.AF.E5.A2.83.E9.85.8D.E7.BD.AE.E9.AA.8C.E8.AF.81">环境配置验证</h2><p>用以下命令在 web 目录下创建 index.php：</p>
+<pre><code><span class="hljs-attribute">vim</span> /usr/share/nginx/html/index.php
+</code></pre><p>写入如下内容：</p>
+<pre><code><span class="php"><span class="hljs-meta">&lt;?php</span>
+<span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;title&gt;Test Page&lt;/title&gt;"</span>;
+<span class="hljs-keyword">echo</span> <span class="hljs-string">"hello world"</span>;
+<span class="hljs-meta">?&gt;</span></span>
+</code></pre><p>在浏览器中，访问 SUSE 云服务器公网 IP ，查看环境配置是否成功，如果页面可以显示“hello world”，说明配置成功。</p>

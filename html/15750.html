@@ -1,0 +1,100 @@
+<h2 id="1.-.E6.8E.A5.E5.8F.A3.E6.8F.8F.E8.BF.B0">1. 接口描述</h2>
+<p>本接口(UpdateInstanceVpcConfig)用于修改实例vpc属性，如私有网络ip。</p>
+<ul>
+<li>此操作默认会关闭实例，完成后再启动。</li>
+<li>不支持跨VpcId操作。 </li>
+</ul>
+<h2 id="2.-.E8.BE.93.E5.85.A5.E5.8F.82.E6.95.B0">2. 输入参数</h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/213/15692">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：UpdateInstanceVpcConfig</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2017-03-12</td>
+</tr>
+<tr>
+<td>InstanceId</td>
+<td>是</td>
+<td>String</td>
+<td>待操作的实例ID。可通过<a href="/document/product/213/15728"><code>DescribeInstances</code></a>接口返回值中的<code>InstanceId</code>获取。</td>
+</tr>
+<tr>
+<td>VirtualPrivateCloud</td>
+<td>是</td>
+<td><a href="/document/api/213/15753#VirtualPrivateCloud">VirtualPrivateCloud</a></td>
+<td>私有网络相关信息配置。通过该参数指定私有网络的ID，子网ID，私有网络ip等信息。</td>
+</tr>
+<tr>
+<td>ForceStop</td>
+<td>否</td>
+<td>Boolean</td>
+<td>是否对运行中的实例选择强制关机。默认为TRUE。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3.-.E8.BE.93.E5.87.BA.E5.8F.82.E6.95.B0">3. 输出参数</h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4.-.E9.94.99.E8.AF.AF.E7.A0.81">4. 错误码</h2>
+<p>以下仅列出了接口业务逻辑相关的错误码，其他错误码详见<a href="/document/api/213/15694#.E5.85.AC.E5.85.B1.E9.94.99.E8.AF.AF.E7.A0.81">公共错误码</a>。</p>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EniNotAllowedChangeSubnet</td>
+<td>弹性网卡不允许跨子网操作。</td>
+</tr>
+<tr>
+<td>InvalidParameterValue</td>
+<td>无效参数值。参数值格式错误或者参数值不被支持等。</td>
+</tr>
+<tr>
+<td>VpcAddrNotInSubNet</td>
+<td>私有网络ip不在子网内。</td>
+</tr>
+<tr>
+<td>VpcIdNotMatch</td>
+<td>VpcId与实例所在VpcId不匹配。</td>
+</tr>
+<tr>
+<td>VpcIpIsUsed</td>
+<td>私有网络ip已经被使用。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5.-.E7.A4.BA.E4.BE.8B">5. 示例</h2>

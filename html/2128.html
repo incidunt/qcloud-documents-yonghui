@@ -1,0 +1,70 @@
+<p>LNMP 环境代表 Linux 系统下 Nginx + MySQL + PHP 网站服务器架构。本文档介绍 Ubuntu 下的 LNMP 环境搭建。<br>本文档包含软件安装内容，请确保您已熟悉软件安装方法，请参见 <a href="/document/product/213/2123">Ubuntu 环境下通过 Apt-get 安装软件</a> 。</p>
+<h2 id=".E5.AE.89.E8.A3.85.E9.85.8D.E7.BD.AE-nginx">安装配置 Nginx</h2><ol>
+<li>自动安装 Nginx。输入命令：<code>sudo apt-get install nginx</code>。为了确保获得最新的 Nginx，可以先使用 <code>sudo apt-get update</code>命令更新源列表。</li>
+<li><p>启动 Nginx 服务。输入命令：<code>sudo /etc/init.d/nginx start</code></p>
+</li>
+<li><p>命令行中测试 Nginx 服务是否正常运行。输入命令：<code>wget http://127.0.0.1</code><br>若服务正常，显示结果如下。</p>
+<pre><code><span class="hljs-deletion">--2013-02-20 17:07:26-- http://127.0.0.1/</span>
+Connecting to 127.0.0.1:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 151 [text/html]
+Saving to: `index.html'
+100%[<span class="hljs-comment">===================================&gt;] 151 --.-K/s in 0s </span>
+2013-02-20 17:07:26 (37.9 MB/s) - `index.html' saved [151/151]
+</code></pre></li>
+<li><p>浏览器中测试 Nginx 服务是否正常运行。访问 Ubuntu 云服务器公网 IP。<br>若服务正常，显示结果如下。<br><img src="//mc.qcloudimg.com/static/img/fce31b900d308c4a5d57b1d316574a58/image.png" alt=""></p>
+</li>
+</ol>
+<h2 id=".E5.AE.89.E8.A3.85.E9.85.8D.E7.BD.AE-mysql">安装配置 MySQL</h2><ol>
+<li><p>安装 MySQL。输入命令：<code>sudo apt-get –y install MySQL-server mysql-client php7.1-mysql</code> 。</p>
+</li>
+<li><p>设置 root 用户密码。安装过程中将会让您设置密码。</p>
+</li>
+<li><p>端口查看。安装完成后，输入命令：<code>netstat -anp</code> ，会发现  3306 端口正在被监听，此时已可以编写 PHP 脚本来连接数据库。</p>
+</li>
+</ol>
+<h2 id=".E5.AE.89.E8.A3.85.E9.85.8D.E7.BD.AE-php">安装配置 PHP</h2><ol>
+<li>安装 PHP 。输入命令进行安装：<pre><code>sudo apt-<span class="hljs-keyword">add</span>-repository ppa:ondrej/php
+sudo apt-<span class="hljs-keyword">get</span> update
+sudo apt-<span class="hljs-keyword">get</span> install php7<span class="hljs-number">.1</span> php7<span class="hljs-number">.1</span>-fpm
+</code></pre><blockquote>
+<p>注意：<br>直接运行 <code>sudo apt-get</code>命令安装 PHP 会报错误，原因是 PHP7 等并不在 Ubuntu 的软件库中，因此要使用 PPA ppa:ondrej/php 库。</p>
+</blockquote>
+</li>
+<li>确认 PHP 启动方式。在<code>/etc/php7.1/fpm/pool.d/www.conf</code>路径里确认启动方式，使用 <code>listen</code> 搜索关键字查看 PHP 的 listen 监听方法。 <pre><code><span class="hljs-attr">listen</span> = /var/run/php7.<span class="hljs-number">1</span>-fpm.sock
+<span class="hljs-attr">listen</span> = <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">9000</span> ; 可监听上边的 sock 方式，若使用 ip:port 时，请自行添加该行
+</code></pre><blockquote>
+<p><strong>注意：</strong><br>示例环境为 Ubuntu 12，不同版本 PHP 配置路径可能不一样。</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="nginx-.E4.B8.8E-php-fpm-.E9.9B.86.E6.88.90">Nginx 与 PHP-FPM 集成</h2><ol>
+<li><p>启动 PHP-FPM。输入命令启动 PHP-FPM 服务：<code>sudo /etc/init.d/php7.1-fpm start</code> 。</p>
+</li>
+<li><p>输入命令查看 PHP-FPM 默认配置：<code>sudo netstat -tunpl | grep php-fpm</code>，如下图。<br><img src="//mccdn.qcloud.com/img56b01de8b9657.png" alt=""><br>以上结果表明 PHP-FPM 默认配置的监听端口为 9000，只需修改配置，将 PHP 解析的请求转发到 127.0.0.0:9000 处理即可。</p>
+</li>
+<li><p>修改 Nginx 配置。输入修改命令：<code>sudo vim /etc/nginx/sites-available/default</code> 。<br>找到下面的内容。<br><img src="//mccdn.qcloud.com/img56b01e58b221e.png" alt=""><br>在配置文件的后面，写入如下内容：</p>
+<pre><code><span class="hljs-attribute">location</span> <span class="hljs-regexp">~ \.php$</span> {
+           <span class="hljs-attribute">fastcgi_pass</span> <span class="hljs-number">127.0.0.1:9000</span>;
+           <span class="hljs-comment">#fastcgi_pass unix:/var/run/php7.1-fpm.sock; #根据php实际listen监听情况，自行选择php的启动方法</span>
+           <span class="hljs-attribute">fastcgi_index</span> index.php;
+           <span class="hljs-attribute">include</span> fastcgi_params;
+}
+</code></pre></li>
+<li><p>修改完成后，按“ Esc ”键，输入“ :wq ”，保存文件并返回。</p>
+</li>
+<li><p>查看配置是否正确。输入命令：<code>sudo cat /etc/nginx/sites-available/default</code> 。</p>
+</li>
+<li><p>配置完成后，重启服务。输入命令：</p>
+<pre><code><span class="hljs-attribute">sudo</span> /etc/init.d/nginx restart 
+sudo /etc/init.d/php7.<span class="hljs-number">1</span>-fpm restart
+</code></pre></li>
+</ol>
+<h2 id=".E7.8E.AF.E5.A2.83.E9.85.8D.E7.BD.AE.E9.AA.8C.E8.AF.81">环境配置验证</h2><p>用以下命令在 web 目录下创建 index.php：</p>
+<pre><code><span class="hljs-attribute">sudo</span> vim /usr/share/nginx/www/index.php
+</code></pre><p>写入如下内容：</p>
+<pre><code><span class="php"><span class="hljs-meta">&lt;?php</span>
+<span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;title&gt;Test Page&lt;/title&gt;"</span>;
+<span class="hljs-keyword">echo</span> <span class="hljs-string">"hello world"</span>;
+<span class="hljs-meta">?&gt;</span></span>
+</code></pre><p>在浏览器中，访问 Ubuntu 云服务器公网 IP ，查看环境配置是否成功。如果页面可以显示“ hello world ”，说明配置成功。</p>
