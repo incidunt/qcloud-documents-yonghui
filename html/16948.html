@@ -1,0 +1,79 @@
+<blockquote>
+<p>如果您期望阅读或下载全量开发文档，请参考 <a href="https://cloud.tencent.com/document/product/557/7714">《DCDB开发指南》</a>。</p>
+</blockquote>
+<h2 id="join(.E5.88.86.E5.B8.83.E5.BC.8F-join)">JOIN(分布式 JOIN)</h2><p>由于 DCDB 存在多个物理节点，部分 join 操作可能涉及到多个物理节点的数据，这种跨物理节点数据的 JOIN，一般叫做分布式 JOIN。</p>
+<ul>
+<li>如果 join 相关的表有 shardkey 相等条件（如下示例），由于分表的一致性原则，会让这部分数据自动存储到同一物理节点，此时相当于单机 JOIN，性能最好。此处涉及到分表 shardkey 的选择，可以参考 <a href="https://cloud.tencent.com/document/product/557/10572">常见问题</a>，帮助您更好的判断。</li>
+<li>如果涉及到跨物理节点数据，此时 proxy 会先从其他节点拉取数据并缓存，由于涉及到网络数据传输，性能会损失。</li>
+</ul>
+<h3 id="shardkey-.E7.9B.B8.E7.AD.89.E6.9D.A1.E4.BB.B6.EF.BC.88.E6.80.A7.E8.83.BD.E6.97.A0.E6.8D.9F.E5.A4.B1.EF.BC.89">shardkey 相等条件（性能无损失）</h3><pre><code>    mysql&gt; <span class="hljs-function">create table <span class="hljs-title">test1</span> (<span class="hljs-params"> a <span class="hljs-keyword">int</span> key, b <span class="hljs-keyword">int</span>, c <span class="hljs-keyword">char</span>(<span class="hljs-number">20</span></span>) ) shardkey</span>=a;
+    Query OK, <span class="hljs-number">0</span> <span class="hljs-function">rows <span class="hljs-title">affected</span> (<span class="hljs-params"><span class="hljs-number">1.56</span> sec</span>)
+
+    mysql&gt; create table <span class="hljs-title">test2</span> (<span class="hljs-params"> a <span class="hljs-keyword">int</span> key, d <span class="hljs-keyword">int</span>, e <span class="hljs-keyword">char</span>(<span class="hljs-number">20</span></span>) ) shardkey</span>=a;
+    Query OK, <span class="hljs-number">0</span> <span class="hljs-function">rows <span class="hljs-title">affected</span> (<span class="hljs-params"><span class="hljs-number">1.46</span> sec</span>)
+
+    mysql&gt; insert <span class="hljs-keyword">into</span> <span class="hljs-title">test1</span> (<span class="hljs-params">a,b,c</span>) <span class="hljs-title">values</span>(<span class="hljs-params"><span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-string">"record1"</span></span>),(<span class="hljs-params"><span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-string">"record2"</span></span>)</span>;
+    Query OK, <span class="hljs-number">2</span> <span class="hljs-function">rows <span class="hljs-title">affected</span> (<span class="hljs-params"><span class="hljs-number">0.02</span> sec</span>)
+
+    mysql&gt; insert <span class="hljs-keyword">into</span> <span class="hljs-title">test2</span> (<span class="hljs-params">a,d,e</span>) <span class="hljs-title">values</span>(<span class="hljs-params"><span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-string">"test2_record1"</span></span>),(<span class="hljs-params"><span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-string">"test2_record2"</span></span>)</span>;
+    Query OK, <span class="hljs-number">2</span> <span class="hljs-function">rows <span class="hljs-title">affected</span> (<span class="hljs-params"><span class="hljs-number">0.02</span> sec</span>)
+
+    mysql&gt;  <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> test1 left <span class="hljs-keyword">join</span> test2 <span class="hljs-keyword">on</span> test1.a</span>=test2.a <span class="hljs-keyword">where</span> test1.a=<span class="hljs-number">1</span>;
+    +---+------+---------+---+------+---------------+
+    | a | b    | c       | a | d    | e             |
+    +---+------+---------+---+------+---------------+
+    | <span class="hljs-number">1</span> |    <span class="hljs-number">2</span> | record1 | <span class="hljs-number">1</span> |    <span class="hljs-number">3</span> | test2_record1 |
+    +---+------+---------+---+------+---------------+
+    <span class="hljs-number">1</span> <span class="hljs-function">row <span class="hljs-keyword">in</span> <span class="hljs-title">set</span> (<span class="hljs-params"><span class="hljs-number">0.00</span> sec</span>)
+
+    mysql&gt;  <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> test1 <span class="hljs-keyword">join</span> test2 <span class="hljs-keyword">on</span> test1.a</span>=test2.a;
+    +---+------+---------+---+------+---------------+
+    | a | b    | c       | a | d    | e             |
+    +---+------+---------+---+------+---------------+
+    | <span class="hljs-number">1</span> |    <span class="hljs-number">2</span> | record1 | <span class="hljs-number">1</span> |    <span class="hljs-number">3</span> | test2_record1 |
+    | <span class="hljs-number">2</span> |    <span class="hljs-number">3</span> | record2 | <span class="hljs-number">2</span> |    <span class="hljs-number">3</span> | test2_record2 |
+    +---+------+---------+---+------+---------------+
+    <span class="hljs-number">2</span> <span class="hljs-function">rows <span class="hljs-keyword">in</span> <span class="hljs-title">set</span> (<span class="hljs-params"><span class="hljs-number">0.03</span> sec</span>)</span>
+</code></pre><h3 id="shardkey-.E4.B8.8D.E7.AD.89.E6.9D.A1.E4.BB.B6.EF.BC.88.E6.80.A7.E8.83.BD.E6.9C.89.E6.8D.9F.E5.A4.B1.EF.BC.89">shardkey 不等条件（性能有损失）</h3><pre><code>
+        mysql&gt;  select * from test1  join test2;
+        +---+------+---------+---+------+---------------+
+        <span class="hljs-params">| a |</span> b    <span class="hljs-params">| c       |</span> a <span class="hljs-params">| d    |</span> e             <span class="hljs-params">|
+        +---+------+---------+---+------+---------------+
+        |</span> <span class="hljs-number">1</span> <span class="hljs-params">|    2 |</span> record1 <span class="hljs-params">| 1 |</span>    <span class="hljs-number">3</span> <span class="hljs-params">| test2_record1 |</span>
+        <span class="hljs-params">| 2 |</span>    <span class="hljs-number">3</span> <span class="hljs-params">| record2 |</span> <span class="hljs-number">1</span> <span class="hljs-params">|    3 |</span> test2_record1 <span class="hljs-params">|
+        |</span> <span class="hljs-number">1</span> <span class="hljs-params">|    2 |</span> record1 <span class="hljs-params">| 2 |</span>    <span class="hljs-number">3</span> <span class="hljs-params">| test2_record2 |</span>
+        <span class="hljs-params">| 2 |</span>    <span class="hljs-number">3</span> <span class="hljs-params">| record2 |</span> <span class="hljs-number">2</span> <span class="hljs-params">|    3 |</span> test2_record2 <span class="hljs-params">|
+        +---+------+---------+---+------+---------------+
+        4 rows <span class="hljs-keyword">in</span> set (0.06 sec)</span>
+</code></pre><h3 id=".E5.AF.B9.E4.BA.8E.E5.B9.BF.E6.92.AD.E8.A1.A8.E5.92.8C.E5.8D.95.E8.A1.A8.EF.BC.88.E6.99.AE.E9.80.9A.E8.A1.A8.EF.BC.89.E7.9B.B8.E5.85.B3.E7.9A.84-join">对于广播表和单表（普通表）相关的 join</h3><p>如果是单表（普通表）与单表（普通表）JOIN，相当于单机 JOIN，性能无损失。<br>如果是广播表与分表 JOIN，相当于单机 JOIN，性能无损失。<br>广播表与广播表 JOIN，相当于单机 JOIN，性能无损失。</p>
+<blockquote>
+<p><strong>目前暂不支持“单表（普通表）”和“分表”进行 join 操作。</strong></p>
+</blockquote>
+<pre><code>    mysql&gt; <span class="hljs-function">create table <span class="hljs-title">noshard_table</span> (<span class="hljs-params"> a <span class="hljs-keyword">int</span>, b <span class="hljs-keyword">int</span> key</span>)</span>;
+    Query OK, <span class="hljs-number">0</span> <span class="hljs-function">rows <span class="hljs-title">affected</span> (<span class="hljs-params"><span class="hljs-number">0.02</span> sec</span>)
+
+    mysql&gt; create table <span class="hljs-title">noshard_table_2</span> (<span class="hljs-params"> a <span class="hljs-keyword">int</span>, b <span class="hljs-keyword">int</span> key</span>)</span>;
+    Query OK, <span class="hljs-number">0</span> <span class="hljs-function">rows <span class="hljs-title">affected</span> (<span class="hljs-params"><span class="hljs-number">0.00</span> sec</span>)
+
+    mysql&gt; <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> noshard_table,noshard_table_2</span>;
+    <span class="hljs-function">Empty <span class="hljs-title">set</span> (<span class="hljs-params"><span class="hljs-number">0.00</span> sec</span>)
+
+    mysql&gt; insert <span class="hljs-keyword">into</span> <span class="hljs-title">noshard_table</span> (<span class="hljs-params">a,b</span>) <span class="hljs-title">values</span>(<span class="hljs-params"><span class="hljs-number">1</span>,<span class="hljs-number">2</span></span>),(<span class="hljs-params"><span class="hljs-number">3</span>,<span class="hljs-number">4</span></span>)</span>;
+    Query OK, <span class="hljs-number">2</span> <span class="hljs-function">rows <span class="hljs-title">affected</span> (<span class="hljs-params"><span class="hljs-number">0.00</span> sec</span>)
+    Records: 2  Duplicates: 0  Warnings: 0
+
+    mysql&gt; insert <span class="hljs-keyword">into</span> <span class="hljs-title">noshard_table_2</span> (<span class="hljs-params">a,b</span>) <span class="hljs-title">values</span>(<span class="hljs-params"><span class="hljs-number">10</span>,<span class="hljs-number">20</span></span>),(<span class="hljs-params"><span class="hljs-number">30</span>,<span class="hljs-number">40</span></span>)</span>;
+    Query OK, <span class="hljs-number">2</span> <span class="hljs-function">rows <span class="hljs-title">affected</span> (<span class="hljs-params"><span class="hljs-number">0.00</span> sec</span>)
+    Records: 2  Duplicates: 0  Warnings: 0
+
+    mysql&gt; <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> noshard_table,noshard_table_2</span>;
+    +------+---+------+----+
+    | a    | b | a    | b  |
+    +------+---+------+----+
+    |    <span class="hljs-number">1</span> | <span class="hljs-number">2</span> |   <span class="hljs-number">10</span> | <span class="hljs-number">20</span> |
+    |    <span class="hljs-number">3</span> | <span class="hljs-number">4</span> |   <span class="hljs-number">10</span> | <span class="hljs-number">20</span> |
+    |    <span class="hljs-number">1</span> | <span class="hljs-number">2</span> |   <span class="hljs-number">30</span> | <span class="hljs-number">40</span> |
+    |    <span class="hljs-number">3</span> | <span class="hljs-number">4</span> |   <span class="hljs-number">30</span> | <span class="hljs-number">40</span> |
+    +------+---+------+----+
+    <span class="hljs-number">4</span> <span class="hljs-function">rows <span class="hljs-keyword">in</span> <span class="hljs-title">set</span> (<span class="hljs-params"><span class="hljs-number">0.00</span> sec</span>)</span>
+</code></pre>

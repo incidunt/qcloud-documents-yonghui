@@ -1,0 +1,137 @@
+<h2>1. 接口描述<br/></h2>
+<p>本接口（DescribeDCDBPrice）用于在购买实例前，查询实例的价格。</p>
+<h2>2. 输入参数<br/></h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/557/16127">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：DescribeDCDBPrice。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2018-04-11。</td>
+</tr>
+<tr>
+<td>Zone</td>
+<td>是</td>
+<td>String</td>
+<td>欲新购实例的可用区ID。</td>
+</tr>
+<tr>
+<td>Count</td>
+<td>是</td>
+<td>Integer</td>
+<td>欲购买实例的数量，目前只支持购买1个实例。</td>
+</tr>
+<tr>
+<td>Period</td>
+<td>是</td>
+<td>Integer</td>
+<td>欲购买的时长，单位：月。</td>
+</tr>
+<tr>
+<td>ShardNodeCount</td>
+<td>是</td>
+<td>Integer</td>
+<td>单个分片节点个数大小，可以通过 DescribeShardSpec<br/> 查询实例规格获得。</td>
+</tr>
+<tr>
+<td>ShardMemory</td>
+<td>是</td>
+<td>Integer</td>
+<td>分片内存大小，单位：GB，可以通过 DescribeShardSpec<br/> 查询实例规格获得。</td>
+</tr>
+<tr>
+<td>ShardStorage</td>
+<td>是</td>
+<td>Integer</td>
+<td>分片存储空间大小，单位：GB，可以通过 DescribeShardSpec<br/> 查询实例规格获得。</td>
+</tr>
+<tr>
+<td>ShardCount</td>
+<td>是</td>
+<td>Integer</td>
+<td>实例分片个数，可选范围2-8，可以通过升级实例进行新增分片到最多64个分片。</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 输出参数<br/></h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OriginalPrice</td>
+<td>Integer</td>
+<td>原价，单位：分。</td>
+<td>原价，单位：分。</td>
+</tr>
+<tr>
+<td>Price</td>
+<td>Integer</td>
+<td>实际价格，单位：分。受折扣等影响，可能和原价不同。</td>
+</tr>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 错误码<br/></h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InternalError.QueryPriceFailed</td>
+<td>查询价格失败。</td>
+</tr>
+<tr>
+<td>InvalidParameterValue.SpecIdIllegal</td>
+<td>找不到数据库实例对应的规格信息。</td>
+</tr>
+</tbody>
+</table>
+<h2>5. 示例<br/></h2>
+<h2>示例1 查询新购分布式数据库实例的价格</br></h2>
+<h3>请求参数</br></h3>
+<pre><code>https://dcdb.tencentcloudapi.com/?Action=CreateDCDBInstance
+&amp;ShardMemory=2
+&amp;ShardStorage=10
+&amp;ShardNodeCount=3
+&amp;ShardCount=2
+&amp;Zone=ap-guangzhou-2
+&amp;Count=1
+&amp;Period=1
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h3>返回参数</br></h3>
+<pre><code>{
+  "Response": {
+    "OriginalPrice": 42240,
+    "Price": 42240,
+    "RequestId": "7e1000c2-190a-d0df-ff75-59fbdf5ff381"
+  }
+}</code></pre>

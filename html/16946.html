@@ -1,0 +1,40 @@
+<blockquote>
+<p>如果您期望阅读或下载全量开发文档，请参考 <a href="https://cloud.tencent.com/document/product/557/7714">《DCDB开发指南》</a>。</p>
+</blockquote>
+<h2 id=".E9.94.99.E8.AF.AF.E7.A0.81.E5.92.8C.E9.94.99.E8.AF.AF.E4.BF.A1.E6.81.AF">错误码和错误信息</h2><p>DCDB新增加如下错误编码：</p>
+<pre><code>        ER_PROXY_GRAM_ERROR_BEGIN=800,
+
+        ER_PROXY_SANITY_ERROR,         <span class="hljs-comment">/*sql类型错误*/</span>
+        ER_PROXY_BAD_COMMAND,          <span class="hljs-comment">/*sql命令不支持*/</span>
+        ER_PROXY_SQL_NOT_SUPPORT,      <span class="hljs-comment">/*DCDB不支持类型*/</span>
+        ER_PROXY_SQLUSE_NOT_SUPPORT,   <span class="hljs-comment">/*DCDB不支持该用法*/</span>
+        ER_PROXY_ERROR_SHARDKEY,       <span class="hljs-comment">/*建表时一级二级分区键选择有问题，如两者要不一样，是表中某一列*/</span>
+
+        ER_PROXY_ERROR_SUB_SHARDKEY,   <span class="hljs-comment">/*暂时不用*/</span>
+        ER_PROXY_PRE_DEAL_ERROR,       <span class="hljs-comment">/*join 不符合规则*/</span>
+        ER_PROXY_SHADKEY_ERROR,        <span class="hljs-comment">/*复杂sql，如derived table需要包含shardkey*/</span>
+        ER_PROXY_COMBINE_SQL_ERROR,    <span class="hljs-comment">/*重组sql有问题，如没有对应的二级分区表*/</span>
+        ER_PROXY_SQL_ERROR,            <span class="hljs-comment">/*一般的sql错误*/</span>
+        ER_PROXY_ONE_SET,              <span class="hljs-comment">/*count（distinct） 必须发到一个set上*/</span>
+        ER_PROXY_STRICT_ERROR,         <span class="hljs-comment">/*暂时不用*/</span>
+        ER_PROXY_TRANSACTION_ERROR,    <span class="hljs-comment">/*事务相关的错误*/</span>
+
+
+        ER_PROXY_GRAM_ERROR_END,  <span class="hljs-comment">/*语法错误*/</span>
+
+        ER_PROXY_SYSTEM_ERROR_BEGIN=900,<span class="hljs-comment">/*系统错误，出现此类错误时，DCDB团队会收到告警*/</span>
+
+        ER_PROXY_SLICING,
+        ER_PROXY_NO_DEFAULT_SET,       <span class="hljs-comment">/*set为空*/</span>
+        ER_PROXY_SOCK_ADDRESS_ERROR,   <span class="hljs-comment">/*set地址为空*/</span>
+        ER_PROXY_SOCK_ERROR,           <span class="hljs-comment">/*连接后端数据库失败*/</span>
+        ER_PROXY_STATUS_ERROR,         <span class="hljs-comment">/*group状态出错*/</span>
+        ER_PROXY_UNKNOWN_ERROR,        <span class="hljs-comment">/*unknown错误*/</span>
+
+      ER_PROXY_LOG_GTID_TIMEOUT,     <span class="hljs-comment">/*两阶段提交时，写日志超时*/</span>
+      ER_PROXY_LOG_GTID_ERROR,       <span class="hljs-comment">/*两阶段提交时，写日志超时*/</span>
+      ER_PROXY_COMMIT_TEMP_ERROR,    <span class="hljs-comment">/*两阶段提交时，出现临时性错误，agent会最终自动提交事务*/</span>
+      ER_PROXY_ABORT_TEMP_ERROR,     <span class="hljs-comment">/*事务回滚时，出现临时性错误，agent会最终自动回滚事务*/</span>
+      ER_PROXY_SQL_RETRY,
+      ER_PROXY_CONN_BROKEN_ERROR,    <span class="hljs-comment">/*网关与后端DB的连接断开*/</span>
+</code></pre>

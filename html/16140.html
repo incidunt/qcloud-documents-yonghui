@@ -1,0 +1,222 @@
+<h2>1. 接口描述<br/></h2>
+<p>查询云数据库实例列表，支持通过项目ID、实例ID、内网地址、实例名称等来筛选实例。
+如果不指定任何筛选条件，则默认返回10条实例记录，单次请求最多支持返回100条实例记录。</p>
+<h2>2. 输入参数<br/></h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/557/16127">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：DescribeDCDBInstances。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2018-04-11。</td>
+</tr>
+<tr>
+<td>InstanceIds.N</td>
+<td>否</td>
+<td>Array of String</td>
+<td>按照一个或者多个实例 ID 查询。实例 ID 形如：dcdbt-2t4cf98d。</td>
+</tr>
+<tr>
+<td>SearchName</td>
+<td>否</td>
+<td>String</td>
+<td>搜索的字段名，当前支持的值有：instancename、vip、all。传 instancename 表示按实例名进行搜索；传 vip 表示按内网IP进行搜索；传 all 将会按实例ID、实例名和内网IP进行搜索。</td>
+</tr>
+<tr>
+<td>SearchKey</td>
+<td>否</td>
+<td>String</td>
+<td>搜索的关键字，支持模糊搜索。多个关键字使用换行符（'\n'）分割。</td>
+</tr>
+<tr>
+<td>ProjectIds.N</td>
+<td>否</td>
+<td>Array of Integer</td>
+<td>按项目 ID 查询</td>
+</tr>
+<tr>
+<td>IsFilterVpc.N</td>
+<td>否</td>
+<td>Array of Integer</td>
+<td>是否根据 VPC 网络来搜索，0 为否，1 为是。</td>
+</tr>
+<tr>
+<td>VpcId</td>
+<td>否</td>
+<td>String</td>
+<td>私有网络 ID， IsFilterVpc 为 1 时有效。</td>
+</tr>
+<tr>
+<td>SubnetId</td>
+<td>否</td>
+<td>String</td>
+<td>私有网络的子网 ID， IsFilterVpc 为 1 时有效。</td>
+</tr>
+<tr>
+<td>OrderBy</td>
+<td>否</td>
+<td>String</td>
+<td>排序字段， projectId， createtime， instancename 三者之一。</td>
+</tr>
+<tr>
+<td>OrderByType</td>
+<td>否</td>
+<td>String</td>
+<td>排序类型， desc 或者 asc。</td>
+</tr>
+<tr>
+<td>Offset</td>
+<td>否</td>
+<td>Integer</td>
+<td>偏移量，默认为 0。</td>
+</tr>
+<tr>
+<td>Limit</td>
+<td>否</td>
+<td>Integer</td>
+<td>返回数量，默认为 10，最大值为 100。</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 输出参数<br/></h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TotalCount</td>
+<td>Integer</td>
+<td>符合条件的实例数量</td>
+</tr>
+<tr>
+<td>Instances</td>
+<td>Array of <a href="/document/api/557/16142">DCDBInstanceInfo</a></td>
+<td>实例详细信息列表</td>
+</tr>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 错误码<br/></h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InternalError.DbOperationFailed</td>
+<td>查询数据库失败。</td>
+</tr>
+<tr>
+<td>InternalError.FenceError</td>
+<td>查询独享集群信息失败。</td>
+</tr>
+<tr>
+<td>InvalidParameterValue.IllegalExclusterID</td>
+<td>找不到数据库实例所属的独享集群。</td>
+</tr>
+<tr>
+<td>InvalidParameterValue.SpecIdIllegal</td>
+<td>找不到数据库实例对应的规格信息。</td>
+</tr>
+</tbody>
+</table>
+<h2>5. 示例<br/></h2>
+<h2>示例1 根据实例ID查询实例列表</br></h2>
+<h3>请求参数</br></h3>
+<pre><code>https://dcdb.tencentcloudapi.com/?Action=DescribeDCDBInstances
+&amp;InstanceIds.0=dcdbt-2t4cf98d
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h3>返回参数</br></h3>
+<pre><code>{
+  "Response": {
+    "Instances": [
+      {
+        "AppId": 1254065710,
+        "AutoRenewFlag": 0,
+        "CreateTime": "2018-03-12 16:45:16",
+        "DbVersion": "MySQL",
+        "ExclusterName": "",
+        "Id": 40932,
+        "InstanceId": "dcdbt-2t4cf98d",
+        "InstanceName": "dcdbt-2t4cf98d",
+        "IsolatedTimestamp": "0000-00-00 00:00:00",
+        "Memory": 4,
+        "PeriodEndTime": "2018-03-19 16:45:16",
+        "Pid": 11128,
+        "ProjectId": 0,
+        "Region": "ap-shanghai",
+        "ShardCount": 2,
+        "ShardDetail": [
+          {
+            "Createtime": "2018-03-12 16:45:16",
+            "Memory": 2,
+            "PeriodEndTime": "2018-03-19 16:45:16",
+            "Pid": 11128,
+            "ShardId": 10232,
+            "ShardInstanceId": "shard-br8h9kuh",
+            "ShardOriginSerialId": "set_1520845760_1",
+            "ShardSerialId": "set_1520845760_1",
+            "SpecConfigId": 30,
+            "Status": 2,
+            "Storage": 10
+          },
+          {
+            "Createtime": "2018-03-12 16:45:16",
+            "Memory": 2,
+            "PeriodEndTime": "2018-03-19 16:45:16",
+            "Pid": 11128,
+            "ShardId": 10233,
+            "ShardInstanceId": "shard-gdqcdn39",
+            "ShardOriginSerialId": "set_1520846002_3",
+            "ShardSerialId": "set_1520846002_3",
+            "SpecConfigId": 30,
+            "Status": 2,
+            "Storage": 10
+          }
+        ],
+        "Status": 2,
+        "StatusDesc": "运行中",
+        "Storage": 20,
+        "SubnetId": 34835,
+        "Uin": "909619400",
+        "UpdateTime": "2018-03-19 22:12:08",
+        "Vip": "172.16.32.102",
+        "VpcId": 73993,
+        "Vport": 3306,
+        "WanDomain": "",
+        "WanPort": "0",
+        "WanVip": "",
+        "Zone": "ap-shanghai-1"
+      }
+    ],
+    "RequestId": "112263",
+    "TotalCount": 1
+  }
+}</code></pre>

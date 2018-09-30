@@ -1,0 +1,27 @@
+<blockquote>
+<p>如果您期望阅读或下载全量开发文档，请参考<a href="https://cloud.tencent.com/document/product/557/7714">《DCDB开发指南》</a>。</p>
+</blockquote>
+<h3 id="dml.E8.AF.AD.E5.8F.A5.E8.AF.AD.E6.B3.95.EF.BC.88.E9.83.A8.E5.88.86.EF.BC.89">DML语句语法（部分）</h3><p><strong>SELECT</strong>：建议在条件中带上 shardkey 字段，否则 DCDB 无法判断 SQL 应该路由至哪些节点，需要进行全表扫描，然后在网关聚合，容易影响执行效率。</p>
+<pre><code>    mysql&gt; select * from test1 where a=<span class="hljs-number">2</span>;
+    +------+------+---------+
+    <span class="hljs-params">| a    |</span> b    <span class="hljs-params">| c       |</span>
+    +------+------+---------+
+    <span class="hljs-params">|    2 |</span>    <span class="hljs-number">3</span> <span class="hljs-params">| record2 |</span>
+    <span class="hljs-params">|    2 |</span>    <span class="hljs-number">4</span> <span class="hljs-params">| record3 |</span>
+    +------+------+---------+
+    <span class="hljs-number">2</span> rows <span class="hljs-keyword">in</span> set (<span class="hljs-number">0</span>.<span class="hljs-number">00</span> sec)
+</code></pre><p><strong>INSERT/REPLACE</strong>：字段必须包含 shardkey，因为 DCDB 无法判断该条 SQL 应该发往哪个节点，乱发会导致数据异常，因此 DCDB 将会直接拒绝执行无 shardkey 的 INSERT/REPLACE 语句。</p>
+<pre><code>    mysql&gt; <span class="hljs-function">insert <span class="hljs-keyword">into</span> <span class="hljs-title">test1</span> (<span class="hljs-params">b,c</span>) <span class="hljs-title">values</span>(<span class="hljs-params"><span class="hljs-number">4</span>,<span class="hljs-string">"record3"</span></span>)</span>;
+    ERROR <span class="hljs-number">810</span> (HY000): Proxy ERROR:sql <span class="hljs-keyword">is</span> too complex,need to send to only noshard table.
+        Shard table insert must has field spec
+
+    mysql&gt; <span class="hljs-function">insert <span class="hljs-keyword">into</span> <span class="hljs-title">test1</span> (<span class="hljs-params">a,c</span>) <span class="hljs-title">values</span>(<span class="hljs-params"><span class="hljs-number">4</span>,<span class="hljs-string">"record3"</span></span>)</span>;
+    Query OK, <span class="hljs-number">1</span> <span class="hljs-function">row <span class="hljs-title">affected</span> (<span class="hljs-params"><span class="hljs-number">0.01</span> sec</span>)</span>
+</code></pre><p><strong>DELETE/UPDATE</strong>：同上，为了安全考虑，<strong>在分表和广播表执行该类 sql 的时候必须带有 where 条件</strong>，否则拒绝执行该 sql 命令。</p>
+<pre><code>    mysql&gt; <span class="hljs-keyword">delete</span> <span class="hljs-keyword">from</span> test1;
+    ERROR <span class="hljs-number">810</span> (HY000): Proxy ERROR:sql <span class="hljs-keyword">is</span> too complex,need to send to only noshard table.
+        Shard table <span class="hljs-keyword">delete</span>/update must have a where clause
+
+    mysql&gt; <span class="hljs-keyword">delete</span> <span class="hljs-keyword">from</span> test1 where a=<span class="hljs-number">1</span>;
+    Query OK, <span class="hljs-number">1</span> row affected (<span class="hljs-number">0.01</span> sec)
+</code></pre>

@@ -1,0 +1,129 @@
+<blockquote>
+<p>如果您期望阅读或下载全量开发文档，请参考 <a href="https://cloud.tencent.com/document/product/557/7714">《DCDB开发指南》</a>。</p>
+</blockquote>
+<h3 id=".E5.AD.97.E7.AC.A6.E9.9B.86.E5.92.8C.E6.97.B6.E5.8C.BA">字符集和时区</h3><p><strong>DCDB 在后端存储支持 MySQL 的所有字符集和字符序，此处只是列举，并不代表此处有差异。</strong></p>
+<pre><code>    mysql&gt; show character set;
+    +----------+---------------------------------+---------------------+--------+
+    <span class="hljs-params">| Charset  |</span> Description                     <span class="hljs-params">| Default collation   |</span> Maxlen <span class="hljs-params">|
+    +----------+---------------------------------+---------------------+--------+
+    |</span> big5     <span class="hljs-params">| Big5 Traditional Chinese        |</span> big5_chinese_ci     <span class="hljs-params">|      2 |</span>
+    <span class="hljs-params">| dec8     |</span> DEC West European               <span class="hljs-params">| dec8_swedish_ci     |</span>      <span class="hljs-number">1</span> <span class="hljs-params">|
+    |</span> cp85<span class="hljs-number">0</span>    <span class="hljs-params">| DOS West European               |</span> cp850_general_ci    <span class="hljs-params">|      1 |</span>
+    <span class="hljs-params">| hp8      |</span> HP West European                <span class="hljs-params">| hp8_english_ci      |</span>      <span class="hljs-number">1</span> <span class="hljs-params">|
+    |</span> koi8r    <span class="hljs-params">| KOI8-R Relcom Russian           |</span> koi8r_general_ci    <span class="hljs-params">|      1 |</span>
+    <span class="hljs-params">| latin1   |</span> cp1252 West European            <span class="hljs-params">| latin1_swedish_ci   |</span>      <span class="hljs-number">1</span> <span class="hljs-params">|
+    |</span> latin2   <span class="hljs-params">| ISO 8859-2 Central European     |</span> latin2_general_ci   <span class="hljs-params">|      1 |</span>
+    <span class="hljs-params">| swe7     |</span> <span class="hljs-number">7</span>bit Swedish                    <span class="hljs-params">| swe7_swedish_ci     |</span>      <span class="hljs-number">1</span> <span class="hljs-params">|
+    |</span> ascii    <span class="hljs-params">| US ASCII                        |</span> ascii_general_ci    <span class="hljs-params">|      1 |</span>
+    <span class="hljs-params">| ujis     |</span> EUC-JP Japanese                 <span class="hljs-params">| ujis_japanese_ci    |</span>      <span class="hljs-number">3</span> <span class="hljs-params">|
+    |</span> sjis     <span class="hljs-params">| Shift-JIS Japanese              |</span> sjis_japanese_ci    <span class="hljs-params">|      2 |</span>
+    <span class="hljs-params">| hebrew   |</span> ISO <span class="hljs-number">8859</span>-<span class="hljs-number">8</span> Hebrew               <span class="hljs-params">| hebrew_general_ci   |</span>      <span class="hljs-number">1</span> <span class="hljs-params">|
+    |</span> tis62<span class="hljs-number">0</span>   <span class="hljs-params">| TIS620 Thai                     |</span> tis620_thai_ci      <span class="hljs-params">|      1 |</span>
+    <span class="hljs-params">| euckr    |</span> EUC-KR Korean                   <span class="hljs-params">| euckr_korean_ci     |</span>      <span class="hljs-number">2</span> <span class="hljs-params">|
+    |</span> koi8u    <span class="hljs-params">| KOI8-U Ukrainian                |</span> koi8u_general_ci    <span class="hljs-params">|      1 |</span>
+    <span class="hljs-params">| gb2312   |</span> GB2312 Simplified Chinese       <span class="hljs-params">| gb2312_chinese_ci   |</span>      <span class="hljs-number">2</span> <span class="hljs-params">|
+    |</span> greek    <span class="hljs-params">| ISO 8859-7 Greek                |</span> greek_general_ci    <span class="hljs-params">|      1 |</span>
+    <span class="hljs-params">| cp1250   |</span> Windows Central European        <span class="hljs-params">| cp1250_general_ci   |</span>      <span class="hljs-number">1</span> <span class="hljs-params">|
+    |</span> gbk      <span class="hljs-params">| GBK Simplified Chinese          |</span> gbk_chinese_ci      <span class="hljs-params">|      2 |</span>
+    <span class="hljs-params">| latin5   |</span> ISO <span class="hljs-number">8859</span>-<span class="hljs-number">9</span> Turkish              <span class="hljs-params">| latin5_turkish_ci   |</span>      <span class="hljs-number">1</span> <span class="hljs-params">|
+    |</span> armscii8 <span class="hljs-params">| ARMSCII-8 Armenian              |</span> armscii8_general_ci <span class="hljs-params">|      1 |</span>
+    <span class="hljs-params">| utf8     |</span> UTF-<span class="hljs-number">8</span> Unicode                   <span class="hljs-params">| utf8_general_ci     |</span>      <span class="hljs-number">3</span> <span class="hljs-params">|
+    |</span> ucs2     <span class="hljs-params">| UCS-2 Unicode                   |</span> ucs2_general_ci     <span class="hljs-params">|      2 |</span>
+    <span class="hljs-params">| cp866    |</span> DOS Russian                     <span class="hljs-params">| cp866_general_ci    |</span>      <span class="hljs-number">1</span> <span class="hljs-params">|
+    |</span> keybcs2  <span class="hljs-params">| DOS Kamenicky Czech-Slovak      |</span> keybcs2_general_ci  <span class="hljs-params">|      1 |</span>
+    <span class="hljs-params">| macce    |</span> Mac Central European            <span class="hljs-params">| macce_general_ci    |</span>      <span class="hljs-number">1</span> <span class="hljs-params">|
+    |</span> macroman <span class="hljs-params">| Mac West European               |</span> macroman_general_ci <span class="hljs-params">|      1 |</span>
+    <span class="hljs-params">| cp852    |</span> DOS Central European            <span class="hljs-params">| cp852_general_ci    |</span>      <span class="hljs-number">1</span> <span class="hljs-params">|
+    |</span> latin7   <span class="hljs-params">| ISO 8859-13 Baltic              |</span> latin7_general_ci   <span class="hljs-params">|      1 |</span>
+    <span class="hljs-params">| utf8mb4  |</span> UTF-<span class="hljs-number">8</span> Unicode                   <span class="hljs-params">| utf8mb4_general_ci  |</span>      <span class="hljs-number">4</span> <span class="hljs-params">|
+    |</span> cp1251   <span class="hljs-params">| Windows Cyrillic                |</span> cp1251_general_ci   <span class="hljs-params">|      1 |</span>
+    <span class="hljs-params">| utf16    |</span> UTF-<span class="hljs-number">16</span> Unicode                  <span class="hljs-params">| utf16_general_ci    |</span>      <span class="hljs-number">4</span> <span class="hljs-params">|
+    |</span> utf16le  <span class="hljs-params">| UTF-16LE Unicode                |</span> utf16le_general_ci  <span class="hljs-params">|      4 |</span>
+    <span class="hljs-params">| cp1256   |</span> Windows Arabic                  <span class="hljs-params">| cp1256_general_ci   |</span>      <span class="hljs-number">1</span> <span class="hljs-params">|
+    |</span> cp1257   <span class="hljs-params">| Windows Baltic                  |</span> cp1257_general_ci   <span class="hljs-params">|      1 |</span>
+    <span class="hljs-params">| utf32    |</span> UTF-<span class="hljs-number">32</span> Unicode                  <span class="hljs-params">| utf32_general_ci    |</span>      <span class="hljs-number">4</span> <span class="hljs-params">|
+    |</span> binary   <span class="hljs-params">| Binary pseudo charset           |</span> binary              <span class="hljs-params">|      1 |</span>
+    <span class="hljs-params">| geostd8  |</span> GEOSTD8 Georgian                <span class="hljs-params">| geostd8_general_ci  |</span>      <span class="hljs-number">1</span> <span class="hljs-params">|
+    |</span> cp932    <span class="hljs-params">| SJIS <span class="hljs-keyword">for</span> Windows Japanese       |</span> cp932_japanese_ci   <span class="hljs-params">|      2 |</span>
+    <span class="hljs-params">| eucjpms  |</span> UJIS <span class="hljs-keyword">for</span> Windows Japanese       <span class="hljs-params">| eucjpms_japanese_ci |</span>      <span class="hljs-number">3</span> <span class="hljs-params">|
+    |</span> gb1803<span class="hljs-number">0</span>  <span class="hljs-params">| China National Standard GB18030 |</span> gb18030_chinese_ci  <span class="hljs-params">|      4 |</span>
+    +----------+---------------------------------+---------------------+--------+
+    <span class="hljs-number">41</span> rows <span class="hljs-keyword">in</span> set (<span class="hljs-number">0</span>.<span class="hljs-number">02</span> sec)
+</code></pre><p>查看当前连接的字符集：</p>
+<pre><code>    mysql&gt; show variables like <span class="hljs-string">"%char%"</span>;
+    +--------------------------+-----------------------------------------------------+
+    <span class="hljs-params">| Variable_name            |</span> Value                                               <span class="hljs-params">|
+    +--------------------------+-----------------------------------------------------+
+    |</span> character_set_client     <span class="hljs-params">| latin1                                              |</span>
+    <span class="hljs-params">| character_set_connection |</span> latin1                                              <span class="hljs-params">|
+    |</span> character_set_database   <span class="hljs-params">| utf8                                                |</span>
+    <span class="hljs-params">| character_set_filesystem |</span> binary                                              <span class="hljs-params">|
+    |</span> character_set_results    <span class="hljs-params">| latin1                                              |</span>
+    <span class="hljs-params">| character_set_server     |</span> utf8                                                <span class="hljs-params">|
+    |</span> character_set_system     <span class="hljs-params">| utf8                                                |</span>
+    <span class="hljs-params">| character_sets_dir       |</span> /data/tdsql_run/<span class="hljs-number">8812</span>/percona-<span class="hljs-number">5.7</span>.<span class="hljs-number">17</span>/share/charsets/ <span class="hljs-params">|
+    +--------------------------+-----------------------------------------------------+</span>
+</code></pre><p>设置当前连接相关的字符集：</p>
+<pre><code>    mysql&gt; set names utf8;
+    Query OK, <span class="hljs-number">0</span> rows affected (<span class="hljs-number">0</span>.<span class="hljs-number">03</span> sec)
+
+    mysql&gt; show variables like <span class="hljs-string">"%char%"</span>;
+    +--------------------------+-----------------------------------------------------+
+    <span class="hljs-params">| Variable_name            |</span> Value                                               <span class="hljs-params">|
+    +--------------------------+-----------------------------------------------------+
+    |</span> character_set_client     <span class="hljs-params">| utf8                                                |</span>
+    <span class="hljs-params">| character_set_connection |</span> utf8                                                <span class="hljs-params">|
+    |</span> character_set_database   <span class="hljs-params">| utf8                                                |</span>
+    <span class="hljs-params">| character_set_filesystem |</span> binary                                              <span class="hljs-params">|
+    |</span> character_set_results    <span class="hljs-params">| utf8                                                |</span>
+    <span class="hljs-params">| character_set_server     |</span> utf8                                                <span class="hljs-params">|
+    |</span> character_set_system     <span class="hljs-params">| utf8                                                |</span>
+    <span class="hljs-params">| character_sets_dir       |</span> /data/tdsql_run/<span class="hljs-number">8811</span>/percona-<span class="hljs-number">5.7</span>.<span class="hljs-number">17</span>/share/charsets/ <span class="hljs-params">|
+    +--------------------------+-----------------------------------------------------+</span>
+</code></pre><blockquote>
+<p>注意：DCDB 不支持通过命令行设置参数，请到云控制台进行设置。</p>
+</blockquote>
+<p>支持通过设置time_zone变量修改时区相关的属性：</p>
+<pre><code>    mysql&gt; show variables like <span class="hljs-string">'%time_zone%'</span>;
+    +<span class="hljs-comment">------------------+--------+</span>
+    | Variable_name    | Value  |
+    +<span class="hljs-comment">------------------+--------+</span>
+    | system_time_zone | CST    |
+    | time_zone        | SYSTEM |
+    +<span class="hljs-comment">------------------+--------+</span>
+    <span class="hljs-number">2</span> rows <span class="hljs-keyword">in</span> set (<span class="hljs-number">0.00</span> sec)
+
+    mysql&gt; <span class="hljs-built_in">create</span> <span class="hljs-built_in">table</span> test.tt (ts timestamp, dt datetime,c int) shardkey=c;
+    Query OK, <span class="hljs-number">0</span> rows affected (<span class="hljs-number">0.49</span> sec)
+
+    mysql&gt;  <span class="hljs-built_in">insert</span> into test.tt (ts,dt,c)values (<span class="hljs-string">'2017-10-01 12:12:12'</span>, <span class="hljs-string">'2017-10-01 12:12:12'</span>,<span class="hljs-number">1</span>);
+    Query OK, <span class="hljs-number">1</span> row affected (<span class="hljs-number">0.09</span> sec)
+
+    mysql&gt; <span class="hljs-built_in">select</span> * from test.tt;
+    +<span class="hljs-comment">---------------------+---------------------+------+</span>
+    | ts                  | dt                  | c    |
+    +<span class="hljs-comment">---------------------+---------------------+------+</span>
+    | <span class="hljs-number">2017</span><span class="hljs-number">-10</span><span class="hljs-number">-01</span> <span class="hljs-number">12</span>:<span class="hljs-number">12</span>:<span class="hljs-number">12</span> | <span class="hljs-number">2017</span><span class="hljs-number">-10</span><span class="hljs-number">-01</span> <span class="hljs-number">12</span>:<span class="hljs-number">12</span>:<span class="hljs-number">12</span> |    <span class="hljs-number">1</span> |
+    +<span class="hljs-comment">---------------------+---------------------+------+</span>
+    <span class="hljs-number">1</span> row <span class="hljs-keyword">in</span> set (<span class="hljs-number">0.04</span> sec)
+
+    mysql&gt; set time_zone = <span class="hljs-string">'+12:00'</span>;
+    Query OK, <span class="hljs-number">0</span> rows affected (<span class="hljs-number">0.00</span> sec)
+
+    mysql&gt; show variables like <span class="hljs-string">'%time_zone%'</span>;
+    +<span class="hljs-comment">------------------+--------+</span>
+    | Variable_name    | Value  |
+    +<span class="hljs-comment">------------------+--------+</span>
+    | system_time_zone | CST    |
+    | time_zone        | +<span class="hljs-number">12</span>:<span class="hljs-number">00</span> |
+    +<span class="hljs-comment">------------------+--------+</span>
+    <span class="hljs-number">2</span> rows <span class="hljs-keyword">in</span> set (<span class="hljs-number">0.00</span> sec)
+
+    mysql&gt; <span class="hljs-built_in">select</span> * from test.tt;
+    +<span class="hljs-comment">---------------------+---------------------+------+</span>
+    | ts                  | dt                  | c    |
+    +<span class="hljs-comment">---------------------+---------------------+------+</span>
+    | <span class="hljs-number">2017</span><span class="hljs-number">-10</span><span class="hljs-number">-01</span> <span class="hljs-number">16</span>:<span class="hljs-number">12</span>:<span class="hljs-number">12</span> | <span class="hljs-number">2017</span><span class="hljs-number">-10</span><span class="hljs-number">-01</span> <span class="hljs-number">12</span>:<span class="hljs-number">12</span>:<span class="hljs-number">12</span> |    <span class="hljs-number">1</span> |
+    +<span class="hljs-comment">---------------------+---------------------+------+</span>
+    <span class="hljs-number">1</span> row <span class="hljs-keyword">in</span> set (<span class="hljs-number">0.06</span> sec)
+</code></pre>

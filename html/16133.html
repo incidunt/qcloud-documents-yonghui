@@ -1,0 +1,121 @@
+<h2>1. 接口描述<br/></h2>
+<p>本接口(DescribeDBLogFiles)用于获取数据库的各种日志列表，包括冷备、binlog、errlog和slowlog。</p>
+<h2>2. 输入参数<br/></h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/557/16127">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：DescribeDBLogFiles。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2018-04-11。</td>
+</tr>
+<tr>
+<td>InstanceId</td>
+<td>是</td>
+<td>String</td>
+<td>实例 ID，形如：dcdbt-ow7t8lmc。</td>
+</tr>
+<tr>
+<td>ShardId</td>
+<td>是</td>
+<td>String</td>
+<td>分片 ID，形如：shard-7noic7tv。</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>是</td>
+<td>Integer</td>
+<td>请求日志类型，取值只能为1、2、3或者4。1-binlog，2-冷备，3-errlog，4-slowlog。</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 输出参数<br/></h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 错误码<br/></h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InternalError.DbOperationFailed</td>
+<td>查询数据库失败。</td>
+</tr>
+<tr>
+<td>InternalError.GetInstanceInfoFailed</td>
+<td>获取实例信息失败。</td>
+</tr>
+<tr>
+<td>ResourceNotFound.NoInstanceFound</td>
+<td>找不到指定的数据库实例。</td>
+</tr>
+<tr>
+<td>ResourceUnavailable.InstanceAlreadyDeleted</td>
+<td>数据库实例已被删除。</td>
+</tr>
+<tr>
+<td>ResourceUnavailable.InstanceStatusAbnormal</td>
+<td>数据库实例状态不正确，当前无法操作。</td>
+</tr>
+</tbody>
+</table>
+<h2>5. 示例<br/></h2>
+<h2>示例1 获取日志列表</br></h2>
+<h3>请求参数</br></h3>
+<pre><code>https://dcdb.tencentcloudapi.com/?Action=DescribeDBLogFiles
+&amp;InstanceId=dcdbt-2t4cf98d
+&amp;ShardId=shard-gdqcdn39
+&amp;Type=1
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h3>返回参数</br></h3>
+<pre><code>{
+  "Response": {
+    "Files": [
+      {
+        "Length": 5253724,
+        "Mtime": 1468822981,
+        "Uri": "/1/noshard_108/group_1520844319_37793941/1468578832/859932065/000001/5ce7d1a8f26c2dfcf1de22d4e9792b11b0b0057450684d266e1bf9a8aa6ea272/1/shard-5ps4rppj/set_1516333432_6"
+      }
+    ],
+    "InstanceId": "dcdbt-2t4cf98d",
+    "Normalprefix": "http://10.66.255.253:8083",
+    "RequestId": "7212a9ec-a235-2144-98d4-59fbe6f14d79",
+    "ShardId": "shard-gdqcdn39",
+    "Total": 1,
+    "Type": 1,
+    "Vpcprefix": "http://169.254.0.27:8083"
+  }
+}</code></pre>

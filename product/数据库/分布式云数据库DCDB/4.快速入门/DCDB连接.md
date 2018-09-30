@@ -2,9 +2,13 @@
 ## 准备工作
 ### 新建用户权限
 1. 在 [DCDB 控制台](http://console.tcecqpoc.fsphere.cn/dcdb) 中，单击需要操作的实例最右方的【管理】，进入实例详情页面。
+
 ![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/d2eafea1a7b03224961c0906180e6b22/image.png)
+
 2. 在实例详情页面单击【账号管理】，进入帐号管理页面后单击【创建帐号】。
+
 ![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/4e60badccaa63bf1632dbe1ed948793f/r2.png)
+
 3. 依次输入帐号名、主机、密码、备注，检查无误后单击【确定】，进入设置权限页面。
 	> 主机名实际是网络出口地址。这里支持%这样的匹配方式，代表所有IP均可访问。
 	
@@ -49,7 +53,9 @@
 > 端口：输入获取外网地址所分配的端口。
 
 	![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/ee0a9b423103292797873f78637e960b/image.png)
-3. 成功连接后的界面如图所示，在此页面即可进行数据库内相关操作。![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/93ecf636452505760086db5972d5fc6b/image.png)
+3. 成功连接后的界面如图所示，在此页面即可进行数据库内相关操作。
+
+![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/93ecf636452505760086db5972d5fc6b/image.png)
 
 ### WINDOWS JDBC驱动连接
 > DCDB 支持程序驱动连接，这里我们以 JAVA 使用 JDBC Driver for MySQL (Connector/J) 连接 DCDB 为示例。
@@ -73,6 +79,6 @@
 ### LINUX 命令行连接
 以云平台服务器中 CentOS 7.2 64 位系统的 CVM 为例，关于云平台服务器的购买详情，可以参考[云服务器选购](http://buy.tce.fsphere.cn/cvm)。
 
-1. 登录 LINUX 后，输入命令 `yum install mysql` ,利用 CentOS 自带的包管理软件 Yum 在云平台的镜像源中下载安装 MySQL 客户端。
+1. 登录 LINUX 后，输入命令 `yum install mysql` ,利用 CentOS 自带的包管理软件 Yum 在云平台的镜像源中下载安装 MySQL 客户端。<br>
 ![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/7f6a1f7a953cc38809fa069182481a22/image.png)
-2. 命令行显示 complete 后，MySQL 客户端安装完成。我们输入命令 `mysql -h外网地址 -P端口 -u用户名 -p密码` 连接 DCDB。下一步即可进行分表操作。下图中以`show databases;`为例。![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/b3fba8f8ace315e5eba05fdd252bd4c0/image.png)
+2. 命令行显示 complete 后，MySQL 客户端安装完成。我们输入命令 `mysql -h外网地址 -P端口 -u用户名 -p密码` 连接 DCDB。下一步即可进行分表操作。下图中以`show databases;`为例。<br>![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/b3fba8f8ace315e5eba05fdd252bd4c0/image.png)

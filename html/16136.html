@@ -1,0 +1,153 @@
+<h2>1. 接口描述<br/></h2>
+<p>本接口（UpgradeDCDBInstance）用于升级分布式数据库实例。本接口完成下单和支付两个动作，如果发生支付失败的错误，调用用户账户相关接口中的支付订单接口（PayDeals）重新支付即可。</p>
+<h2>2. 输入参数<br/></h2>
+<p>以下请求参数列表仅列出了接口请求参数和部分公共参数，完整公共参数列表见<a href="/document/api/557/16127">公共请求参数</a>。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>是否必选</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：UpgradeDCDBInstance。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>是</td>
+<td>String</td>
+<td>公共参数，本接口取值：2018-04-11。</td>
+</tr>
+<tr>
+<td>InstanceId</td>
+<td>是</td>
+<td>String</td>
+<td>待升级的实例ID。形如：dcdbt-ow728lmc，可以通过 DescribeDCDBInstances 查询实例详情获得。</td>
+</tr>
+<tr>
+<td>UpgradeType</td>
+<td>是</td>
+<td>String</td>
+<td>升级类型，取值范围：<br/><li> ADD: 新增分片。</li> <br/> <li> EXPAND: 升级实例中的已有分片。</li> <br/> <li> SPLIT: 将已有分片中的数据切分到新增分片上。</li></td>
+</tr>
+<tr>
+<td>AddShardConfig</td>
+<td>否</td>
+<td><a href="/document/api/557/16142">AddShardConfig</a></td>
+<td>新增分片配置，当UpgradeType为ADD时生效。</td>
+</tr>
+<tr>
+<td>ExpandShardConfig</td>
+<td>否</td>
+<td><a href="/document/api/557/16142">ExpandShardConfig</a></td>
+<td>扩容分片配置，当UpgradeType为EXPAND时生效。</td>
+</tr>
+<tr>
+<td>SplitShardConfig</td>
+<td>否</td>
+<td><a href="/document/api/557/16142">SplitShardConfig</a></td>
+<td>切分分片配置，当UpgradeType为SPLIT时生效。</td>
+</tr>
+<tr>
+<td>AutoVoucher</td>
+<td>否</td>
+<td>Boolean</td>
+<td>是否自动使用代金券进行支付，默认不使用。</td>
+</tr>
+<tr>
+<td>VoucherIds.N</td>
+<td>否</td>
+<td>Array of String</td>
+<td>代金券ID列表，目前仅支持指定一张代金券。</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 输出参数<br/></h2>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DealName</td>
+<td>String</td>
+<td>长订单号。可以据此调用 DescribeOrders。<br/> 查询订单详细信息，或在支付失败时调用用户账号相关接口进行支付。</td>
+</tr>
+<tr>
+<td>RequestId</td>
+<td>String</td>
+<td>唯一请求ID，每次请求都会返回。定位问题时需要提供该次请求的RequestId。</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 错误码<br/></h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FailedOperation.CreateOrderFailed</td>
+<td>创建订单失败。</td>
+</tr>
+<tr>
+<td>FailedOperation.PayFailed</td>
+<td>支付订单失败。</td>
+</tr>
+<tr>
+<td>InternalError.DbOperationFailed</td>
+<td>查询数据库失败。</td>
+</tr>
+<tr>
+<td>InvalidParameter.SpecNotFound</td>
+<td>找不到对应的售卖规格。</td>
+</tr>
+<tr>
+<td>InvalidParameterValue.SpecIdIllegal</td>
+<td>找不到数据库实例对应的规格信息。</td>
+</tr>
+<tr>
+<td>ResourceNotFound.NoInstanceFound</td>
+<td>找不到指定的数据库实例。</td>
+</tr>
+<tr>
+<td>ResourceUnavailable.InstanceHasBeenLocked</td>
+<td>数据库实例已经被锁定，当前无法操作。</td>
+</tr>
+<tr>
+<td>ResourceUnavailable.InstanceStatusAbnormal</td>
+<td>数据库实例状态不正确，当前无法操作。</td>
+</tr>
+</tbody>
+</table>
+<h2>5. 示例<br/></h2>
+<h2>示例1 升级分布式数据库</br></h2>
+<h3>请求参数</br></h3>
+<pre><code>https://dcdb.tencentcloudapi.com/?Action=DescribeUpgradePrice
+&amp;InstanceId=dcdbt-fdpjf5zh
+&amp;UpgradeType=ADD
+&amp;AddShardConfig.ShardCount=2
+&amp;AddShardConfig.ShardMemory=2
+&amp;AddShardConfig.ShardStorage=10
+&amp;AutoVoucher=false
+&amp;&lt;公共请求参数&gt;</code></pre>
+<h3>返回参数</br></h3>
+<pre><code>{
+  "Response": {
+    "DealName": "20180103110035",
+    "RequestId": "9b59ee51-0e13-1c2f-dedb-59fabe9d7f4a"
+  }
+}</code></pre>

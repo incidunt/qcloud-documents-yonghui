@@ -1,0 +1,171 @@
+<p>腾讯云 API 会对每个访问请求进行身份验证，即每个请求都需要在公共请求参数中包含签名信息（Signature）以验证请求者身份。
+签名信息由安全凭证生成，安全凭证包括 SecretId 和 SecretKey；若你还没有安全凭证，请前往<a href="https://console.cloud.tencent.com/capi">云API密钥页面</a>申请，否则无法调用云API接口。</p>
+<h2>1. 申请安全凭证</h2>
+<p>在第一次使用云API之前，请前往<a href="https://console.cloud.tencent.com/capi">云API密钥页面</a>申请安全凭证。
+安全凭证包括 SecretId 和 SecretKey：
+<ol>
+<li>SecretId 用于标识 API 调用者身份。</li>
+<li>SecretKey 用于加密签名字符串和服务器端验证签名字符串的密钥。</li>
+</ol></p>
+<blockquote><p><font color='red'>你必须严格保管安全凭证，避免泄露。</font></p>
+</blockquote>
+
+</p>
+<p>申请安全凭证的具体步骤如下：
+<ol>
+<li>登录<a href="https://console.cloud.tencent.com/">云管理中心控制台</a>。</li>
+<li>前往<a href="https://console.cloud.tencent.com/capi">云API密钥</a>的控制台页面。</li>
+<li>在<a href="https://console.cloud.tencent.com/capi">云API密钥</a>页面，点击【新建】即可以创建一对SecretId/SecretKey。</li></ol></p>
+<blockquote>
+<p><font color='red'>开发商帐号最多可以拥有两对SecretId / SecretKey。</font></p>
+</blockquote>
+<h2>2. 生成签名串</h2>
+<p>有了安全凭证SecretId 和 SecretKey后，就可以生成签名串了。以下是生成签名串的详细过程。</p>
+<p>假设你的 SecretId 和 SecretKey 分别是：<ol><li>SecretId: AKIDz8krbsJ5yKBZQpn74WFkmLPx3EXAMPLE</li><li>SecretKey: Gu5t9xGARNpq86cd98joQYCN3EXAMPLE</li></ol></p>
+<p><strong>注意：这里只是示例，请请根据你实际申请的SecretId和SecretKey进行后续操作！</strong></p>
+<p>以云服务器查看实例列表(DescribeInstances)请求为例，当用户调用这一接口时，其请求参数可能如下：</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>中文</th>
+<th>参数值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>方法名</td>
+<td>DescribeInstances</td>
+</tr>
+<tr>
+<td>SecretId</td>
+<td>密钥Id</td>
+<td>AKIDz8krbsJ5yKBZQpn74WFkmLPx3EXAMPLE</td>
+</tr>
+<tr>
+<td>Timestamp</td>
+<td>当前时间戳</td>
+<td>1465185768</td>
+</tr>
+<tr>
+<td>Nonce</td>
+<td>随机正整数</td>
+<td>11886</td>
+</tr>
+<tr>
+<td>Region</td>
+<td>实例所在区域</td>
+<td>ap-guangzhou</td>
+</tr>
+<tr>
+<td>InstanceIds.0</td>
+<td>待查询的实例ID</td>
+<td>ins-09dx96dg</td>
+</tr>
+<tr>
+<td>Offset</td>
+<td>偏移量</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Limit</td>
+<td>最大允许输出</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>接口版本号</td>
+<td>2017-03-12</td>
+</tr>
+</tbody>
+</table>
+<h3>2.1. 对参数排序</h3>
+<p>首先对所有请求参数按参数名做字典序升序排列，所谓字典序升序排列，直观上就如同在字典中排列单词一样排序，按照字母表或数字表里递增顺序的排列次序，即先考虑第一个“字母”，在相同的情况下考虑第二个“字母”，依此类推。您可以借助编程语言中的相关排序函数来实现这一功能，如php中的ksort函数。上述示例参数的排序结果如下：</p>
+<pre><code>{
+    'Action' : 'DescribeInstances',
+    'InstanceIds.0' : 'ins-09dx96dg',
+    'Limit' : 20,
+    'Nonce' : 11886,
+    'Offset' : 0,
+    'Region' : 'ap-guangzhou',
+    'SecretId' : 'AKIDz8krbsJ5yKBZQpn74WFkmLPx3EXAMPLE',
+    'Timestamp' : 1465185768,
+    'Version': '2017-03-12',
+}</code></pre>
+<p>使用其它程序设计语言开发时, 可对上面示例中的参数进行排序，得到的结果一致即可。</p>
+<h3>2.2. 拼接请求字符串</h3>
+<p>此步骤生成请求字符串。
+将把上一步排序好的请求参数格式化成“参数名称”=“参数值”的形式，如对Action参数，其参数名称为&quot;Action&quot;，参数值为&quot;DescribeInstances&quot;，因此格式化后就为Action=DescribeInstances。
+<strong>注意：“参数值”为原始值而非url编码后的值。</strong></p>
+<p>然后将格式化后的各个参数用&quot;&amp;&quot;拼接在一起，最终生成的请求字符串为：</p>
+<pre><code>Action=DescribeInstances&amp;InstanceIds.0=ins-09dx96dg&amp;Limit=20&amp;Nonce=11886&amp;Offset=0&amp;Region=ap-guangzhou&amp;SecretId=AKIDz8krbsJ5yKBZQpn74WFkmLPx3EXAMPLE&amp;Timestamp=1465185768&amp;Version=2017-03-12</code></pre>
+<h3>2.3. 拼接签名原文字符串</h3>
+<p>此步骤生成签名原文字符串。
+签名原文字符串由以下几个参数构成：
+<ol>
+<li>请求方法：支持 POST 和 GET 方式, 这里使用 GET 请求, 注意方法为全大写。</li>
+<li>请求主机:查看实例列表(DescribeInstances)的请求域名为：cvm.tencentcloudapi.com。实际的请求域名根据接口所属模块的不同而不同, 详见各接口说明。</li>
+<li>请求路径: 当前版本云API的请求路径固定为 / 。</li>
+<li>请求字符串: 即上一步生成的请求字符串。</li></ol></p>
+<p>签名原文串的拼接规则为：</p>
+<blockquote>
+<p>请求方法 + 请求主机 +请求路径 + ? + 请求字符串。</p>
+</blockquote>
+<p>示例的拼接结果为：</p>
+<pre><code>GETcvm.tencentcloudapi.com/?Action=DescribeInstances&amp;InstanceIds.0=ins-09dx96dg&amp;Limit=20&amp;Nonce=11886&amp;Offset=0&amp;Region=ap-guangzhou&amp;SecretId=AKIDz8krbsJ5yKBZQpn74WFkmLPx3EXAMPLE&amp;Timestamp=1465185768&amp;Version=2017-03-12</code></pre>
+<h3>2.4. 生成签名串</h3>
+<p>此步骤生成签名串。
+首先使用 HMAC-SHA1 算法对上一步中获得的<strong>签名原文字符串</strong>进行签，然后将生成的签名串使用 Base64 进行编码，即可获得最终的签名串。</p>
+<p>具体代码如下，以 PHP 语言为例：</p>
+<pre><code>$secretKey = 'Gu5t9xGARNpq86cd98joQYCN3EXAMPLE';
+$srcStr = 'GETcvm.tencentcloudapi.com/?Action=DescribeInstances&amp;InstanceIds.0=ins-09dx96dg&amp;Limit=20&amp;Nonce=11886&amp;Offset=0&amp;Region=ap-guangzhou&amp;SecretId=AKIDz8krbsJ5yKBZQpn74WFkmLPx3EXAMPLE&amp;Timestamp=1465185768&amp;Version=2017-03-12';
+$signStr = base64_encode(hash_hmac('sha1', $srcStr, $secretKey, true));
+echo $signStr;</code></pre>
+<p>最终得到的签名串为：</p>
+<pre><code>v9MVG3fopp/gCsLSZ4gMFeYGgDU=</code></pre>
+<p>使用其它程序设计语言开发时, 可用上面示例中的原文进行签名验证, 得到的签名串与例子中的一致即可。</p>
+<h2>3. 签名串编码</h2>
+<p>生成的签名串并不能直接作为请求参数，需要对其进行 URL 编码。
+<strong>注意：如果用户的请求方法是GET，则对所有请求参数值均需要做URL编码。</strong>
+如上一步生成的签名串为v9MVG3fopp/gCsLSZ4gMFeYGgDU=，最终得到的签名串请求参数(Signature)为：v9MVG3fopp%2fgCsLSZ4gMFeYGgDU%3d，它将用于生成最终的请求URL。</p>
+<h2>4. 鉴权失败</h2>
+<p>根据实际情况，存在以下鉴权失败的错误码，请根据实际情况处理。</p>
+<table>
+<thead>
+<tr>
+<th>错误代码</th>
+<th>错误描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AuthFailure.SignatureExpire</td>
+<td>签名过期</td>
+</tr>
+<tr>
+<td>AuthFailure.UnauthorizedOperation</td>
+<td>请求未 CAM 授权</td>
+</tr>
+<tr>
+<td>AuthFailure.SecretIdNotFound</td>
+<td>密钥不存在</td>
+</tr>
+<tr>
+<td>AuthFailure.SignatureFailure</td>
+<td>签名错误</td>
+</tr>
+<tr>
+<td>AuthFailure.TokenFailure</td>
+<td>token 错误</td>
+</tr>
+<tr>
+<td>AuthFailure.MFAFailure</td>
+<td>MFA 错误</td>
+</tr>
+<tr>
+<td>AuthFailure.InvalidSecretId</td>
+<td>密钥非法（不是云 API 密钥类型）</td>
+</tr>
+</tbody>
+</table>

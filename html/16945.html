@@ -1,0 +1,68 @@
+<blockquote>
+<p>如果您期望阅读或下载全量开发文档，请参考 <a href="https://cloud.tencent.com/document/product/557/7714">《DCDB开发指南》</a>。</p>
+</blockquote>
+<h4 id=".E4.B8.A4.E7.BA.A7.E5.88.86.E5.8C.BA">两级分区</h4><p>DCDB 只用 HASH 方式进行数据拆分，不利于删除特定条件的数据，如流水类型，删除旧的数据，为了解决这个问题，可以使用两级分区。<br>DCDB 支持 range 和 list 格式的两级分区，具体建表语法和 mysql 分区语法类似。</p>
+<blockquote>
+<p>注意：分区使用的是小于 <code>&lt;</code> 符号，因此如果要存储当年的数据的话（2017），需要创建<code>&lt;2018</code>的分区，用户只需创建到当前的时间分区，DCDB 会自动增加后续分区，默认往后创建 3 个分区，以 YEAR 为例，DCDB 会自动创建 2018，2019，2020 的分区，后续也会自动增减。</p>
+</blockquote>
+<p><strong>range 支持类型：</strong></p>
+<ul>
+<li><p>DATE，DATETIME，TIMESTAMP</p>
+<pre><code>支持year，month，day函数，函数为空和day函数一样
+
+</code></pre></li>
+<li><p>TINYINT, SMALLINT, MEDIUMINT, INT (INTEGER), and BIGINT</p>
+<pre><code>支持year，month，day函数，此时传入的值转换为年月日，然后和分表信息对比
+
+
+</code></pre></li>
+</ul>
+<p>函数为空则直接使用该 int 值和分表信息对比。</p>
+<p>例子：<br>如果hired是date类型，则查询插入对应的值格式为 &#39;20160101 10:20:20&#39; ,20160101。</p>
+<pre><code>    <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> employees_int (
+        <span class="hljs-keyword">id</span> <span class="hljs-built_in">INT</span> <span class="hljs-keyword">key</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+        fname <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">30</span>),
+        lname <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">30</span>),
+        hired <span class="hljs-built_in">date</span>,
+        separated <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">'9999-12-31'</span>,
+        job_code <span class="hljs-built_in">INT</span>,
+        store_id <span class="hljs-built_in">INT</span>
+    )
+    shardkey=<span class="hljs-keyword">id</span>
+    <span class="hljs-keyword">PARTITION</span> <span class="hljs-keyword">BY</span> <span class="hljs-keyword">RANGE</span> ( <span class="hljs-keyword">month</span>(hired) ) (
+        <span class="hljs-keyword">PARTITION</span> p0 <span class="hljs-keyword">VALUES</span> <span class="hljs-keyword">LESS</span> <span class="hljs-keyword">THAN</span> (<span class="hljs-number">199102</span>),
+        <span class="hljs-keyword">PARTITION</span> p1 <span class="hljs-keyword">VALUES</span> <span class="hljs-keyword">LESS</span> <span class="hljs-keyword">THAN</span> (<span class="hljs-number">199603</span>),
+        <span class="hljs-keyword">PARTITION</span> p2 <span class="hljs-keyword">VALUES</span> <span class="hljs-keyword">LESS</span> <span class="hljs-keyword">THAN</span> (<span class="hljs-number">200101</span>)
+    );
+</code></pre><p>如果 hired 是 int 类型，则查询插入对应的值格式为 1474961034，proxy 首先会转换成对应的 date 格式，20160927，然后和分表信息对比。</p>
+<pre><code>    <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> employees_int (
+        <span class="hljs-keyword">id</span> <span class="hljs-built_in">INT</span> <span class="hljs-keyword">key</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+        fname <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">30</span>),
+        lname <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">30</span>),
+        hired <span class="hljs-built_in">int</span>,
+        separated <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">'9999-12-31'</span>,
+        job_code <span class="hljs-built_in">INT</span>,
+        store_id <span class="hljs-built_in">INT</span>
+    )
+    shardkey=<span class="hljs-keyword">id</span>
+    <span class="hljs-keyword">PARTITION</span> <span class="hljs-keyword">BY</span> <span class="hljs-keyword">RANGE</span> ( <span class="hljs-keyword">month</span>(hired) ) (
+        <span class="hljs-keyword">PARTITION</span> p0 <span class="hljs-keyword">VALUES</span> <span class="hljs-keyword">LESS</span> <span class="hljs-keyword">THAN</span> (<span class="hljs-number">199102</span>),
+        <span class="hljs-keyword">PARTITION</span> p1 <span class="hljs-keyword">VALUES</span> <span class="hljs-keyword">LESS</span> <span class="hljs-keyword">THAN</span> (<span class="hljs-number">199603</span>),
+        <span class="hljs-keyword">PARTITION</span> p2 <span class="hljs-keyword">VALUES</span> <span class="hljs-keyword">LESS</span> <span class="hljs-keyword">THAN</span> (<span class="hljs-number">200101</span>)
+    );
+</code></pre><p><strong>list 支持类型：</strong><br>DATE，DATETIME，TIMESTAMP ，支持年月日函数。<br>TINYINT, SMALLINT, MEDIUMINT, INT (INTEGER), and BIGINT。<br>CHAR, VARCHAR, BINARY, and VARBINARY。</p>
+<pre><code>    <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> customers_1 (
+        first_name <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">25</span>),
+        last_name <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">25</span>),
+        street_1 <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">30</span>),
+        street_2 <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">30</span>),
+        city <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">15</span>),
+        renewal <span class="hljs-built_in">DATE</span>
+    ) shardkey=first_name
+    <span class="hljs-keyword">PARTITION</span> <span class="hljs-keyword">BY</span> <span class="hljs-keyword">LIST</span> (city) (
+        <span class="hljs-keyword">PARTITION</span> pRegion_1 <span class="hljs-keyword">VALUES</span> <span class="hljs-keyword">IN</span>(<span class="hljs-string">'1'</span>, <span class="hljs-string">'2'</span>, <span class="hljs-string">'3'</span>),
+        <span class="hljs-keyword">PARTITION</span> pRegion_2 <span class="hljs-keyword">VALUES</span> <span class="hljs-keyword">IN</span>(<span class="hljs-string">'4'</span>, <span class="hljs-string">'5'</span>, <span class="hljs-string">'6'</span>),
+        <span class="hljs-keyword">PARTITION</span> pRegion_3 <span class="hljs-keyword">VALUES</span> <span class="hljs-keyword">IN</span>(<span class="hljs-string">'7'</span>, <span class="hljs-string">'8'</span>, <span class="hljs-string">'9'</span>),
+        <span class="hljs-keyword">PARTITION</span> pRegion_4 <span class="hljs-keyword">VALUES</span> <span class="hljs-keyword">IN</span>(<span class="hljs-string">'10'</span>, <span class="hljs-string">'11'</span>, <span class="hljs-string">'12'</span>)
+    );
+</code></pre>

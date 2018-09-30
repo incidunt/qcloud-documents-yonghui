@@ -1,0 +1,61 @@
+<blockquote>
+<p>如果您期望阅读或下载全量开发文档，请参考 <a href="https://cloud.tencent.com/document/product/557/7714">《DCDB开发指南》</a>。</p>
+</blockquote>
+<h4 id=".E6.95.B0.E6.8D.AE.E5.BA.93.E7.AE.A1.E7.90.86.E8.AF.AD.E5.8F.A5">数据库管理语句</h4><p><strong>状态查询</strong><br>通过 sql 可以查看 proxy 的配置以及状态信息，目前支持如下命令：</p>
+<pre><code>    mysql&gt; <span class="hljs-regexp">/*proxy*/help</span>;
+    +-----------------------+-------------------------------------------------------+
+    <span class="hljs-params">| command               |</span> description                                           <span class="hljs-params">|
+    +-----------------------+-------------------------------------------------------+
+    |</span> show config           <span class="hljs-params">| show config from conf                                 |</span>
+    <span class="hljs-params">| show status           |</span> show proxy status,like route,shardkey <span class="hljs-keyword">and</span> so on       <span class="hljs-params">|
+    |</span> set sys_log_level=N   <span class="hljs-params">| change the sys debug level N should be 0,1,2,3        |</span>
+    <span class="hljs-params">| set inter_log_level=N |</span> change the interface debug level N should be <span class="hljs-number">0</span>,<span class="hljs-number">1</span>      <span class="hljs-params">|
+    |</span> set inter_time_open=N <span class="hljs-params">| change the interface time debug level N should be 0,1 |</span>
+    <span class="hljs-params">| set sql_log_level=N   |</span> change the sql debug level N should be <span class="hljs-number">0</span>,<span class="hljs-number">1</span>            <span class="hljs-params">|
+    |</span> set slow_log_level=N  <span class="hljs-params">| change the slow debug level N should be 0,1           |</span>
+    <span class="hljs-params">| set slow_log_ms=N     |</span> change the slow ms                                    <span class="hljs-params">|
+    |</span> set log_clean_time=N  <span class="hljs-params">| change the log clean days                             |</span>
+    <span class="hljs-params">| set log_clean_size=N  |</span> change the log clean size <span class="hljs-keyword">in</span> GB                       <span class="hljs-params">|
+    +-----------------------+-------------------------------------------------------+
+    10 rows <span class="hljs-keyword">in</span> set (0.00 sec)
+
+    mysql&gt; /*proxy*/show config;
+    +-----------------+--------------------+
+    |</span> config_name     <span class="hljs-params">| value              |</span>
+    +-----------------+--------------------+
+    <span class="hljs-params">| version         |</span> V2R120D001         <span class="hljs-params">|
+    |</span> mode            <span class="hljs-params">| group shard        |</span>
+    <span class="hljs-params">| rootdir         |</span> /shard_922         <span class="hljs-params">|
+    |</span> sys_log_level   <span class="hljs-params">| 0                  |</span>
+    <span class="hljs-params">| inter_log_level |</span> <span class="hljs-number">0</span>                  <span class="hljs-params">|
+    |</span> inter_time_open <span class="hljs-params">| 0                  |</span>
+    <span class="hljs-params">| sql_log_level   |</span> <span class="hljs-number">0</span>                  <span class="hljs-params">|
+    |</span> slow_log_level  <span class="hljs-params">| 0                  |</span>
+    <span class="hljs-params">| slow_log_ms     |</span> <span class="hljs-number">1000</span>               <span class="hljs-params">|
+    |</span> log_clean_time  <span class="hljs-params">| 1                  |</span>
+    <span class="hljs-params">| log_clean_size  |</span> <span class="hljs-number">1</span>                  <span class="hljs-params">|
+    |</span> rw_split        <span class="hljs-params">| 1                  |</span>
+    <span class="hljs-params">| ip_pass_through |</span> <span class="hljs-number">0</span>                  <span class="hljs-params">|
+    +-----------------+--------------------+
+    14 rows <span class="hljs-keyword">in</span> set (0.00 sec)
+
+    mysql&gt; /*proxy*/show status;
+    +-----------------------------+------------------------------------------------------------------------------+
+    |</span> status_name                 <span class="hljs-params">| value                                                                        |</span>
+    +-----------------------------+------------------------------------------------------------------------------+
+    <span class="hljs-params">| cluster                     |</span> group_1499858910_79548                                                       <span class="hljs-params">|
+    |</span> <span class="hljs-symbol">set_1499859173_1:</span>ip         <span class="hljs-params">| 10.49.118.165:5025;10.175.98.109:5025@1@IDC_4@0,10.231.23.241:5025@1@IDC_2@0 |</span>
+    <span class="hljs-params">| set_1499859173_1:hash_range |</span> <span class="hljs-number">0</span>---<span class="hljs-number">31</span>                                                                       <span class="hljs-params">|
+    |</span> <span class="hljs-symbol">set_1499911640_3:</span>ip         <span class="hljs-params">| 10.49.118.165:5026;10.175.98.109:5026@1@IDC_4@0,10.231.23.241:5026@1@IDC_2@0 |</span>
+    <span class="hljs-params">| set_1499911640_3:hash_range |</span> <span class="hljs-number">32</span>---<span class="hljs-number">63</span>                                                                      <span class="hljs-params">|
+    |</span> set                         <span class="hljs-params">| set_1499859173_1,set_1499911640_3                                            |</span>
+</code></pre><p>同时 proxy 增强了 explain 的返回结果，显示 proxy 修改后的 sql。</p>
+<pre><code>    mysql&gt; explain select * from test1;
+    +------+-------------+-------+------+---------------+------+---------+------+------+-------+-----------------------------------------+
+    <span class="hljs-params">| id   |</span> select_type <span class="hljs-params">| table |</span> type <span class="hljs-params">| possible_keys |</span> key  <span class="hljs-params">| key_len |</span> ref  <span class="hljs-params">| rows |</span> Extra <span class="hljs-params">| info                                    |</span>
+    +------+-------------+-------+------+---------------+------+---------+------+------+-------+-----------------------------------------+
+    <span class="hljs-params">|    1 |</span> SIMPLE      <span class="hljs-params">| test1 |</span> ALL  <span class="hljs-params">| NULL          |</span> NULL <span class="hljs-params">| NULL    |</span> NULL <span class="hljs-params">|   16 |</span>       <span class="hljs-params">| set_2,explain select * from shard.test1 |</span>
+    <span class="hljs-params">|    1 |</span> SIMPLE      <span class="hljs-params">| test1 |</span> ALL  <span class="hljs-params">| NULL          |</span> NULL <span class="hljs-params">| NULL    |</span> NULL <span class="hljs-params">|   16 |</span>       <span class="hljs-params">| set_1,explain select * from shard.test1 |</span>
+    +------+-------------+-------+------+---------------+------+---------+------+------+-------+-----------------------------------------+
+    <span class="hljs-number">2</span> rows <span class="hljs-keyword">in</span> set (<span class="hljs-number">0</span>.<span class="hljs-number">03</span> sec)
+</code></pre>
