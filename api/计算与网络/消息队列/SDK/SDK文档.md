@@ -17,9 +17,11 @@
 ### CMQ Java SDK 下载与配置
 #### 云 API 密钥使用说明
 使用 Java SDK 时，首先需要用户的云 API 密钥，云 API 密钥是对用户身份的合法性验证。获取云 API 密钥的方法如下：登录[云平台控制台](http://console.tcecqpoc.fsphere.cn/)，选择【云产品】-【云 API 密钥】选项
+
 ![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/b04d51df61bc4e9259dcee293981b644/5.png)
 
 用户可在此新建新的云 API 密钥或使用现有密钥。点击密钥 ID 进入详情页获取使用的密钥 secretId 和对应的 secretKey。
+
 ![](http://imgcache.tcecqpoc.fsphere.cn/image/mc.qcloudimg.com/static/img/47b2cf18add4d32a867f115fffb6af48/2.png)
 
 #### endpoint 说明
@@ -35,9 +37,9 @@ region 需要使用具体地域进行替换，有如下三个地区：gz(广州)
 #### 内外网区别
 如果业务进程也部署在云平台的 CVM 子机上，强烈建议使用同地域的内网endpoint：
 1) 同地域内网的时延更低；
-2) 目前消息队列对于公网下行流量是要收取流量费用的，用内网可以节省这部分的费用。
 
-外网域名请求既支持http，也支持https。内网请求仅支持http。举个例子：如果使用云平台北京地区的云主机，那么建议请求北京地域的endpoint，这样可以取得较低的时延，同时使用内网可以减少使用费用。因此选用的 endpoint 为`http://cmq-queue-bj.api.tencentyun.com`。
+
+外网域名请求既支持http，也支持https。内网请求仅支持http。举个例子：如果使用云平台北京地区的云主机，那么建议请求北京地域的endpoint，这样可以取得较低的时延。因此选用的 endpoint 为`http://cmq-queue-bj.api.tencentyun.com`。
 
 #### JAVA SDK下载
 下载最新版[CMQ Java SDK](http://cmqsdk-10016717.cos.myqcloud.com/qc_cmq_java_sdk_V1.0.1.zip)，或选择下载[jar包](http://cmqsdk-10016717.cos.myqcloud.com/cmq.jar)。
