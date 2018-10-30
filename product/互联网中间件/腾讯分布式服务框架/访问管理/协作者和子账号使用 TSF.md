@@ -11,6 +11,7 @@
 
 ### 1. 新建 tsf_PassRole 策略
 1.1 登录 [访问管理控制台](https://console.cloud.tencent.com/cam)。
+<<<<<<< HEAD
 
 1.2 单击左侧导航栏的 **策略管理**。</br>
 ![](https://main.qcloudimg.com/raw/26fc2bc64a06e312d9c567a4738e331a.png)
@@ -24,6 +25,16 @@
 1.5 选择【空白模板】，单击下一步。
 ![](https://main.qcloudimg.com/raw/da7849eb16acf32e084beef40784e1dc.png)
 
+=======
+1.2 单击左侧导航栏的 **策略管理**。
+![](https://main.qcloudimg.com/raw/26fc2bc64a06e312d9c567a4738e331a.png)
+1.3 单击【新建自定义策略】。
+![](https://main.qcloudimg.com/raw/9e50eb9b644c1e4b560e786ad36c697d.png)
+1.4 单击【按策略语法创建】。
+![](https://main.qcloudimg.com/raw/e26002f8c16eca54a76edaf4e50aaf1b.png)
+1.5 选择【空白模板】，单击下一步。
+![](https://main.qcloudimg.com/raw/da7849eb16acf32e084beef40784e1dc.png)
+>>>>>>> a94db28ee6845ba3fc602fd7643bf47811ec39a0
 1.6 填写策略名（ 如 tsf_PassRole ），填写策略内容如下，其中 `<roleOwnerUin>` 使用主账号的账号 ID。
 
 ```text
