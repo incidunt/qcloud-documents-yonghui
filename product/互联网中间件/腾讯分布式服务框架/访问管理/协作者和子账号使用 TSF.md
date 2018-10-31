@@ -10,32 +10,21 @@
 
 
 ### 1. 新建 tsf_PassRole 策略
-1.1 登录 [访问管理控制台](https://console.cloud.tencent.com/cam)。
-<<<<<<< HEAD
+#### 1.1 登录 [访问管理控制台](https://console.cloud.tencent.com/cam)。
 
-1.2 单击左侧导航栏的 **策略管理**。</br>
+#### 1.2 单击左侧导航栏的 **策略管理**。
 ![](https://main.qcloudimg.com/raw/26fc2bc64a06e312d9c567a4738e331a.png)
 
-1.3 单击【新建自定义策略】。
+#### 1.3 单击【新建自定义策略】。
 ![](https://main.qcloudimg.com/raw/9e50eb9b644c1e4b560e786ad36c697d.png)
 
-1.4 单击【按策略语法创建】。
+#### 1.4 单击【按策略语法创建】。
 ![](https://main.qcloudimg.com/raw/e26002f8c16eca54a76edaf4e50aaf1b.png)
 
-1.5 选择【空白模板】，单击下一步。
+#### 1.5 选择【空白模板】，单击下一步。
 ![](https://main.qcloudimg.com/raw/da7849eb16acf32e084beef40784e1dc.png)
 
-=======
-1.2 单击左侧导航栏的 **策略管理**。
-![](https://main.qcloudimg.com/raw/26fc2bc64a06e312d9c567a4738e331a.png)
-1.3 单击【新建自定义策略】。
-![](https://main.qcloudimg.com/raw/9e50eb9b644c1e4b560e786ad36c697d.png)
-1.4 单击【按策略语法创建】。
-![](https://main.qcloudimg.com/raw/e26002f8c16eca54a76edaf4e50aaf1b.png)
-1.5 选择【空白模板】，单击下一步。
-![](https://main.qcloudimg.com/raw/da7849eb16acf32e084beef40784e1dc.png)
->>>>>>> a94db28ee6845ba3fc602fd7643bf47811ec39a0
-1.6 填写策略名（ 如 tsf_PassRole ），填写策略内容如下，其中 `<roleOwnerUin>` 使用主账号的账号 ID。
+#### 1.6 填写策略名（ 如 tsf_PassRole ），填写策略内容如下，其中 `<roleOwnerUin>` 使用主账号的账号 ID。
 
 ```text
 {
@@ -53,40 +42,49 @@
 
 ### 2. 将  tsf_PassRole 策略绑定到用户
 
-2.1 单击左侧导航栏 **用户管理**。
+#### 2.1 单击左侧导航栏 **用户管理**。
 ![](https://main.qcloudimg.com/raw/f56790ed7836fd4ae255f342125c09f3.png)
-2.2 选择要授予 TSF 使用权限的用户。
+
+#### 2.2 选择要授予 TSF 使用权限的用户。
 ![](https://main.qcloudimg.com/raw/f56790ed7836fd4ae255f342125c09f3.png)
-2.3 单击【关联策略】。
+
+#### 2.3 单击【关联策略】。
 ![](https://main.qcloudimg.com/raw/e8c8994b8655db02dcfeeb89638b7c5e.png)
-2.4 从策略列表中筛选出步骤 1.6 中的创建的策略（ 如 `tsf_PassRole`） 。
+
+#### 2.4 从策略列表中筛选出步骤 1.6 中的创建的策略（ 如 `tsf_PassRole`） 。
 ![](https://main.qcloudimg.com/raw/bada6e84ee25c9fb8a67785476341f5d.png)
-2.5 绑定策略后，策略显示在用户的策略列表中。
+
+#### 2.5 绑定策略后，策略显示在用户的策略列表中。
 ![](https://main.qcloudimg.com/raw/325a4006966f715aec2861357668c3a1.png)
 
 ## 用户使用镜像相关功能
 用户要使用镜像功能，需要被授予 CCR 相关权限。
 
-1. 登录 [访问管理控制台]()。
-2. 单击左侧导航栏 **用户管理**。
+#### 1. 登录 [访问管理控制台](https://console.tce.cloud.yonghui.cn)。
+
+#### 2. 单击左侧导航栏 **用户管理**。
 ![](https://main.qcloudimg.com/raw/f56790ed7836fd4ae255f342125c09f3.png)
-3. 选择要授予 TSF 使用权限的用户。
+
+#### 3. 选择要授予 TSF 使用权限的用户。
 ![](https://main.qcloudimg.com/raw/f56790ed7836fd4ae255f342125c09f3.png)
-4. 单击【关联策略】。
+
+#### 4. 单击【关联策略】。
 ![](https://main.qcloudimg.com/raw/e8c8994b8655db02dcfeeb89638b7c5e.png)
-5. 从策略列表中选择 `QcloudCCRFullAccess` 策略。
+
+#### 5. 从策略列表中选择 `QcloudCCRFullAccess` 策略。
 ![](https://main.qcloudimg.com/raw/d9c6a36f4cbc362f23d0d0a4fe8a8a4f.png)
-6. 绑定策略后，策略显示在用户的策略列表中。
+
+#### 6. 绑定策略后，策略显示在用户的策略列表中。
 ![](https://main.qcloudimg.com/raw/850ce1e93101cdd98899d66a1468fd60.png)
 
 ## 其他资源访问授权
 
 TSF 产品需要获取用户的 VPC 、CVM 、Ckafka 等信息，需要主账号将相关的资源权限授权给用户。
 
-当用户使用 TSF 时，弹出如下提示框时，表示 TSF 需要调用其他产品的云 API 获取信息。例如下图显示 TSF 依赖 CKafka 的 ListInstance 接口。
+当用户使用 TSF 时，弹出如下提示框时，表示 TSF 需要调用其他产品的云 API 获取信息。例如下图显示 TSF 依赖 CKafka 的 ListInstance 接口。</br>
 
 ![](https://main.qcloudimg.com/raw/a653f0e7b2df62ba16c9e7be31adb895.png)
 
-此时需要 **主账号** 用户去云平台 [访问管理](https://console.tce.cloud.yonghui.cn/cam) 控制台给用户添加对应服务的权限。具体指引可参考 [访问管理](/document/product/598) 产品文档。
+</br>此时需要 **主账号** 用户去云平台 [访问管理](https://console.tce.cloud.yonghui.cn/cam) 控制台给用户添加对应服务的权限。具体指引可参考 [访问管理](/document/product/598) 产品文档。
 
 
