@@ -7,7 +7,7 @@
 
 ## 2. 请求参数
 
-以下请求参数列表仅列出了接口请求参数，正式调用时需要加上公共请求参数，见 <a href="/doc/api/372/4153" title="公共请求参数">公共请求参数</a> 页面。其中，此接口的 Action 字段为 CreateAddress
+以下请求参数列表仅列出了接口请求参数，正式调用时需要加上公共请求参数，见 <a href="/document/product/215/4772" title="公共请求参数">公共请求参数</a> 页面。其中，此接口的 Action 字段为 CreateAddress
 
 | 参数名称 | 必选 | 类型 | 描述 |
 |---------|---------|---------|---------|
@@ -57,7 +57,7 @@
 输入
 <pre>
 http://vpc.api.qcloud.com/v2/index.php?Action=CreateAddress
-&<<a href="/doc/api/229/6976">公共请求参数</a>>
+&<<a href="/document/product/215/4772">公共请求参数</a>>
 &addressName=CreateAddressTest&address.0=10.0.0.6&address.1=10.0.0.2/16&address.2=10.0.0.1-10.0.0.20
 </pre>
 输出

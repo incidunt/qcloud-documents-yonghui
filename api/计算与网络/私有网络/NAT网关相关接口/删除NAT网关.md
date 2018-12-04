@@ -6,7 +6,7 @@
 删除 NAT 网关后，系统会自动删除路由表中包含此 NAT 网关的路由项。
 
 ## 2. 输入参数
-以下请求参数列表仅列出了接口请求参数，正式调用时需要加上公共请求参数，见<a href="/doc/api/372/4153" title="公共请求参数">公共请求参数</a>页面。其中，此接口的Action字段为DeleteNatGateway。
+以下请求参数列表仅列出了接口请求参数，正式调用时需要加上公共请求参数，见<a href="/document/product/215/4772" title="公共请求参数">公共请求参数</a>页面。其中，此接口的Action字段为DeleteNatGateway。
 
 | 参数名称 | 必选  | 类型 | 描述 |
 |---------|---------|---------|---------|
@@ -35,7 +35,7 @@
 输入
 <pre>
 http://vpc.api.qcloud.com/v2/index.php?Action=DeleteNatGateway
-&<<a href="/doc/api/229/6976">公共请求参数</a>>
+&<<a href="/document/product/215/4772">公共请求参数</a>>
 &vpcId=190
 &natId=nat-7t9nf3pu
 </pre>

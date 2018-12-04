@@ -41,7 +41,7 @@
 输入
 <pre>
 http://vpc.api.qcloud.com/v2/index.php?Action=AssignPrivateIpAddresses
-&<<a href="/doc/api/229/6976">公共请求参数</a>>
+&<<a href="/document/product/215/4772">公共请求参数</a>>
 &vpcId=vpc-7t9nf3pu
 &networkInterfaceId=eni-m6dyj72l
 &secondaryPrivateIpAddressCount=1

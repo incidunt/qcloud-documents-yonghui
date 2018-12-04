@@ -94,7 +94,7 @@ data.n.address结构
 <pre>
 
   http://vpc.api.qcloud.com/v2/index.php?Action=DescribeAddress
-  &<<a href="/doc/api/229/6976">公共请求参数</a>>
+  &<<a href="/document/product/215/4772">公共请求参数</a>>
   &addressId=k
 
 </pre>

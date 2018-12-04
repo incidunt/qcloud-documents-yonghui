@@ -5,7 +5,7 @@
 
 
 ## 2. 输入参数
-以下请求参数列表仅列出了接口请求参数，正式调用时需要加上公共请求参数，见<a href="/doc/api/372/4153" title="公共请求参数">公共请求参数</a>页面。其中，此接口的Action字段为EipUnBindNatGateway。
+以下请求参数列表仅列出了接口请求参数，正式调用时需要加上公共请求参数，见<a href="/document/product/215/4772" title="公共请求参数">公共请求参数</a>页面。其中，此接口的Action字段为EipUnBindNatGateway。
 
 | 参数名称 | 必选  | 类型 | 描述 |
 |---------|---------|---------|---------|
@@ -35,7 +35,7 @@
 输入
 <pre>
 http://vpc.api.qcloud.com/v2/index.php?Action=EipUnBindNatGateway
-&<<a href="/doc/api/229/6976">公共请求参数</a>>
+&<<a href="/document/product/215/4772">公共请求参数</a>>
 &natId=nat-8pbrkzh6
 &vpcId=vpc-ddf411
 &assignedEipSet.0=183.60.249.122

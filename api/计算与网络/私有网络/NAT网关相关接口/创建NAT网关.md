@@ -5,7 +5,7 @@
 使用该接口前请前往<a href="/doc/product/215/1682" title="网关说明" >NAT网关说明</a>了解NAT网关特性
 
 ## 2. 输入参数
-以下请求参数列表仅列出了接口请求参数，正式调用时需要加上公共请求参数，见<a href="/doc/api/372/4153" title="公共请求参数">公共请求参数</a>页面。其中，此接口的Action字段为CreateNatGateway。
+以下请求参数列表仅列出了接口请求参数，正式调用时需要加上公共请求参数，见<a href="/document/product/215/4772" title="公共请求参数">公共请求参数</a>页面。其中，此接口的Action字段为CreateNatGateway。
 
 | 参数名称 | 必选  | 类型 | 描述 |
 |---------|---------|---------|---------|
@@ -39,7 +39,7 @@
 输入
 <pre>
 http://vpc.api.qcloud.com/v2/index.php?Action=CreateNatGateway
-&<<a href="/doc/api/229/6976">公共请求参数</a>>
+&<<a href="/document/product/215/4772">公共请求参数</a>>
 &natName=zhezhe
 &vpcId=314
 &maxConcurrent=1000000
