@@ -38,7 +38,7 @@ GET /?lifecycle HTTP/1.1
 该响应无特殊的响应头。
 
 ### 响应体
-响应体中各个元素的内容及含义与 Put Bucket LifeCycle 时的请求体一致。详细请参见 [Put Bucket LifeCycle]() 请求体节点描述内容。
+响应体中各个元素的内容及含义与 Put Bucket LifeCycle 时的请求体一致。详细请参见 [Put Bucket LifeCycle](/document/product/436/8278) 请求体节点描述内容。
 
 ### 错误分析
 以下描述此请求可能会发生的一些特殊的且常见的错误情况：

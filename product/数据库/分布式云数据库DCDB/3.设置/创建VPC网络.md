@@ -7,7 +7,7 @@
 ### 第一步：创建私有网络、初始化子网和路由表
 私有网络至少包含一个子网，只有在子网中才可以添加云服务资源。
 
-1) 登录[云平台控制台](http://console.tcecqpoc.fsphere.cn/)，点击导航条【私有网络】，或者进入云平台[私有网络介绍页中](/product/vpc.html)的【立即体验】按钮，进入[私有网络控制台](http://console.tcecqpoc.fsphere.cn/vpc/)。
+1) 登录[云平台控制台](http://console.tcecqpoc.fsphere.cn/)，点击导航条【私有网络】，进入[私有网络控制台](http://console.tcecqpoc.fsphere.cn/vpc/)。
 
 2)	选择列表上方下拉框中的地域，点击【新建】创建私有网络，例如，选择地域“华北地区（北京）”。
 
@@ -20,7 +20,7 @@
 ### 第二步：创建子网
 您可以同时创建一个或多个子网。
 
-1) 登录[云平台控制台](http://console.tcecqpoc.fsphere.cn/)，点击导航条【私有网络】，或者进入云平台[私有网络介绍页中](/product/vpc.html)的【立即体验】按钮，进入[私有网络控制台](http://console.tcecqpoc.fsphere.cn/vpc/)。
+1) 登录[云平台控制台](http://console.tcecqpoc.fsphere.cn/)，点击导航条【私有网络】，进入[私有网络控制台](http://console.tcecqpoc.fsphere.cn/vpc/)。
 
 2)	点击左导航栏中的【子网】。
 
@@ -38,7 +38,7 @@
 ### 第三步：新建路由表关联子网
 您可以创建自定义路由表、编辑路由策略、然后关联指定子网，子网关联的路由表用于指定该子网的出站路由。
 
-1) 登录[云平台控制台](http://console.tcecqpoc.fsphere.cn/)，点击导航条【私有网络】，或者进入云平台[私有网络介绍页中](/product/vpc.html)的【立即体验】按钮，进入[私有网络控制台](http://console.tcecqpoc.fsphere.cn/vpc/)。
+1) 登录[云平台控制台](http://console.tcecqpoc.fsphere.cn/)，点击导航条【私有网络】，进入[私有网络控制台](http://console.tcecqpoc.fsphere.cn/vpc/)。
 
 2) 选择左导航栏中的【路由表】，点击列表上方【新建】按钮，在创建路由表弹出框中输入名称、所属网络及新建路由策略。
 
@@ -57,17 +57,12 @@
 
 ### 第四步：向子网中添加云主机
 
-1) 登录[云平台控制台](http://console.tcecqpoc.fsphere.cn/)，点击导航条【私有网络】，或者进入云平台[私有网络介绍页中](/product/vpc.html)的【立即体验】按钮，进入[私有网络控制台](http://console.tcecqpoc.fsphere.cn/vpc/)。
+1) 登录[云平台控制台](http://console.tcecqpoc.fsphere.cn/)，点击导航条【私有网络】，进入[私有网络控制台](http://console.tcecqpoc.fsphere.cn/vpc/)。
 
 2) 选择左导航栏中的【子网】。
 
 3) 在需要添加云主机的子网所在行，点击增加云主机图标。注意这里创建的云服务器实例请选择一个大于 0 的带宽或选择使用流量收费，因为本教程中的其他步骤需要对 Internet 进行访问。
 
-或者
-
-1)	在 [云服务器介绍页](/product/cvm.html)中点击【立即选购】按钮。
-
-2)	在第三步选择存储与网络时选择刚刚创建的私有网络和对应的子网。注意这里创建的云服务器实例请选择一个大于 0 的带宽或选择使用流量收费，因为本教程中的其他步骤需要对 Internet 进行访问。
 
 ### 第五步：为云主机绑定弹性 IP 访问公网
 [弹性 IP](/doc/product/213/1941) 是一种与用户帐号相关联的公网 IP 地址，用于与Internet的通信，用户可以使用弹性 IP 快速绑定任何云服务器使其可以与公网通信。
