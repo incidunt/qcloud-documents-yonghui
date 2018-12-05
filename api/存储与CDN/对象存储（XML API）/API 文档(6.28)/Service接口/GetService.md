@@ -13,7 +13,7 @@ Date: GMT Date
 Authorization: Auth String
 ```
 
-> Authorization: Auth String (详细参见 [请求签名](/document/product/436/7778) 章节)。
+> Authorization: Auth String (详细参见 [请求签名](/document/product/436/7778) 章节)
 
 ### 请求行
 ```
@@ -126,6 +126,7 @@ Content-Type: application/xml
 Content-Length: 19935
 Connection: keep-alive
 Date: Thu, 12 Jan 2016 19:12:22 GMT
+Server: tencent-cos
 x-cos-request-id: NThjMjA1NGFfNTViMjM1XzI0NWRfMjA4OGIx
 
 <ListAllMyBucketsResult>
@@ -136,17 +137,17 @@ x-cos-request-id: NThjMjA1NGFfNTViMjM1XzI0NWRfMjA4OGIx
     <Buckets>
         <Bucket>
             <Name>01-1250000000</Name>
-            <Location>ap-beijing</Location>
+            <Location></Location>
             <CreateDate>2016-09-13 15:20:15</CreateDate>
         </Bucket>
         <Bucket>
             <Name>0111-1250000000</Name>
-            <Location>ap-hongkong</Location>
+            <Location></Location>
             <CreateDate>2017-01-11 17:23:51</CreateDate>
         </Bucket>
         <Bucket>
             <Name>1201new-1250000000</Name>
-            <Location>eu-frankfurt</Location>
+            <Location></Location>
             <CreateDate>2016-12-01 09:45:02</CreateDate>
         </Bucket>
    </Buckets>

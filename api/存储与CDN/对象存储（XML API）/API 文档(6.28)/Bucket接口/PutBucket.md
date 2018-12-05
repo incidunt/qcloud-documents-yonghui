@@ -13,12 +13,13 @@ Date: GMT Date
 Authorization: Auth String
 ```
 
-> Authorization: Auth String (详细参见 [请求签名](/document/product/436/7778) 章节)。
+> Authorization: Auth String (详细参见 [请求签名](/document/product/436/7778) 章节)
 
 ### 请求行
 ~~~
 PUT / HTTP/1.1
 ~~~
+
 该 API 接口接受 PUT 请求。
 
 ### 请求头
@@ -32,10 +33,10 @@ PUT / HTTP/1.1
 
 |名称|描述|类型|必选|
 |:---|:-- |:--|:--|
-| x-cos-acl | 定义 Object 的 ACL 属性。有效值：private，public-read-write，public-read；默认值：private。| String|  否 |
-| x-cos-grant-read | 赋予被授权者读的权限。格式：x-cos-grant-read: id=" ",id=" "。<br/>当需要给子账户授权时，id="qcs::cam::uin/&lt;OwnerUin&gt;:uin/&lt;SubUin&gt;"。<br/>当需要给根账户授权时，id="qcs::cam::uin/&lt;OwnerUin&gt;:uin/&lt;OwnerUin&gt;" 。| String |  否 |
-| x-cos-grant-write| 赋予被授权者写的权限。格式：x-cos-grant-write: id=" ",id=" "。<br/>当需要给子账户授权时，id="qcs::cam::uin/&lt;OwnerUin&gt;:uin/&lt;SubUin&gt;"。<br/>当需要给根账户授权时，id="qcs::cam::uin/&lt;OwnerUin&gt;:uin/&lt;OwnerUin&gt;"。|String |  否 |
-| x-cos-grant-full-control | 赋予被授权者读写权限。格式：x-cos-grant-full-control: id=" ",id=" "。<br/>当需要给子账户授权时，id="qcs::cam::uin/&lt;OwnerUin&gt;:uin/&lt;SubUin&gt;"。<br/>当需要给根账户授权时，id="qcs::cam::uin/&lt;OwnerUin&gt;:uin/&lt;OwnerUin&gt;"。| String|  否 |
+| x-cos-acl | 定义 Object 的 ACL 属性。有效值：private，public-read-write，public-read。默认值：private。 | String|  否 |
+| x-cos-grant-read | 赋予被授权者读的权限。格式：x-cos-grant-read: id=" ",id=" "。<br/>根帐号授权配置：id="qcs::cam::uin/&lt;OwnerUin&gt;:uin/&lt;OwnerUin&gt;" | String |  否 |
+| x-cos-grant-write| 赋予被授权者写的权限。格式：x-cos-grant-write: id=" ",id=" "。<br/>根帐号授权配置：id="qcs::cam::uin/&lt;OwnerUin&gt;:uin/&lt;OwnerUin&gt;" |String |  否 |
+| x-cos-grant-full-control | 赋予被授权者读写权限。格式：x-cos-grant-full-control: id=" ",id=" "。<br/>根帐号授权配置：id="qcs::cam::uin/&lt;OwnerUin&gt;:uin/&lt;OwnerUin&gt;" | String|  否 |
 
 ### 请求体
 该请求的请求体为空。
@@ -54,10 +55,9 @@ PUT / HTTP/1.1
 
 |错误码|HTTP 状态码|描述|
 |--------|--------|--------------|
-| BucketAlreadyExists |409 Conflict|当请求创建的 Bucket 已经存在，并且请求创建的用户就是拥有者。| 
-| InvalidBucketName | 400 Bad Request|Bucket 的命名不规范 具体原因可参考 message 的描述。|
-| InvalidRequest | 400 Bad Request|Bucket 的命名不规范 具体原因可参考 message 的描述。| 
-
+| BucketAlreadyExists |409 Conflict|当请求创建的 Bucket 已经存在，并且请求创建的用户就是拥有者。|
+| InvalidBucketName | 400 Bad Request|Bucket 的命名不规范，具体原因可参考 message 的描述。|
+| InvalidRequest | 400 Bad Request|Bucket 的命名不规范，具体原因可参考 message 的描述。|
 如果 Bucket 设置的 ACL 不正确，也会导致创建 Bucket 失败，同时会返回 “Failed to set access control authority for the bucket” 的错误信息。具体错误原因，可根据返回的错误码参考 [Put Bucket ACL](/document/product/436/7737) 相关的文档。
 
 获取更多关于 COS 的错误码的信息，或者产品所有的错误列表，请查看 [错误码](/document/product/436/7730) 文档。

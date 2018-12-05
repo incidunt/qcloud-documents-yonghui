@@ -113,6 +113,7 @@ Container 节点 Grantee 的内容：
 ## 实际案例
 
 ### 请求
+
 ```
 GET /ObjectName?acl HTTP/1.1
 Host: zuhaotestnorth-1251668577.cos.ap-beijing.myqcloud.com
@@ -121,6 +122,7 @@ Authorization: q-sign-algorithm=sha1&q-ak=AKIDWtTCBYjM5OwLB9CAwA1Qb2ThTSUjfGFO&q
 ```
 
 ### 响应
+
 ```
 HTTP/1.1 200 OK
 Content-Type: application/xml
