@@ -1,5 +1,5 @@
 <blockquote>
-<p>如果您期望阅读或下载全量开发文档，请参考<a href="https://cloud.tencent.com/document/product/557/7714">《DCDB开发指南》</a>。</p>
+<p>如果您期望阅读或下载全量开发文档，请参考<a href="http://tce.fsphere.cn/document/product/557/7714">《DCDB开发指南》</a>。</p>
 </blockquote>
 <h3 id="dml.E8.AF.AD.E5.8F.A5.E8.AF.AD.E6.B3.95.EF.BC.88.E9.83.A8.E5.88.86.EF.BC.89">DML语句语法（部分）</h3><p><strong>SELECT</strong>：建议在条件中带上 shardkey 字段，否则 DCDB 无法判断 SQL 应该路由至哪些节点，需要进行全表扫描，然后在网关聚合，容易影响执行效率。</p>
 <pre><code>    mysql&gt; select * from test1 where a=<span class="hljs-number">2</span>;

@@ -10,7 +10,7 @@
 
 
 ### 1. 新建 tsf_PassRole 策略
-#### 1.1 登录 [访问管理控制台](https://console.cloud.tencent.com/cam)。
+#### 1.1 登录 [访问管理控制台](http://console.tce.fsphere.cn/cam)。
 
 #### 1.2 单击左侧导航栏的 **策略管理**。
 ![](https://main.qcloudimg.com/raw/26fc2bc64a06e312d9c567a4738e331a.png)

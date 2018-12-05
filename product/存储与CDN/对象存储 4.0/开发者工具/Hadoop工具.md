@@ -173,7 +173,7 @@ done
 |fs.defaultFS                       | 配置hadoop默认使用的底层文件系统，如果想使用cos作为hadoop默认文件系统，则此项应设置为cosn://bucket-appid，此时可以通过文件路径访问cos对象，如/hadoop/inputdata/test.dat。若不想把cos作为hadoop默认文件系统，则不需要修改此项，当需要访问cos上的对象时，则指定完整的uri即可，如cosn://testbucket-1252681927/hadoop/inputdata/test.dat来访问。
 |fs.cosn.credentials.provider       |配置secret id和secret key的获取方式。当前支持两种获取方式：1.org.apache.hadoop.fs.auth.SimpleCredentialProvider：从core-site.xml配置文件中读取fs.cosn.userinfo.secretId和fs.cosn.userinfo.secretKey来获取secret id和secret key 2.org.apache.hadoop.fs.auth.EnvironmentVariableCredentialProvider：从系统环境变量COS_SECRET_ID和COS_SECRET_KEY中获取|如果不指定改配置项，默认会按照以下顺序读取：1.org.apache.hadoop.fs.auth.SimpleCredentialProvider；2.org.apache.hadoop.fs.auth.EnvironmentVariableCredentialProvider；|否|
 |fs.cosn.userinfo.endpoint_suffix|指定要连接的COS endpoint，该项为非必填项目。对于公有云COS用户而言，只需要正确填写上述的region配置即可。|无|否|
-|fs.cosn.userinfo.secretId/secretKey| 填写您账户的API 密钥信息。可通过 [云 API 密钥 控制台](https://console.cloud.tencent.com/capi) 查看 | 无  | 是|
+|fs.cosn.userinfo.secretId/secretKey| 填写您账户的API 密钥信息。可通过 [云 API 密钥 控制台](http://console.tce.fsphere.cn/capi) 查看 | 无  | 是|
 |fs.cosn.impl                      | cosn对FileSystem的实现类，固定为 org.apache.hadoop.fs.CosFileSystem| 无|是|
 |fs.AbstractFileSystem.cosn.impl   | cosn对AbstractFileSy stem的实现类，固定为org.apache.hadoop.fs.CosN | 无 |是|
 |fs.cosn.userinfo.region           | 请填写您的地域信息，枚举值为 [可用地域](/document/product/436/6224) 中的地域简称，如	ap-beijing、ap-guangzhou 等 | 无 | 是|

@@ -119,9 +119,9 @@ status:
 在步骤二中，完成了应用模板的编辑。单击`完成`按钮，保存应用模板。这样应用模板就创建完成，可以在应用模板列表查看。
 接下来可以使用创建的模板，进行应用服务部署。关于如何使用应用模板进行应用部署可以参考[创建应用][16]。关于`nginx`这个应用模板具体部署应用的过程可以参考[应用模板示例-Nginx单服务应用][17]。
 
-[1]: https://console.cloud.tencent.com/ccs/template
+[1]: http://console.tce.fsphere.cn/ccs/template
 [import]:https://mc.qcloudimg.com/static/img/3edab39e7f0dff61d121dc6b0cca6892/image.png
 [show]:https://mc.qcloudimg.com/static/img/7d19bbccbcf86d5514d2f92562444bff/image.png
 
-[16]: https://cloud.tencent.com/document/product/457/11942
-[17]: https://cloud.tencent.com/document/product/457/11952
+[16]: http://tce.fsphere.cn/document/product/457/11942
+[17]: http://tce.fsphere.cn/document/product/457/11952
