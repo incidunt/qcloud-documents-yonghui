@@ -32,10 +32,10 @@ echo "1" >/proc/sys/net/ipv4/icmp_echo_ignore_all
 ## 四. 域名是否备案
 如果是可以 ping 通公网 IP，而域名 ping 不通，此时可能是域名没有备案，或者域名解析的问题。
 国家工信部规定，对未取得许可或者未履行备案手续的网站不得从事互联网信息服务，否则就属于违法行为。为不影响网站长久正常运行，想要开办网站建议先办理网站备案，备案成功取得通信管理局下发的 ICP 备案号后才能开通访问。如果您的域名没有备案，则需先进行[域名备案](http://console.tce.futunn.com/beian)。
-如果使用的是云平台的域名服务，可以在 **[控制台](http://console.tce.fsphere.cn/) > 域名与网站 > 域名管理** 查看相应的域名情况。  
+如果使用的是云平台的域名服务，可以在 **[控制台](http://console.cloud.tencent.com/) > 域名与网站 > 域名管理** 查看相应的域名情况。  
 ![](http://mc.qcloudimg.com/static/img/5e95aaa3a25133e087766db94bcd9df0/image.png)
 ## 五. 域名解析
-域名 ping 不通的另外一个原因是域名解析没有正确地配置。如果用户使用的是云平台的域名服务可以在 **[控制台](http://console.tce.fsphere.cn/) > 域名与网站 > 域名管理**，单击对应域名的解析按钮，查看域名解析详情。  
+域名 ping 不通的另外一个原因是域名解析没有正确地配置。如果用户使用的是云平台的域名服务可以在 **[控制台](http://console.cloud.tencent.com/) > 域名与网站 > 域名管理**，单击对应域名的解析按钮，查看域名解析详情。  
 ![](http://mc.qcloudimg.com/static/img/109308ab3186ac7201df83970004697f/image.png)
 
 若上述步骤无法解决问题，请参考：
